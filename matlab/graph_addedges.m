@@ -16,7 +16,7 @@ for i = 1:ptCloud.Count
                 weight = exp(-1*distances(j)/sigma_sq);
                 disp(weight);
                 edgeprops = table( [ {int2str(i)}, {int2str(neighborhood(j))}], ...
-                    weight, 'VariableNames', {'EndNodes', 'Weight'} );
+                    weight, distances(j), 'VariableNames', {'EndNodes', 'Weight','Dist'} );
                 T = [T ; edgeprops];
             end
         end
