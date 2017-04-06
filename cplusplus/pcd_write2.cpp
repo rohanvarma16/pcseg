@@ -53,14 +53,14 @@ main (int argc, char** argv)
     std::cout << "    " << cloud2->points[i].x
               << " "    << cloud2->points[i].y
               << " "    << cloud2->points[i].z << std::endl;
-    
-  /* VISUALIZATION 
+  
+  /* VISUALIZATION */
   pcl::visualization::CloudViewer viewer ("Simple Cloud Viewer");
   viewer.showCloud (cloud2);
   while (!viewer.wasStopped ())
     {
     }
-*/
+
   
   return (0);
 
