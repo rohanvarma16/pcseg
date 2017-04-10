@@ -270,6 +270,15 @@ ENSENSO_INCLUDE_DIR:PATH=ENSENSO_INCLUDE_DIR-NOTFOUND
 ENSENSO_LIBRARY:FILEPATH=ENSENSO_LIBRARY-NOTFOUND
 
 //Path to a file.
+FLANN_INCLUDE_DIRS:PATH=/usr/local/Cellar/flann/1.9.1_3/include
+
+//Path to a library.
+FLANN_LIBRARY:FILEPATH=/usr/local/Cellar/flann/1.9.1_3/lib/libflann_cpp_s.a
+
+//Path to a library.
+FLANN_LIBRARY_DEBUG:FILEPATH=/opt/local/lib/libflann_cpp_s-gd.a
+
+//Path to a file.
 LIBUSB_1_INCLUDE_DIR:PATH=/usr/local/include
 
 //Path to a library.
@@ -299,6 +308,9 @@ PCL_COMMON_LIBRARY_DEBUG:FILEPATH=/usr/local/lib/libpcl_common.dylib
 //The directory containing a CMake configuration file for PCL.
 PCL_DIR:PATH=/usr/local/share/pcl-1.8
 
+//path to geometry headers
+PCL_GEOMETRY_INCLUDE_DIR:PATH=/usr/local/include/pcl-1.8
+
 //path to io headers
 PCL_IO_INCLUDE_DIR:PATH=/usr/local/include/pcl-1.8
 
@@ -307,6 +319,15 @@ PCL_IO_LIBRARY:FILEPATH=/usr/local/lib/libpcl_io.dylib
 
 //path to pcl_io library debug
 PCL_IO_LIBRARY_DEBUG:FILEPATH=/usr/local/lib/libpcl_io.dylib
+
+//path to kdtree headers
+PCL_KDTREE_INCLUDE_DIR:PATH=/usr/local/include/pcl-1.8
+
+//path to pcl_kdtree library
+PCL_KDTREE_LIBRARY:FILEPATH=/usr/local/lib/libpcl_kdtree.dylib
+
+//path to pcl_kdtree library debug
+PCL_KDTREE_LIBRARY_DEBUG:FILEPATH=/usr/local/lib/libpcl_kdtree.dylib
 
 //path to octree headers
 PCL_OCTREE_INCLUDE_DIR:PATH=/usr/local/include/pcl-1.8
@@ -317,8 +338,35 @@ PCL_OCTREE_LIBRARY:FILEPATH=/usr/local/lib/libpcl_octree.dylib
 //path to pcl_octree library debug
 PCL_OCTREE_LIBRARY_DEBUG:FILEPATH=/usr/local/lib/libpcl_octree.dylib
 
+//path to search headers
+PCL_SEARCH_INCLUDE_DIR:PATH=/usr/local/include/pcl-1.8
+
+//path to pcl_search library
+PCL_SEARCH_LIBRARY:FILEPATH=/usr/local/lib/libpcl_search.dylib
+
+//path to pcl_search library debug
+PCL_SEARCH_LIBRARY_DEBUG:FILEPATH=/usr/local/lib/libpcl_search.dylib
+
+//path to visualization headers
+PCL_VISUALIZATION_INCLUDE_DIR:PATH=/usr/local/include/pcl-1.8
+
+//path to pcl_visualization library
+PCL_VISUALIZATION_LIBRARY:FILEPATH=/usr/local/lib/libpcl_visualization.dylib
+
+//path to pcl_visualization library debug
+PCL_VISUALIZATION_LIBRARY_DEBUG:FILEPATH=/usr/local/lib/libpcl_visualization.dylib
+
 //pkg-config executable
 PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/local/bin/pkg-config
+
+//RealSense SDK directory
+RSSDK_DIR:PATH=RSSDK_DIR-NOTFOUND
+
+//Path to a library.
+RSSDK_LIBRARY:FILEPATH=RSSDK_LIBRARY-NOTFOUND
+
+//Path to a library.
+RSSDK_LIBRARY_DEBUG:FILEPATH=RSSDK_LIBRARY_DEBUG-NOTFOUND
 
 //Value Computed by CMake
 pcl_seg_BINARY_DIR:STATIC=/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/build
@@ -510,14 +558,24 @@ DSSDK_LIBRARY_DepthSense-ADVANCED:INTERNAL=1
 DSSDK_LIBRARY_DepthSensePlugins-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: DSSDK_LIBRARY_turbojpeg
 DSSDK_LIBRARY_turbojpeg-ADVANCED:INTERNAL=1
+//Details about finding Flann
+FIND_PACKAGE_MESSAGE_DETAILS_Flann:INTERNAL=[/usr/local/Cellar/flann/1.9.1_3/lib/libflann_cpp_s.a][/usr/local/Cellar/flann/1.9.1_3/include][v()]
 //Details about finding PCL
-FIND_PACKAGE_MESSAGE_DETAILS_PCL:INTERNAL=[/usr/local/lib/libboost_system-mt.dylib;/usr/local/lib/libboost_filesystem-mt.dylib;/usr/local/lib/libboost_thread-mt.dylib;/usr/local/lib/libboost_date_time-mt.dylib;/usr/local/lib/libboost_iostreams-mt.dylib;/usr/local/lib/libboost_serialization-mt.dylib;/usr/local/lib/libboost_chrono-mt.dylib;/usr/local/lib/libboost_atomic-mt.dylib;/usr/local/lib/libboost_regex-mt.dylib;optimized;/usr/local/lib/libpcl_common.dylib;debug;/usr/local/lib/libpcl_common.dylib;optimized;/usr/local/lib/libpcl_octree.dylib;debug;/usr/local/lib/libpcl_octree.dylib;vtkChartsCore;vtkCommonColor;vtkCommonCore;vtksys;vtkCommonDataModel;vtkCommonMath;vtkCommonMisc;vtkCommonSystem;vtkCommonTransforms;vtkCommonExecutionModel;vtkFiltersGeneral;vtkCommonComputationalGeometry;vtkFiltersCore;vtkInfovisCore;vtkFiltersExtraction;vtkFiltersStatistics;vtkImagingFourier;vtkImagingCore;vtkalglib;vtkRenderingContext2D;vtkRenderingCore;vtkFiltersGeometry;vtkFiltersSources;vtkRenderingFreeType;vtkfreetype;/usr/lib/libz.dylib;vtkDICOMParser;vtkDomainsChemistry;vtkIOLegacy;vtkIOCore;vtkIOXMLParser;/usr/lib/libexpat.dylib;vtkDomainsChemistryOpenGL2;vtkRenderingOpenGL2;vtkIOImage;vtkmetaio;/usr/local/lib/libjpeg.dylib;/usr/local/lib/libpng.dylib;/usr/local/lib/libtiff.dylib;vtkglew;vtkFiltersAMR;vtkIOXML;vtkParallelCore;vtkFiltersFlowPaths;vtkFiltersGeneric;vtkFiltersHybrid;vtkImagingSources;vtkFiltersHyperTree;vtkFiltersImaging;vtkImagingGeneral;vtkFiltersModeling;vtkFiltersParallel;vtkFiltersParallelImaging;vtkFiltersPoints;vtkFiltersProgrammable;vtkFiltersPython;/System/Library/Frameworks/Python.framework/Versions/2.7/Python;vtkWrappingPythonCore;vtkWrappingTools;vtkFiltersSMP;vtkFiltersSelection;vtkFiltersTexture;vtkFiltersVerdict;verdict;vtkGeovisCore;vtkInfovisLayout;vtkImagingHybrid;vtkInteractionStyle;vtkInteractionWidgets;vtkImagingColor;vtkRenderingAnnotation;vtkRenderingVolume;vtkViewsCore;vtkproj4;vtkIOAMR;/usr/local/lib/libhdf5.dylib;/usr/local/lib/libsz.dylib;/usr/lib/libdl.dylib;/usr/lib/libm.dylib;/usr/local/lib/libhdf5_hl.dylib;vtkIOEnSight;vtkIOExodus;vtkexoIIc;/usr/local/lib/libnetcdf_c++.dylib;/usr/local/lib/libnetcdf.dylib;vtkIOExport;vtkRenderingGL2PSOpenGL2;vtkgl2ps;vtkIOGeometry;vtkIOImport;vtkIOInfovis;/usr/lib/libxml2.dylib;vtkIOLSDyna;vtkIOMINC;vtkIOMovie;vtkoggtheora;vtkIONetCDF;vtkIOPLY;vtkIOParallel;vtkjsoncpp;vtkIOParallelXML;vtkIOSQL;vtksqlite;vtkIOTecplotTable;vtkIOVideo;vtkImagingMath;vtkImagingMorphological;vtkImagingStatistics;vtkImagingStencil;vtkInfovisBoostGraphAlgorithms;vtkInteractionImage;vtkRenderingContextOpenGL2;vtkRenderingFreeTypeFontConfig;vtkRenderingImage;vtkRenderingLOD;vtkRenderingLabel;vtkRenderingVolumeOpenGL2;vtkViewsContext2D;vtkViewsInfovis;optimized;/usr/local/lib/libpcl_io.dylib;debug;/usr/local/lib/libpcl_io.dylib;/usr/local/lib/libboost_system-mt.dylib;/usr/local/lib/libboost_filesystem-mt.dylib;/usr/local/lib/libboost_thread-mt.dylib;/usr/local/lib/libboost_date_time-mt.dylib;/usr/local/lib/libboost_iostreams-mt.dylib;/usr/local/lib/libboost_serialization-mt.dylib;/usr/local/lib/libboost_chrono-mt.dylib;/usr/local/lib/libboost_atomic-mt.dylib;/usr/local/lib/libboost_regex-mt.dylib;vtkChartsCore;vtkCommonColor;vtkCommonCore;vtksys;vtkCommonDataModel;vtkCommonMath;vtkCommonMisc;vtkCommonSystem;vtkCommonTransforms;vtkCommonExecutionModel;vtkFiltersGeneral;vtkCommonComputationalGeometry;vtkFiltersCore;vtkInfovisCore;vtkFiltersExtraction;vtkFiltersStatistics;vtkImagingFourier;vtkImagingCore;vtkalglib;vtkRenderingContext2D;vtkRenderingCore;vtkFiltersGeometry;vtkFiltersSources;vtkRenderingFreeType;vtkfreetype;/usr/lib/libz.dylib;vtkDICOMParser;vtkDomainsChemistry;vtkIOLegacy;vtkIOCore;vtkIOXMLParser;/usr/lib/libexpat.dylib;vtkDomainsChemistryOpenGL2;vtkRenderingOpenGL2;vtkIOImage;vtkmetaio;/usr/local/lib/libjpeg.dylib;/usr/local/lib/libpng.dylib;/usr/local/lib/libtiff.dylib;vtkglew;vtkFiltersAMR;vtkIOXML;vtkParallelCore;vtkFiltersFlowPaths;vtkFiltersGeneric;vtkFiltersHybrid;vtkImagingSources;vtkFiltersHyperTree;vtkFiltersImaging;vtkImagingGeneral;vtkFiltersModeling;vtkFiltersParallel;vtkFiltersParallelImaging;vtkFiltersPoints;vtkFiltersProgrammable;vtkFiltersPython;/System/Library/Frameworks/Python.framework/Versions/2.7/Python;vtkWrappingPythonCore;vtkWrappingTools;vtkFiltersSMP;vtkFiltersSelection;vtkFiltersTexture;vtkFiltersVerdict;verdict;vtkGeovisCore;vtkInfovisLayout;vtkImagingHybrid;vtkInteractionStyle;vtkInteractionWidgets;vtkImagingColor;vtkRenderingAnnotation;vtkRenderingVolume;vtkViewsCore;vtkproj4;vtkIOAMR;/usr/local/lib/libhdf5.dylib;/usr/local/lib/libsz.dylib;/usr/lib/libdl.dylib;/usr/lib/libm.dylib;/usr/local/lib/libhdf5_hl.dylib;vtkIOEnSight;vtkIOExodus;vtkexoIIc;/usr/local/lib/libnetcdf_c++.dylib;/usr/local/lib/libnetcdf.dylib;vtkIOExport;vtkRenderingGL2PSOpenGL2;vtkgl2ps;vtkIOGeometry;vtkIOImport;vtkIOInfovis;/usr/lib/libxml2.dylib;vtkIOLSDyna;vtkIOMINC;vtkIOMovie;vtkoggtheora;vtkIONetCDF;vtkIOPLY;vtkIOParallel;vtkjsoncpp;vtkIOParallelXML;vtkIOSQL;vtksqlite;vtkIOTecplotTable;vtkIOVideo;vtkImagingMath;vtkImagingMorphological;vtkImagingStatistics;vtkImagingStencil;vtkInfovisBoostGraphAlgorithms;vtkInteractionImage;vtkRenderingContextOpenGL2;vtkRenderingFreeTypeFontConfig;vtkRenderingImage;vtkRenderingLOD;vtkRenderingLabel;vtkRenderingVolumeOpenGL2;vtkViewsContext2D;vtkViewsInfovis][/usr/local/include/pcl-1.8;/usr/local/Cellar/eigen/3.3.3/include/eigen3;/usr/local/include;/usr/local/Cellar/vtk/7.1.1/include/vtk-7.1;/usr/include;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7;/usr/local/Cellar/hdf5/1.10.0-patch1/include;/usr/local/opt/szip/include;/usr/include/libxml2][v(1.3)]
+FIND_PACKAGE_MESSAGE_DETAILS_PCL:INTERNAL=[/usr/local/lib/libboost_system-mt.dylib;/usr/local/lib/libboost_filesystem-mt.dylib;/usr/local/lib/libboost_thread-mt.dylib;/usr/local/lib/libboost_date_time-mt.dylib;/usr/local/lib/libboost_iostreams-mt.dylib;/usr/local/lib/libboost_serialization-mt.dylib;/usr/local/lib/libboost_chrono-mt.dylib;/usr/local/lib/libboost_atomic-mt.dylib;/usr/local/lib/libboost_regex-mt.dylib;optimized;/usr/local/lib/libpcl_common.dylib;debug;/usr/local/lib/libpcl_common.dylib;optimized;/usr/local/lib/libpcl_octree.dylib;debug;/usr/local/lib/libpcl_octree.dylib;vtkChartsCore;vtkCommonColor;vtkCommonCore;vtksys;vtkCommonDataModel;vtkCommonMath;vtkCommonMisc;vtkCommonSystem;vtkCommonTransforms;vtkCommonExecutionModel;vtkFiltersGeneral;vtkCommonComputationalGeometry;vtkFiltersCore;vtkInfovisCore;vtkFiltersExtraction;vtkFiltersStatistics;vtkImagingFourier;vtkImagingCore;vtkalglib;vtkRenderingContext2D;vtkRenderingCore;vtkFiltersGeometry;vtkFiltersSources;vtkRenderingFreeType;vtkfreetype;/usr/lib/libz.dylib;vtkDICOMParser;vtkDomainsChemistry;vtkIOLegacy;vtkIOCore;vtkIOXMLParser;/usr/lib/libexpat.dylib;vtkDomainsChemistryOpenGL2;vtkRenderingOpenGL2;vtkIOImage;vtkmetaio;/usr/local/lib/libjpeg.dylib;/usr/local/lib/libpng.dylib;/usr/local/lib/libtiff.dylib;vtkglew;vtkFiltersAMR;vtkIOXML;vtkParallelCore;vtkFiltersFlowPaths;vtkFiltersGeneric;vtkFiltersHybrid;vtkImagingSources;vtkFiltersHyperTree;vtkFiltersImaging;vtkImagingGeneral;vtkFiltersModeling;vtkFiltersParallel;vtkFiltersParallelImaging;vtkFiltersPoints;vtkFiltersProgrammable;vtkFiltersPython;/System/Library/Frameworks/Python.framework/Versions/2.7/Python;vtkWrappingPythonCore;vtkWrappingTools;vtkFiltersSMP;vtkFiltersSelection;vtkFiltersTexture;vtkFiltersVerdict;verdict;vtkGeovisCore;vtkInfovisLayout;vtkImagingHybrid;vtkInteractionStyle;vtkInteractionWidgets;vtkImagingColor;vtkRenderingAnnotation;vtkRenderingVolume;vtkViewsCore;vtkproj4;vtkIOAMR;/usr/local/lib/libhdf5.dylib;/usr/local/lib/libsz.dylib;/usr/lib/libdl.dylib;/usr/lib/libm.dylib;/usr/local/lib/libhdf5_hl.dylib;vtkIOEnSight;vtkIOExodus;vtkexoIIc;/usr/local/lib/libnetcdf_c++.dylib;/usr/local/lib/libnetcdf.dylib;vtkIOExport;vtkRenderingGL2PSOpenGL2;vtkgl2ps;vtkIOGeometry;vtkIOImport;vtkIOInfovis;/usr/lib/libxml2.dylib;vtkIOLSDyna;vtkIOMINC;vtkIOMovie;vtkoggtheora;vtkIONetCDF;vtkIOPLY;vtkIOParallel;vtkjsoncpp;vtkIOParallelXML;vtkIOSQL;vtksqlite;vtkIOTecplotTable;vtkIOVideo;vtkImagingMath;vtkImagingMorphological;vtkImagingStatistics;vtkImagingStencil;vtkInfovisBoostGraphAlgorithms;vtkInteractionImage;vtkRenderingContextOpenGL2;vtkRenderingFreeTypeFontConfig;vtkRenderingImage;vtkRenderingLOD;vtkRenderingLabel;vtkRenderingVolumeOpenGL2;vtkViewsContext2D;vtkViewsInfovis;optimized;/usr/local/lib/libpcl_io.dylib;debug;/usr/local/lib/libpcl_io.dylib;optimized;/usr/local/Cellar/flann/1.9.1_3/lib/libflann_cpp_s.a;debug;/opt/local/lib/libflann_cpp_s-gd.a;optimized;/usr/local/lib/libpcl_search.dylib;debug;/usr/local/lib/libpcl_search.dylib;optimized;/usr/local/lib/libpcl_visualization.dylib;debug;/usr/local/lib/libpcl_visualization.dylib;optimized;/usr/local/lib/libpcl_kdtree.dylib;debug;/usr/local/lib/libpcl_kdtree.dylib;/usr/local/lib/libboost_system-mt.dylib;/usr/local/lib/libboost_filesystem-mt.dylib;/usr/local/lib/libboost_thread-mt.dylib;/usr/local/lib/libboost_date_time-mt.dylib;/usr/local/lib/libboost_iostreams-mt.dylib;/usr/local/lib/libboost_serialization-mt.dylib;/usr/local/lib/libboost_chrono-mt.dylib;/usr/local/lib/libboost_atomic-mt.dylib;/usr/local/lib/libboost_regex-mt.dylib;optimized;/usr/local/Cellar/flann/1.9.1_3/lib/libflann_cpp_s.a;debug;/opt/local/lib/libflann_cpp_s-gd.a;vtkChartsCore;vtkCommonColor;vtkCommonCore;vtksys;vtkCommonDataModel;vtkCommonMath;vtkCommonMisc;vtkCommonSystem;vtkCommonTransforms;vtkCommonExecutionModel;vtkFiltersGeneral;vtkCommonComputationalGeometry;vtkFiltersCore;vtkInfovisCore;vtkFiltersExtraction;vtkFiltersStatistics;vtkImagingFourier;vtkImagingCore;vtkalglib;vtkRenderingContext2D;vtkRenderingCore;vtkFiltersGeometry;vtkFiltersSources;vtkRenderingFreeType;vtkfreetype;/usr/lib/libz.dylib;vtkDICOMParser;vtkDomainsChemistry;vtkIOLegacy;vtkIOCore;vtkIOXMLParser;/usr/lib/libexpat.dylib;vtkDomainsChemistryOpenGL2;vtkRenderingOpenGL2;vtkIOImage;vtkmetaio;/usr/local/lib/libjpeg.dylib;/usr/local/lib/libpng.dylib;/usr/local/lib/libtiff.dylib;vtkglew;vtkFiltersAMR;vtkIOXML;vtkParallelCore;vtkFiltersFlowPaths;vtkFiltersGeneric;vtkFiltersHybrid;vtkImagingSources;vtkFiltersHyperTree;vtkFiltersImaging;vtkImagingGeneral;vtkFiltersModeling;vtkFiltersParallel;vtkFiltersParallelImaging;vtkFiltersPoints;vtkFiltersProgrammable;vtkFiltersPython;/System/Library/Frameworks/Python.framework/Versions/2.7/Python;vtkWrappingPythonCore;vtkWrappingTools;vtkFiltersSMP;vtkFiltersSelection;vtkFiltersTexture;vtkFiltersVerdict;verdict;vtkGeovisCore;vtkInfovisLayout;vtkImagingHybrid;vtkInteractionStyle;vtkInteractionWidgets;vtkImagingColor;vtkRenderingAnnotation;vtkRenderingVolume;vtkViewsCore;vtkproj4;vtkIOAMR;/usr/local/lib/libhdf5.dylib;/usr/local/lib/libsz.dylib;/usr/lib/libdl.dylib;/usr/lib/libm.dylib;/usr/local/lib/libhdf5_hl.dylib;vtkIOEnSight;vtkIOExodus;vtkexoIIc;/usr/local/lib/libnetcdf_c++.dylib;/usr/local/lib/libnetcdf.dylib;vtkIOExport;vtkRenderingGL2PSOpenGL2;vtkgl2ps;vtkIOGeometry;vtkIOImport;vtkIOInfovis;/usr/lib/libxml2.dylib;vtkIOLSDyna;vtkIOMINC;vtkIOMovie;vtkoggtheora;vtkIONetCDF;vtkIOPLY;vtkIOParallel;vtkjsoncpp;vtkIOParallelXML;vtkIOSQL;vtksqlite;vtkIOTecplotTable;vtkIOVideo;vtkImagingMath;vtkImagingMorphological;vtkImagingStatistics;vtkImagingStencil;vtkInfovisBoostGraphAlgorithms;vtkInteractionImage;vtkRenderingContextOpenGL2;vtkRenderingFreeTypeFontConfig;vtkRenderingImage;vtkRenderingLOD;vtkRenderingLabel;vtkRenderingVolumeOpenGL2;vtkViewsContext2D;vtkViewsInfovis][/usr/local/include/pcl-1.8;/usr/local/Cellar/eigen/3.3.3/include/eigen3;/usr/local/include;/usr/local/Cellar/vtk/7.1.1/include/vtk-7.1;/usr/include;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7;/usr/local/Cellar/hdf5/1.10.0-patch1/include;/usr/local/opt/szip/include;/usr/include/libxml2;/usr/local/Cellar/flann/1.9.1_3/include][v(1.3)]
 //Details about finding PCL_COMMON
 FIND_PACKAGE_MESSAGE_DETAILS_PCL_COMMON:INTERNAL=[/usr/local/lib/libpcl_common.dylib][/usr/local/include/pcl-1.8][v()]
+//Details about finding PCL_GEOMETRY
+FIND_PACKAGE_MESSAGE_DETAILS_PCL_GEOMETRY:INTERNAL=[/usr/local/include/pcl-1.8][v()]
 //Details about finding PCL_IO
 FIND_PACKAGE_MESSAGE_DETAILS_PCL_IO:INTERNAL=[/usr/local/lib/libpcl_io.dylib][/usr/local/include/pcl-1.8][v()]
+//Details about finding PCL_KDTREE
+FIND_PACKAGE_MESSAGE_DETAILS_PCL_KDTREE:INTERNAL=[/usr/local/lib/libpcl_kdtree.dylib][/usr/local/include/pcl-1.8][v()]
 //Details about finding PCL_OCTREE
 FIND_PACKAGE_MESSAGE_DETAILS_PCL_OCTREE:INTERNAL=[/usr/local/lib/libpcl_octree.dylib][/usr/local/include/pcl-1.8][v()]
+//Details about finding PCL_SEARCH
+FIND_PACKAGE_MESSAGE_DETAILS_PCL_SEARCH:INTERNAL=[/usr/local/lib/libpcl_search.dylib][/usr/local/include/pcl-1.8][v()]
+//Details about finding PCL_VISUALIZATION
+FIND_PACKAGE_MESSAGE_DETAILS_PCL_VISUALIZATION:INTERNAL=[/usr/local/lib/libpcl_visualization.dylib][/usr/local/include/pcl-1.8][v()]
 //Details about finding Threads
 FIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]
 //Details about finding eigen
@@ -532,10 +590,22 @@ PCL_COMMON_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 PCL_IO_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: PCL_IO_LIBRARY_DEBUG
 PCL_IO_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PCL_KDTREE_LIBRARY
+PCL_KDTREE_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PCL_KDTREE_LIBRARY_DEBUG
+PCL_KDTREE_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: PCL_OCTREE_LIBRARY
 PCL_OCTREE_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: PCL_OCTREE_LIBRARY_DEBUG
 PCL_OCTREE_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PCL_SEARCH_LIBRARY
+PCL_SEARCH_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PCL_SEARCH_LIBRARY_DEBUG
+PCL_SEARCH_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PCL_VISUALIZATION_LIBRARY
+PCL_VISUALIZATION_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PCL_VISUALIZATION_LIBRARY_DEBUG
+PCL_VISUALIZATION_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 PC_EIGEN_CFLAGS:INTERNAL=-I/usr/local/Cellar/eigen/3.3.3/include/eigen3
 PC_EIGEN_CFLAGS_I:INTERNAL=
 PC_EIGEN_CFLAGS_OTHER:INTERNAL=
@@ -570,6 +640,40 @@ PC_EIGEN_eigen3_INCLUDEDIR:INTERNAL=
 PC_EIGEN_eigen3_LIBDIR:INTERNAL=
 PC_EIGEN_eigen3_PREFIX:INTERNAL=
 PC_EIGEN_eigen3_VERSION:INTERNAL=
+PC_FLANN_CFLAGS:INTERNAL=-I/usr/local/Cellar/flann/1.9.1_3/include
+PC_FLANN_CFLAGS_I:INTERNAL=
+PC_FLANN_CFLAGS_OTHER:INTERNAL=
+PC_FLANN_FOUND:INTERNAL=1
+PC_FLANN_INCLUDEDIR:INTERNAL=/usr/local/Cellar/flann/1.9.1_3/include
+PC_FLANN_INCLUDE_DIRS:INTERNAL=/usr/local/Cellar/flann/1.9.1_3/include
+PC_FLANN_LDFLAGS:INTERNAL=-L/usr/local/Cellar/flann/1.9.1_3/lib;-lflann;-lflann_cpp
+PC_FLANN_LDFLAGS_OTHER:INTERNAL=
+PC_FLANN_LIBDIR:INTERNAL=/usr/local/Cellar/flann/1.9.1_3/lib
+PC_FLANN_LIBRARIES:INTERNAL=flann;flann_cpp
+PC_FLANN_LIBRARY_DIRS:INTERNAL=/usr/local/Cellar/flann/1.9.1_3/lib
+PC_FLANN_LIBS:INTERNAL=
+PC_FLANN_LIBS_L:INTERNAL=
+PC_FLANN_LIBS_OTHER:INTERNAL=
+PC_FLANN_LIBS_PATHS:INTERNAL=
+PC_FLANN_PREFIX:INTERNAL=/usr/local/Cellar/flann/1.9.1_3
+PC_FLANN_STATIC_CFLAGS:INTERNAL=-I/usr/local/Cellar/flann/1.9.1_3/include
+PC_FLANN_STATIC_CFLAGS_I:INTERNAL=
+PC_FLANN_STATIC_CFLAGS_OTHER:INTERNAL=
+PC_FLANN_STATIC_INCLUDE_DIRS:INTERNAL=/usr/local/Cellar/flann/1.9.1_3/include
+PC_FLANN_STATIC_LDFLAGS:INTERNAL=-L/usr/local/Cellar/flann/1.9.1_3/lib;-lflann;-lflann_cpp
+PC_FLANN_STATIC_LDFLAGS_OTHER:INTERNAL=
+PC_FLANN_STATIC_LIBDIR:INTERNAL=
+PC_FLANN_STATIC_LIBRARIES:INTERNAL=flann;flann_cpp
+PC_FLANN_STATIC_LIBRARY_DIRS:INTERNAL=/usr/local/Cellar/flann/1.9.1_3/lib
+PC_FLANN_STATIC_LIBS:INTERNAL=
+PC_FLANN_STATIC_LIBS_L:INTERNAL=
+PC_FLANN_STATIC_LIBS_OTHER:INTERNAL=
+PC_FLANN_STATIC_LIBS_PATHS:INTERNAL=
+PC_FLANN_VERSION:INTERNAL=1.9.1
+PC_FLANN_flann_INCLUDEDIR:INTERNAL=
+PC_FLANN_flann_LIBDIR:INTERNAL=
+PC_FLANN_flann_PREFIX:INTERNAL=
+PC_FLANN_flann_VERSION:INTERNAL=
 PC_OPENNI2_CFLAGS:INTERNAL=
 PC_OPENNI2_CFLAGS_I:INTERNAL=
 PC_OPENNI2_CFLAGS_OTHER:INTERNAL=
@@ -620,6 +724,10 @@ PC_OPENNI_libopenni_PREFIX:INTERNAL=
 PC_OPENNI_libopenni_VERSION:INTERNAL=
 //ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
 PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: RSSDK_LIBRARY
+RSSDK_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: RSSDK_LIBRARY_DEBUG
+RSSDK_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 //Last used BOOST_INCLUDEDIR value.
 _BOOST_INCLUDEDIR_LAST:INTERNAL=/usr/local/include
 //Last used Boost_ADDITIONAL_VERSIONS value.
@@ -637,7 +745,8 @@ _Boost_NAMESPACE_LAST:INTERNAL=boost
 //Last used Boost_USE_MULTITHREADED value.
 _Boost_USE_MULTITHREADED_LAST:INTERNAL=TRUE
 __pkg_config_checked_PC_EIGEN:INTERNAL=1
+__pkg_config_checked_PC_FLANN:INTERNAL=1
 __pkg_config_checked_PC_OPENNI:INTERNAL=1
 __pkg_config_checked_PC_OPENNI2:INTERNAL=1
-prefix_result:INTERNAL=
+prefix_result:INTERNAL=/usr/local/Cellar/flann/1.9.1_3/lib
 

@@ -111,44 +111,71 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named pcd_write_test
+# Target rules for targets named pcd_main
 
 # Build rule for target.
-pcd_write_test: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 pcd_write_test
-.PHONY : pcd_write_test
+pcd_main: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pcd_main
+.PHONY : pcd_main
 
 # fast build rule for target.
-pcd_write_test/fast:
-	$(MAKE) -f CMakeFiles/pcd_write_test.dir/build.make CMakeFiles/pcd_write_test.dir/build
-.PHONY : pcd_write_test/fast
+pcd_main/fast:
+	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/build
+.PHONY : pcd_main/fast
 
-pcd_write.o: pcd_write.cpp.o
+pcd_main.o: pcd_main.cpp.o
 
-.PHONY : pcd_write.o
+.PHONY : pcd_main.o
 
 # target to build an object file
-pcd_write.cpp.o:
-	$(MAKE) -f CMakeFiles/pcd_write_test.dir/build.make CMakeFiles/pcd_write_test.dir/pcd_write.cpp.o
-.PHONY : pcd_write.cpp.o
+pcd_main.cpp.o:
+	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/pcd_main.cpp.o
+.PHONY : pcd_main.cpp.o
 
-pcd_write.i: pcd_write.cpp.i
+pcd_main.i: pcd_main.cpp.i
 
-.PHONY : pcd_write.i
+.PHONY : pcd_main.i
 
 # target to preprocess a source file
-pcd_write.cpp.i:
-	$(MAKE) -f CMakeFiles/pcd_write_test.dir/build.make CMakeFiles/pcd_write_test.dir/pcd_write.cpp.i
-.PHONY : pcd_write.cpp.i
+pcd_main.cpp.i:
+	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/pcd_main.cpp.i
+.PHONY : pcd_main.cpp.i
 
-pcd_write.s: pcd_write.cpp.s
+pcd_main.s: pcd_main.cpp.s
 
-.PHONY : pcd_write.s
+.PHONY : pcd_main.s
 
 # target to generate assembly for a file
-pcd_write.cpp.s:
-	$(MAKE) -f CMakeFiles/pcd_write_test.dir/build.make CMakeFiles/pcd_write_test.dir/pcd_write.cpp.s
-.PHONY : pcd_write.cpp.s
+pcd_main.cpp.s:
+	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/pcd_main.cpp.s
+.PHONY : pcd_main.cpp.s
+
+viz.o: viz.cpp.o
+
+.PHONY : viz.o
+
+# target to build an object file
+viz.cpp.o:
+	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/viz.cpp.o
+.PHONY : viz.cpp.o
+
+viz.i: viz.cpp.i
+
+.PHONY : viz.i
+
+# target to preprocess a source file
+viz.cpp.i:
+	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/viz.cpp.i
+.PHONY : viz.cpp.i
+
+viz.s: viz.cpp.s
+
+.PHONY : viz.s
+
+# target to generate assembly for a file
+viz.cpp.s:
+	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/viz.cpp.s
+.PHONY : viz.cpp.s
 
 # Help Target
 help:
@@ -158,10 +185,13 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... pcd_write_test"
-	@echo "... pcd_write.o"
-	@echo "... pcd_write.i"
-	@echo "... pcd_write.s"
+	@echo "... pcd_main"
+	@echo "... pcd_main.o"
+	@echo "... pcd_main.i"
+	@echo "... pcd_main.s"
+	@echo "... viz.o"
+	@echo "... viz.i"
+	@echo "... viz.s"
 .PHONY : help
 
 

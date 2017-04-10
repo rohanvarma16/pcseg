@@ -60,39 +60,39 @@ CMAKE_SOURCE_DIR = /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplu
 CMAKE_BINARY_DIR = /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/build
 
 #=============================================================================
-# Target rules for target CMakeFiles/pcd_write_test.dir
+# Target rules for target CMakeFiles/pcd_main.dir
 
 # All Build rule for target.
-CMakeFiles/pcd_write_test.dir/all:
-	$(MAKE) -f CMakeFiles/pcd_write_test.dir/build.make CMakeFiles/pcd_write_test.dir/depend
-	$(MAKE) -f CMakeFiles/pcd_write_test.dir/build.make CMakeFiles/pcd_write_test.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/build/CMakeFiles --progress-num=1,2 "Built target pcd_write_test"
-.PHONY : CMakeFiles/pcd_write_test.dir/all
+CMakeFiles/pcd_main.dir/all:
+	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/depend
+	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/build/CMakeFiles --progress-num=1,2,3 "Built target pcd_main"
+.PHONY : CMakeFiles/pcd_main.dir/all
 
 # Include target in all.
-all: CMakeFiles/pcd_write_test.dir/all
+all: CMakeFiles/pcd_main.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/pcd_write_test.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/build/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/pcd_write_test.dir/all
+CMakeFiles/pcd_main.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/build/CMakeFiles 3
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/pcd_main.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/build/CMakeFiles 0
-.PHONY : CMakeFiles/pcd_write_test.dir/rule
+.PHONY : CMakeFiles/pcd_main.dir/rule
 
 # Convenience name for target.
-pcd_write_test: CMakeFiles/pcd_write_test.dir/rule
+pcd_main: CMakeFiles/pcd_main.dir/rule
 
-.PHONY : pcd_write_test
-
-# clean rule for target.
-CMakeFiles/pcd_write_test.dir/clean:
-	$(MAKE) -f CMakeFiles/pcd_write_test.dir/build.make CMakeFiles/pcd_write_test.dir/clean
-.PHONY : CMakeFiles/pcd_write_test.dir/clean
+.PHONY : pcd_main
 
 # clean rule for target.
-clean: CMakeFiles/pcd_write_test.dir/clean
+CMakeFiles/pcd_main.dir/clean:
+	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/clean
+.PHONY : CMakeFiles/pcd_main.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/pcd_main.dir/clean
 
 .PHONY : clean
 
