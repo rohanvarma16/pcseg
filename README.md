@@ -6,7 +6,7 @@
 
 ### Summary
 In our project we intend to implement a framework for segmenting point clouds on GPUs. We plan on modifying algorithms based on sequential implementations to design subsampling and segmentation building blocks such that they are amenable to a fast CUDA implementation. We intend on providing a comparison between a CPU-based implementation and a parallel implementation that runs on a GPU. Since segmentation is a critical first step in many applications that process point clouds, a fast implementation that is still accurate and is amenable to processing consecutive frames of point clouds at a high frame rate is valuable.
-
+<img src="pcseg\image.png">
 ### Introduction and Background
 With the recent development of 3D sensing technologies, 3D point clouds have become an important and practical representation of 3D objects and surrounding environments in many applications, such as virtual reality, mobile mapping, scanning of historical artifacts, 3D printing and digital elevation models. A large number of 3D points on an object's surface measured by a sensing device are called a 3D point cloud. Other than 3D coordinates, a 3D point cloud may also comprise some attributes, such as color, temperature and texture. 3D point cloud segmentation is the process of
 classifying point clouds into multiple homogeneous regions, the
@@ -19,8 +19,6 @@ However, segmenting objects in 3D point clouds is not a trivial task. The point
 cloud data are usually noisy, sparse, and unorganized. In addition,
 the surface shape can be arbitrary with sharp features and
 there is no statistical distribution pattern in the data. 
-
-
 
 
 ### Framework:
@@ -59,10 +57,10 @@ Demo:
 We intend on using C++ for our sequential implementation as our benchmark. For our parallel implementation, we intend on using CUDA and NVIDIA GPU's. GPU's are especially efficient for 2D/3D image processing applications because of how most algorithms lend themselves to spatially local computations that can be run in parallel. This is the case for our framework as well. 
 
 ### Schedule
--Week 1: Environment setup, start C++ sequential implementation for benchmarking
--Week 2: C++ implementation of sampling and segmentation
--Week 3: Start CUDA implementation of sampling and segmentation
--Week 4: Finish CUDA implementation. Do further optimizations if possible.
--Week 5: Write report. If possible, build on this framework for an object tracker application.
+- Week 1: Environment setup, start C++ sequential implementation for benchmarking
+- Week 2: C++ implementation of sampling and segmentation
+- Week 3: Start CUDA implementation of sampling and segmentation
+- Week 4: Finish CUDA implementation. Do further optimizations if possible.
+- Week 5: Write report. If possible, build on this framework for an object tracker application.
 
 
