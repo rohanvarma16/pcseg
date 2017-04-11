@@ -123,59 +123,86 @@ pcd_main/fast:
 	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/build
 .PHONY : pcd_main/fast
 
-pcd_main.o: pcd_main.cpp.o
+src/pcd_main.o: src/pcd_main.cpp.o
 
-.PHONY : pcd_main.o
-
-# target to build an object file
-pcd_main.cpp.o:
-	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/pcd_main.cpp.o
-.PHONY : pcd_main.cpp.o
-
-pcd_main.i: pcd_main.cpp.i
-
-.PHONY : pcd_main.i
-
-# target to preprocess a source file
-pcd_main.cpp.i:
-	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/pcd_main.cpp.i
-.PHONY : pcd_main.cpp.i
-
-pcd_main.s: pcd_main.cpp.s
-
-.PHONY : pcd_main.s
-
-# target to generate assembly for a file
-pcd_main.cpp.s:
-	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/pcd_main.cpp.s
-.PHONY : pcd_main.cpp.s
-
-viz.o: viz.cpp.o
-
-.PHONY : viz.o
+.PHONY : src/pcd_main.o
 
 # target to build an object file
-viz.cpp.o:
-	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/viz.cpp.o
-.PHONY : viz.cpp.o
+src/pcd_main.cpp.o:
+	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/src/pcd_main.cpp.o
+.PHONY : src/pcd_main.cpp.o
 
-viz.i: viz.cpp.i
+src/pcd_main.i: src/pcd_main.cpp.i
 
-.PHONY : viz.i
+.PHONY : src/pcd_main.i
 
 # target to preprocess a source file
-viz.cpp.i:
-	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/viz.cpp.i
-.PHONY : viz.cpp.i
+src/pcd_main.cpp.i:
+	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/src/pcd_main.cpp.i
+.PHONY : src/pcd_main.cpp.i
 
-viz.s: viz.cpp.s
+src/pcd_main.s: src/pcd_main.cpp.s
 
-.PHONY : viz.s
+.PHONY : src/pcd_main.s
 
 # target to generate assembly for a file
-viz.cpp.s:
-	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/viz.cpp.s
-.PHONY : viz.cpp.s
+src/pcd_main.cpp.s:
+	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/src/pcd_main.cpp.s
+.PHONY : src/pcd_main.cpp.s
+
+src/sampling.o: src/sampling.cpp.o
+
+.PHONY : src/sampling.o
+
+# target to build an object file
+src/sampling.cpp.o:
+	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/src/sampling.cpp.o
+.PHONY : src/sampling.cpp.o
+
+src/sampling.i: src/sampling.cpp.i
+
+.PHONY : src/sampling.i
+
+# target to preprocess a source file
+src/sampling.cpp.i:
+	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/src/sampling.cpp.i
+.PHONY : src/sampling.cpp.i
+
+src/sampling.s: src/sampling.cpp.s
+
+.PHONY : src/sampling.s
+
+# target to generate assembly for a file
+src/sampling.cpp.s:
+	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/src/sampling.cpp.s
+.PHONY : src/sampling.cpp.s
+
+src/viz.o: src/viz.cpp.o
+
+.PHONY : src/viz.o
+
+# target to build an object file
+src/viz.cpp.o:
+	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/src/viz.cpp.o
+.PHONY : src/viz.cpp.o
+
+src/viz.i: src/viz.cpp.i
+
+.PHONY : src/viz.i
+
+# target to preprocess a source file
+src/viz.cpp.i:
+	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/src/viz.cpp.i
+.PHONY : src/viz.cpp.i
+
+src/viz.s: src/viz.cpp.s
+
+.PHONY : src/viz.s
+
+# target to generate assembly for a file
+src/viz.cpp.s:
+	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/src/viz.cpp.s
+.PHONY : src/viz.cpp.s
 
 # Help Target
 help:
@@ -186,12 +213,15 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... pcd_main"
-	@echo "... pcd_main.o"
-	@echo "... pcd_main.i"
-	@echo "... pcd_main.s"
-	@echo "... viz.o"
-	@echo "... viz.i"
-	@echo "... viz.s"
+	@echo "... src/pcd_main.o"
+	@echo "... src/pcd_main.i"
+	@echo "... src/pcd_main.s"
+	@echo "... src/sampling.o"
+	@echo "... src/sampling.i"
+	@echo "... src/sampling.s"
+	@echo "... src/viz.o"
+	@echo "... src/viz.i"
+	@echo "... src/viz.s"
 .PHONY : help
 
 

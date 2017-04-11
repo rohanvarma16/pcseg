@@ -4,13 +4,8 @@
 #include <pcl/point_types.h>
 #include <pcl/common/common_headers.h>
 #include <pcl/visualization/pcl_visualizer.h>
-#include <pcl/kdtree/kdtree_flann.h>
 #include <pcl/console/parse.h>
 
-#include <algorithm>
-#include <functional>
-#include <math.h>       /* pow */
-#include <cstdlib>
 
 
 
@@ -42,4 +37,16 @@ boost::shared_ptr<pcl::visualization::PCLVisualizer> rgbVis (pcl::PointCloud<pcl
   viewer->addCoordinateSystem (1.0);
   viewer->initCameraParameters ();
   return (viewer);
+}
+
+
+void pc_viz (pcl::PointCloud<pcl::PointXYZRGB>::Ptr ptCloud){
+  boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer;
+    viewer = rgbVis(ptCloud);
+    while (!viewer->wasStopped ())
+      {
+  viewer->spinOnce (100);
+  boost::this_thread::sleep (boost::posix_time::microseconds (100000));
+      }
+
 }

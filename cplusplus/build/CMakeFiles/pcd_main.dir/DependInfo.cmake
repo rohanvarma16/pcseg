@@ -4,8 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/pcd_main.cpp" "/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/build/CMakeFiles/pcd_main.dir/pcd_main.cpp.o"
-  "/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/viz.cpp" "/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/build/CMakeFiles/pcd_main.dir/viz.cpp.o"
+  "/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/src/pcd_main.cpp" "/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/build/CMakeFiles/pcd_main.dir/src/pcd_main.cpp.o"
+  "/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/src/sampling.cpp" "/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/build/CMakeFiles/pcd_main.dir/src/sampling.cpp.o"
+  "/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/src/viz.cpp" "/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/build/CMakeFiles/pcd_main.dir/src/viz.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "Clang")
 

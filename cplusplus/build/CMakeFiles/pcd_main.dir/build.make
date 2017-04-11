@@ -57,292 +57,319 @@ include CMakeFiles/pcd_main.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/pcd_main.dir/flags.make
 
-CMakeFiles/pcd_main.dir/viz.cpp.o: CMakeFiles/pcd_main.dir/flags.make
-CMakeFiles/pcd_main.dir/viz.cpp.o: ../viz.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/pcd_main.dir/viz.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/pcd_main.dir/viz.cpp.o -c /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/viz.cpp
+CMakeFiles/pcd_main.dir/src/sampling.cpp.o: CMakeFiles/pcd_main.dir/flags.make
+CMakeFiles/pcd_main.dir/src/sampling.cpp.o: ../src/sampling.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/pcd_main.dir/src/sampling.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/pcd_main.dir/src/sampling.cpp.o -c /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/src/sampling.cpp
 
-CMakeFiles/pcd_main.dir/viz.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pcd_main.dir/viz.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/viz.cpp > CMakeFiles/pcd_main.dir/viz.cpp.i
+CMakeFiles/pcd_main.dir/src/sampling.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pcd_main.dir/src/sampling.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/src/sampling.cpp > CMakeFiles/pcd_main.dir/src/sampling.cpp.i
 
-CMakeFiles/pcd_main.dir/viz.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pcd_main.dir/viz.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/viz.cpp -o CMakeFiles/pcd_main.dir/viz.cpp.s
+CMakeFiles/pcd_main.dir/src/sampling.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pcd_main.dir/src/sampling.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/src/sampling.cpp -o CMakeFiles/pcd_main.dir/src/sampling.cpp.s
 
-CMakeFiles/pcd_main.dir/viz.cpp.o.requires:
+CMakeFiles/pcd_main.dir/src/sampling.cpp.o.requires:
 
-.PHONY : CMakeFiles/pcd_main.dir/viz.cpp.o.requires
+.PHONY : CMakeFiles/pcd_main.dir/src/sampling.cpp.o.requires
 
-CMakeFiles/pcd_main.dir/viz.cpp.o.provides: CMakeFiles/pcd_main.dir/viz.cpp.o.requires
-	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/viz.cpp.o.provides.build
-.PHONY : CMakeFiles/pcd_main.dir/viz.cpp.o.provides
+CMakeFiles/pcd_main.dir/src/sampling.cpp.o.provides: CMakeFiles/pcd_main.dir/src/sampling.cpp.o.requires
+	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/src/sampling.cpp.o.provides.build
+.PHONY : CMakeFiles/pcd_main.dir/src/sampling.cpp.o.provides
 
-CMakeFiles/pcd_main.dir/viz.cpp.o.provides.build: CMakeFiles/pcd_main.dir/viz.cpp.o
+CMakeFiles/pcd_main.dir/src/sampling.cpp.o.provides.build: CMakeFiles/pcd_main.dir/src/sampling.cpp.o
 
 
-CMakeFiles/pcd_main.dir/pcd_main.cpp.o: CMakeFiles/pcd_main.dir/flags.make
-CMakeFiles/pcd_main.dir/pcd_main.cpp.o: ../pcd_main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/pcd_main.dir/pcd_main.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/pcd_main.dir/pcd_main.cpp.o -c /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/pcd_main.cpp
+CMakeFiles/pcd_main.dir/src/viz.cpp.o: CMakeFiles/pcd_main.dir/flags.make
+CMakeFiles/pcd_main.dir/src/viz.cpp.o: ../src/viz.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/pcd_main.dir/src/viz.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/pcd_main.dir/src/viz.cpp.o -c /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/src/viz.cpp
 
-CMakeFiles/pcd_main.dir/pcd_main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pcd_main.dir/pcd_main.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/pcd_main.cpp > CMakeFiles/pcd_main.dir/pcd_main.cpp.i
+CMakeFiles/pcd_main.dir/src/viz.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pcd_main.dir/src/viz.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/src/viz.cpp > CMakeFiles/pcd_main.dir/src/viz.cpp.i
 
-CMakeFiles/pcd_main.dir/pcd_main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pcd_main.dir/pcd_main.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/pcd_main.cpp -o CMakeFiles/pcd_main.dir/pcd_main.cpp.s
+CMakeFiles/pcd_main.dir/src/viz.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pcd_main.dir/src/viz.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/src/viz.cpp -o CMakeFiles/pcd_main.dir/src/viz.cpp.s
 
-CMakeFiles/pcd_main.dir/pcd_main.cpp.o.requires:
+CMakeFiles/pcd_main.dir/src/viz.cpp.o.requires:
 
-.PHONY : CMakeFiles/pcd_main.dir/pcd_main.cpp.o.requires
+.PHONY : CMakeFiles/pcd_main.dir/src/viz.cpp.o.requires
 
-CMakeFiles/pcd_main.dir/pcd_main.cpp.o.provides: CMakeFiles/pcd_main.dir/pcd_main.cpp.o.requires
-	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/pcd_main.cpp.o.provides.build
-.PHONY : CMakeFiles/pcd_main.dir/pcd_main.cpp.o.provides
+CMakeFiles/pcd_main.dir/src/viz.cpp.o.provides: CMakeFiles/pcd_main.dir/src/viz.cpp.o.requires
+	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/src/viz.cpp.o.provides.build
+.PHONY : CMakeFiles/pcd_main.dir/src/viz.cpp.o.provides
 
-CMakeFiles/pcd_main.dir/pcd_main.cpp.o.provides.build: CMakeFiles/pcd_main.dir/pcd_main.cpp.o
+CMakeFiles/pcd_main.dir/src/viz.cpp.o.provides.build: CMakeFiles/pcd_main.dir/src/viz.cpp.o
+
+
+CMakeFiles/pcd_main.dir/src/pcd_main.cpp.o: CMakeFiles/pcd_main.dir/flags.make
+CMakeFiles/pcd_main.dir/src/pcd_main.cpp.o: ../src/pcd_main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/pcd_main.dir/src/pcd_main.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/pcd_main.dir/src/pcd_main.cpp.o -c /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/src/pcd_main.cpp
+
+CMakeFiles/pcd_main.dir/src/pcd_main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pcd_main.dir/src/pcd_main.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/src/pcd_main.cpp > CMakeFiles/pcd_main.dir/src/pcd_main.cpp.i
+
+CMakeFiles/pcd_main.dir/src/pcd_main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pcd_main.dir/src/pcd_main.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/src/pcd_main.cpp -o CMakeFiles/pcd_main.dir/src/pcd_main.cpp.s
+
+CMakeFiles/pcd_main.dir/src/pcd_main.cpp.o.requires:
+
+.PHONY : CMakeFiles/pcd_main.dir/src/pcd_main.cpp.o.requires
+
+CMakeFiles/pcd_main.dir/src/pcd_main.cpp.o.provides: CMakeFiles/pcd_main.dir/src/pcd_main.cpp.o.requires
+	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/src/pcd_main.cpp.o.provides.build
+.PHONY : CMakeFiles/pcd_main.dir/src/pcd_main.cpp.o.provides
+
+CMakeFiles/pcd_main.dir/src/pcd_main.cpp.o.provides.build: CMakeFiles/pcd_main.dir/src/pcd_main.cpp.o
 
 
 # Object files for target pcd_main
 pcd_main_OBJECTS = \
-"CMakeFiles/pcd_main.dir/viz.cpp.o" \
-"CMakeFiles/pcd_main.dir/pcd_main.cpp.o"
+"CMakeFiles/pcd_main.dir/src/sampling.cpp.o" \
+"CMakeFiles/pcd_main.dir/src/viz.cpp.o" \
+"CMakeFiles/pcd_main.dir/src/pcd_main.cpp.o"
 
 # External object files for target pcd_main
 pcd_main_EXTERNAL_OBJECTS =
 
-pcd_main: CMakeFiles/pcd_main.dir/viz.cpp.o
-pcd_main: CMakeFiles/pcd_main.dir/pcd_main.cpp.o
-pcd_main: CMakeFiles/pcd_main.dir/build.make
-pcd_main: /usr/local/lib/libboost_system-mt.dylib
-pcd_main: /usr/local/lib/libboost_filesystem-mt.dylib
-pcd_main: /usr/local/lib/libboost_thread-mt.dylib
-pcd_main: /usr/local/lib/libboost_date_time-mt.dylib
-pcd_main: /usr/local/lib/libboost_iostreams-mt.dylib
-pcd_main: /usr/local/lib/libboost_serialization-mt.dylib
-pcd_main: /usr/local/lib/libboost_chrono-mt.dylib
-pcd_main: /usr/local/lib/libboost_atomic-mt.dylib
-pcd_main: /usr/local/lib/libboost_regex-mt.dylib
-pcd_main: /usr/local/lib/libpcl_common.dylib
-pcd_main: /usr/lib/libz.dylib
-pcd_main: /usr/lib/libexpat.dylib
-pcd_main: /usr/local/lib/libjpeg.dylib
-pcd_main: /usr/local/lib/libpng.dylib
-pcd_main: /usr/local/lib/libtiff.dylib
-pcd_main: /System/Library/Frameworks/Python.framework/Versions/2.7/Python
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkWrappingTools-7.1.a
-pcd_main: /usr/local/lib/libhdf5.dylib
-pcd_main: /usr/local/lib/libsz.dylib
-pcd_main: /usr/lib/libdl.dylib
-pcd_main: /usr/lib/libm.dylib
-pcd_main: /usr/local/lib/libhdf5_hl.dylib
-pcd_main: /usr/local/lib/libnetcdf_c++.dylib
-pcd_main: /usr/local/lib/libnetcdf.dylib
-pcd_main: /usr/lib/libxml2.dylib
-pcd_main: /usr/local/lib/libpcl_io.dylib
-pcd_main: /usr/local/lib/libboost_system-mt.dylib
-pcd_main: /usr/local/lib/libboost_filesystem-mt.dylib
-pcd_main: /usr/local/lib/libboost_thread-mt.dylib
-pcd_main: /usr/local/lib/libboost_date_time-mt.dylib
-pcd_main: /usr/local/lib/libboost_iostreams-mt.dylib
-pcd_main: /usr/local/lib/libboost_serialization-mt.dylib
-pcd_main: /usr/local/lib/libboost_chrono-mt.dylib
-pcd_main: /usr/local/lib/libboost_atomic-mt.dylib
-pcd_main: /usr/local/lib/libboost_regex-mt.dylib
-pcd_main: /usr/local/lib/libpcl_common.dylib
-pcd_main: /usr/local/lib/libpcl_octree.dylib
-pcd_main: /usr/local/lib/libboost_system-mt.dylib
-pcd_main: /usr/local/lib/libboost_filesystem-mt.dylib
-pcd_main: /usr/local/lib/libboost_thread-mt.dylib
-pcd_main: /usr/local/lib/libboost_date_time-mt.dylib
-pcd_main: /usr/local/lib/libboost_iostreams-mt.dylib
-pcd_main: /usr/local/lib/libboost_serialization-mt.dylib
-pcd_main: /usr/local/lib/libboost_chrono-mt.dylib
-pcd_main: /usr/local/lib/libboost_atomic-mt.dylib
-pcd_main: /usr/local/lib/libboost_regex-mt.dylib
-pcd_main: /usr/local/lib/libpcl_common.dylib
-pcd_main: /usr/local/lib/libboost_system-mt.dylib
-pcd_main: /usr/local/lib/libboost_filesystem-mt.dylib
-pcd_main: /usr/local/lib/libboost_thread-mt.dylib
-pcd_main: /usr/local/lib/libboost_date_time-mt.dylib
-pcd_main: /usr/local/lib/libboost_iostreams-mt.dylib
-pcd_main: /usr/local/lib/libboost_serialization-mt.dylib
-pcd_main: /usr/local/lib/libboost_chrono-mt.dylib
-pcd_main: /usr/local/lib/libboost_atomic-mt.dylib
-pcd_main: /usr/local/lib/libboost_regex-mt.dylib
-pcd_main: /usr/local/lib/libpcl_common.dylib
-pcd_main: /usr/local/lib/libpcl_octree.dylib
-pcd_main: /usr/lib/libz.dylib
-pcd_main: /usr/lib/libexpat.dylib
-pcd_main: /usr/local/lib/libjpeg.dylib
-pcd_main: /usr/local/lib/libpng.dylib
-pcd_main: /usr/local/lib/libtiff.dylib
-pcd_main: /System/Library/Frameworks/Python.framework/Versions/2.7/Python
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkWrappingTools-7.1.a
-pcd_main: /usr/local/lib/libhdf5.dylib
-pcd_main: /usr/local/lib/libsz.dylib
-pcd_main: /usr/lib/libdl.dylib
-pcd_main: /usr/lib/libm.dylib
-pcd_main: /usr/local/lib/libhdf5_hl.dylib
-pcd_main: /usr/local/lib/libnetcdf_c++.dylib
-pcd_main: /usr/local/lib/libnetcdf.dylib
-pcd_main: /usr/lib/libxml2.dylib
-pcd_main: /usr/local/lib/libpcl_io.dylib
-pcd_main: /usr/local/Cellar/flann/1.9.1_3/lib/libflann_cpp_s.a
-pcd_main: /usr/local/lib/libpcl_search.dylib
-pcd_main: /usr/local/lib/libpcl_visualization.dylib
-pcd_main: /usr/local/lib/libpcl_kdtree.dylib
-pcd_main: /usr/local/lib/libboost_system-mt.dylib
-pcd_main: /usr/local/lib/libboost_filesystem-mt.dylib
-pcd_main: /usr/local/lib/libboost_thread-mt.dylib
-pcd_main: /usr/local/lib/libboost_date_time-mt.dylib
-pcd_main: /usr/local/lib/libboost_iostreams-mt.dylib
-pcd_main: /usr/local/lib/libboost_serialization-mt.dylib
-pcd_main: /usr/local/lib/libboost_chrono-mt.dylib
-pcd_main: /usr/local/lib/libboost_atomic-mt.dylib
-pcd_main: /usr/local/lib/libboost_regex-mt.dylib
-pcd_main: /usr/local/Cellar/flann/1.9.1_3/lib/libflann_cpp_s.a
-pcd_main: /usr/lib/libz.dylib
-pcd_main: /usr/lib/libexpat.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkDomainsChemistryOpenGL2-7.1.1.dylib
-pcd_main: /usr/local/lib/libjpeg.dylib
-pcd_main: /usr/local/lib/libpng.dylib
-pcd_main: /usr/local/lib/libtiff.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersFlowPaths-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersGeneric-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersHyperTree-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersParallelImaging-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersPoints-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersProgrammable-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersPython-7.1.1.dylib
-pcd_main: /System/Library/Frameworks/Python.framework/Versions/2.7/Python
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkWrappingPython27Core-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkWrappingTools-7.1.a
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersSMP-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersSelection-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersTexture-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersVerdict-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkverdict-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkGeovisCore-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkproj4-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOAMR-7.1.1.dylib
-pcd_main: /usr/local/lib/libhdf5.dylib
-pcd_main: /usr/local/lib/libsz.dylib
-pcd_main: /usr/lib/libdl.dylib
-pcd_main: /usr/lib/libm.dylib
-pcd_main: /usr/local/lib/libhdf5_hl.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOEnSight-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOExodus-7.1.1.dylib
-pcd_main: /usr/local/lib/libnetcdf_c++.dylib
-pcd_main: /usr/local/lib/libnetcdf.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOExport-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkRenderingGL2PSOpenGL2-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkgl2ps-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOImport-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOInfovis-7.1.1.dylib
-pcd_main: /usr/lib/libxml2.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOLSDyna-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOMINC-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOMovie-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkoggtheora-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOPLY-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOParallel-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkjsoncpp-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOParallelXML-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOSQL-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtksqlite-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOTecplotTable-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOVideo-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkImagingMorphological-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkImagingStatistics-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkImagingStencil-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkInfovisBoostGraphAlgorithms-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkInteractionImage-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkRenderingContextOpenGL2-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkRenderingFreeTypeFontConfig-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkRenderingImage-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkRenderingLOD-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkRenderingVolumeOpenGL2-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkViewsContext2D-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkViewsInfovis-7.1.1.dylib
-pcd_main: /usr/local/lib/libpcl_common.dylib
-pcd_main: /usr/local/lib/libpcl_io.dylib
-pcd_main: /usr/local/lib/libpcl_octree.dylib
-pcd_main: /usr/local/lib/libpcl_search.dylib
-pcd_main: /usr/local/lib/libpcl_visualization.dylib
-pcd_main: /usr/local/lib/libpcl_kdtree.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkDomainsChemistry-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersAMR-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersParallel-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkexoIIc-7.1.1.dylib
-pcd_main: /usr/local/lib/libnetcdf_c++.dylib
-pcd_main: /usr/local/lib/libnetcdf.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOGeometry-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIONetCDF-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkParallelCore-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOLegacy-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkRenderingOpenGL2-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkglew-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkImagingMath-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkChartsCore-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkRenderingContext2D-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersImaging-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkInfovisLayout-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkInfovisCore-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkViewsCore-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkInteractionWidgets-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersHybrid-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkImagingGeneral-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkImagingSources-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersModeling-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkImagingHybrid-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOImage-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkDICOMParser-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkmetaio-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkInteractionStyle-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersExtraction-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersStatistics-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkImagingFourier-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkalglib-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkRenderingAnnotation-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkImagingColor-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkRenderingVolume-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkImagingCore-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOXML-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOXMLParser-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOCore-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkRenderingLabel-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkRenderingFreeType-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkRenderingCore-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkCommonColor-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersGeometry-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersSources-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersGeneral-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkCommonComputationalGeometry-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersCore-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkCommonExecutionModel-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkCommonDataModel-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkCommonTransforms-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkCommonMisc-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkCommonMath-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkCommonSystem-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkCommonCore-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtksys-7.1.1.dylib
-pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkfreetype-7.1.1.dylib
-pcd_main: /usr/lib/libz.dylib
-pcd_main: CMakeFiles/pcd_main.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable pcd_main"
+../bin/pcd_main: CMakeFiles/pcd_main.dir/src/sampling.cpp.o
+../bin/pcd_main: CMakeFiles/pcd_main.dir/src/viz.cpp.o
+../bin/pcd_main: CMakeFiles/pcd_main.dir/src/pcd_main.cpp.o
+../bin/pcd_main: CMakeFiles/pcd_main.dir/build.make
+../bin/pcd_main: /usr/local/lib/libboost_system-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_filesystem-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_thread-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_date_time-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_iostreams-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_serialization-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_chrono-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_atomic-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_regex-mt.dylib
+../bin/pcd_main: /usr/local/lib/libpcl_common.dylib
+../bin/pcd_main: /usr/lib/libz.dylib
+../bin/pcd_main: /usr/lib/libexpat.dylib
+../bin/pcd_main: /usr/local/lib/libjpeg.dylib
+../bin/pcd_main: /usr/local/lib/libpng.dylib
+../bin/pcd_main: /usr/local/lib/libtiff.dylib
+../bin/pcd_main: /System/Library/Frameworks/Python.framework/Versions/2.7/Python
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkWrappingTools-7.1.a
+../bin/pcd_main: /usr/local/lib/libhdf5.dylib
+../bin/pcd_main: /usr/local/lib/libsz.dylib
+../bin/pcd_main: /usr/lib/libdl.dylib
+../bin/pcd_main: /usr/lib/libm.dylib
+../bin/pcd_main: /usr/local/lib/libhdf5_hl.dylib
+../bin/pcd_main: /usr/local/lib/libnetcdf_c++.dylib
+../bin/pcd_main: /usr/local/lib/libnetcdf.dylib
+../bin/pcd_main: /usr/lib/libxml2.dylib
+../bin/pcd_main: /usr/local/lib/libpcl_io.dylib
+../bin/pcd_main: /usr/local/lib/libboost_system-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_filesystem-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_thread-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_date_time-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_iostreams-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_serialization-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_chrono-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_atomic-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_regex-mt.dylib
+../bin/pcd_main: /usr/local/lib/libpcl_common.dylib
+../bin/pcd_main: /usr/local/lib/libpcl_octree.dylib
+../bin/pcd_main: /usr/local/lib/libboost_system-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_filesystem-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_thread-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_date_time-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_iostreams-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_serialization-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_chrono-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_atomic-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_regex-mt.dylib
+../bin/pcd_main: /usr/local/lib/libpcl_common.dylib
+../bin/pcd_main: /usr/local/lib/libboost_system-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_filesystem-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_thread-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_date_time-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_iostreams-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_serialization-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_chrono-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_atomic-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_regex-mt.dylib
+../bin/pcd_main: /usr/local/lib/libpcl_common.dylib
+../bin/pcd_main: /usr/local/lib/libpcl_octree.dylib
+../bin/pcd_main: /usr/lib/libz.dylib
+../bin/pcd_main: /usr/lib/libexpat.dylib
+../bin/pcd_main: /usr/local/lib/libjpeg.dylib
+../bin/pcd_main: /usr/local/lib/libpng.dylib
+../bin/pcd_main: /usr/local/lib/libtiff.dylib
+../bin/pcd_main: /System/Library/Frameworks/Python.framework/Versions/2.7/Python
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkWrappingTools-7.1.a
+../bin/pcd_main: /usr/local/lib/libhdf5.dylib
+../bin/pcd_main: /usr/local/lib/libsz.dylib
+../bin/pcd_main: /usr/lib/libdl.dylib
+../bin/pcd_main: /usr/lib/libm.dylib
+../bin/pcd_main: /usr/local/lib/libhdf5_hl.dylib
+../bin/pcd_main: /usr/local/lib/libnetcdf_c++.dylib
+../bin/pcd_main: /usr/local/lib/libnetcdf.dylib
+../bin/pcd_main: /usr/lib/libxml2.dylib
+../bin/pcd_main: /usr/local/lib/libpcl_io.dylib
+../bin/pcd_main: /usr/local/Cellar/flann/1.9.1_3/lib/libflann_cpp_s.a
+../bin/pcd_main: /usr/local/lib/libpcl_search.dylib
+../bin/pcd_main: /usr/local/lib/libpcl_visualization.dylib
+../bin/pcd_main: /usr/local/lib/libpcl_kdtree.dylib
+../bin/pcd_main: /usr/local/lib/libboost_system-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_filesystem-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_thread-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_date_time-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_iostreams-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_serialization-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_chrono-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_atomic-mt.dylib
+../bin/pcd_main: /usr/local/lib/libboost_regex-mt.dylib
+../bin/pcd_main: /usr/local/Cellar/flann/1.9.1_3/lib/libflann_cpp_s.a
+../bin/pcd_main: /usr/lib/libz.dylib
+../bin/pcd_main: /usr/lib/libexpat.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkDomainsChemistryOpenGL2-7.1.1.dylib
+../bin/pcd_main: /usr/local/lib/libjpeg.dylib
+../bin/pcd_main: /usr/local/lib/libpng.dylib
+../bin/pcd_main: /usr/local/lib/libtiff.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersFlowPaths-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersGeneric-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersHyperTree-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersParallelImaging-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersPoints-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersProgrammable-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersPython-7.1.1.dylib
+../bin/pcd_main: /System/Library/Frameworks/Python.framework/Versions/2.7/Python
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkWrappingPython27Core-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkWrappingTools-7.1.a
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersSMP-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersSelection-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersTexture-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersVerdict-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkverdict-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkGeovisCore-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkproj4-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOAMR-7.1.1.dylib
+../bin/pcd_main: /usr/local/lib/libhdf5.dylib
+../bin/pcd_main: /usr/local/lib/libsz.dylib
+../bin/pcd_main: /usr/lib/libdl.dylib
+../bin/pcd_main: /usr/lib/libm.dylib
+../bin/pcd_main: /usr/local/lib/libhdf5_hl.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOEnSight-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOExodus-7.1.1.dylib
+../bin/pcd_main: /usr/local/lib/libnetcdf_c++.dylib
+../bin/pcd_main: /usr/local/lib/libnetcdf.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOExport-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkRenderingGL2PSOpenGL2-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkgl2ps-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOImport-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOInfovis-7.1.1.dylib
+../bin/pcd_main: /usr/lib/libxml2.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOLSDyna-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOMINC-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOMovie-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkoggtheora-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOPLY-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOParallel-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkjsoncpp-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOParallelXML-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOSQL-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtksqlite-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOTecplotTable-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOVideo-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkImagingMorphological-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkImagingStatistics-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkImagingStencil-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkInfovisBoostGraphAlgorithms-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkInteractionImage-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkRenderingContextOpenGL2-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkRenderingFreeTypeFontConfig-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkRenderingImage-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkRenderingLOD-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkRenderingVolumeOpenGL2-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkViewsContext2D-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkViewsInfovis-7.1.1.dylib
+../bin/pcd_main: /usr/local/lib/libpcl_common.dylib
+../bin/pcd_main: /usr/local/lib/libpcl_io.dylib
+../bin/pcd_main: /usr/local/lib/libpcl_octree.dylib
+../bin/pcd_main: /usr/local/lib/libpcl_search.dylib
+../bin/pcd_main: /usr/local/lib/libpcl_visualization.dylib
+../bin/pcd_main: /usr/local/lib/libpcl_kdtree.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkDomainsChemistry-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersAMR-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersParallel-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkexoIIc-7.1.1.dylib
+../bin/pcd_main: /usr/local/lib/libnetcdf_c++.dylib
+../bin/pcd_main: /usr/local/lib/libnetcdf.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOGeometry-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIONetCDF-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkParallelCore-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOLegacy-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkRenderingOpenGL2-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkglew-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkImagingMath-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkChartsCore-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkRenderingContext2D-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersImaging-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkInfovisLayout-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkInfovisCore-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkViewsCore-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkInteractionWidgets-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersHybrid-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkImagingGeneral-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkImagingSources-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersModeling-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkImagingHybrid-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOImage-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkDICOMParser-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkmetaio-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkInteractionStyle-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersExtraction-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersStatistics-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkImagingFourier-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkalglib-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkRenderingAnnotation-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkImagingColor-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkRenderingVolume-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkImagingCore-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOXML-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOXMLParser-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkIOCore-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkRenderingLabel-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkRenderingFreeType-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkRenderingCore-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkCommonColor-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersGeometry-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersSources-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersGeneral-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkCommonComputationalGeometry-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersCore-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkCommonExecutionModel-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkCommonDataModel-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkCommonTransforms-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkCommonMisc-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkCommonMath-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkCommonSystem-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkCommonCore-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtksys-7.1.1.dylib
+../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkfreetype-7.1.1.dylib
+../bin/pcd_main: /usr/lib/libz.dylib
+../bin/pcd_main: CMakeFiles/pcd_main.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable ../bin/pcd_main"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/pcd_main.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-CMakeFiles/pcd_main.dir/build: pcd_main
+CMakeFiles/pcd_main.dir/build: ../bin/pcd_main
 
 .PHONY : CMakeFiles/pcd_main.dir/build
 
-CMakeFiles/pcd_main.dir/requires: CMakeFiles/pcd_main.dir/viz.cpp.o.requires
-CMakeFiles/pcd_main.dir/requires: CMakeFiles/pcd_main.dir/pcd_main.cpp.o.requires
+CMakeFiles/pcd_main.dir/requires: CMakeFiles/pcd_main.dir/src/sampling.cpp.o.requires
+CMakeFiles/pcd_main.dir/requires: CMakeFiles/pcd_main.dir/src/viz.cpp.o.requires
+CMakeFiles/pcd_main.dir/requires: CMakeFiles/pcd_main.dir/src/pcd_main.cpp.o.requires
 
 .PHONY : CMakeFiles/pcd_main.dir/requires
 
