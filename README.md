@@ -7,6 +7,7 @@
 ### Summary
 In our project we intend to implement a framework for segmenting point clouds on GPUs. We plan on modifying algorithms based on sequential implementations to design subsampling and segmentation building blocks such that they are amenable to a fast CUDA implementation. We intend on providing a comparison between a CPU-based implementation and a parallel implementation that runs on a GPU. Since segmentation is a critical first step in many applications that process point clouds, a fast implementation that is still accurate and is amenable to processing consecutive frames of point clouds at a high frame rate is valuable.
 <img src="image.png">
+<img src="pc.jpeg">
 ### Introduction and Background
 With the recent development of 3D sensing technologies, 3D point clouds have become an important and practical representation of 3D objects and surrounding environments in many applications, such as virtual reality, mobile mapping, scanning of historical artifacts, 3D printing and digital elevation models. A large number of 3D points on an object's surface measured by a sensing device are called a 3D point cloud. Other than 3D coordinates, a 3D point cloud may also comprise some attributes, such as color, temperature and texture. 3D point cloud segmentation is the process of
 classifying point clouds into multiple homogeneous regions, the
