@@ -1,10 +1,8 @@
-## Parallel Point Cloud Processing and Segmentation
-Ardra Singh (ardras)
-Rohan Varma (rohanv)
+# Parallel Point Cloud Processing and Segmentation
+## Ardra Singh (ardras)
+## Rohan Varma (rohanv)
 
-You can use the [editor on GitHub](https://github.com/rohanvarma16/pcseg/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
 ### Summary
 In our project we intend to implement a framework for segmenting point clouds on GPUs. We plan on modifying algorithms based on sequential implementations to design subsampling and segmentation building blocks such that they are amenable to a fast CUDA implementation. We intend on providing a comparison between a CPU-based implementation and a parallel implementation that runs on a GPU. Since segmentation is a critical first step in many applications that process point clouds, a fast implementation that is still accurate and is amenable to processing consecutive frames of point clouds at a high frame rate is valuable.
@@ -57,37 +55,14 @@ Hope to Achieve:
 Demo:
 - We plan on demoing visualizations of our segmentation framework on large point clouds as well as speedup graphs comparing our parallel and sequential implementations. 
 
+### Platform Choice
+We intend on using C++ for our sequential implementation as our benchmark. For our parallel implementation, we intend on using CUDA and NVIDIA GPU's. GPU's are especially efficient for 2D/3D image processing applications because of how most algorithms lend themselves to spatially local computations that can be run in parallel. This is the case for our framework as well. 
+
+### Schedule
+-Week 1: Environment setup, start C++ sequential implementation for benchmarking
+-Week 2: C++ implementation of sampling and segmentation
+-Week 3: Start CUDA implementation of sampling and segmentation
+-Week 4: Finish CUDA implementation. Do further optimizations if possible.
+-Week 5: Write report. If possible, build on this framework for an object tracker application.
 
 
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/rohanvarma16/pcseg/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
