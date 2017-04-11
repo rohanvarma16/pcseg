@@ -22,7 +22,7 @@ points in the same region will have the same properties.This problem has many ap
 intelligent vehicles, autonomous mapping, navigation, household tasks and so on.
 
 ### Framework:
-Typically, the number of points in point clouds are on the order of millions. These are however highly redundant and noisy with many outliers. Hence, there is substantial gain from sampling this point cloud into a fewer number of points. However, it is suboptimal to downsample randomly. Instead, in our first building block we want to downsample the point cloud while preserving contour, color and other feature information. This makes computation in the following blocks substantially cheaper since their complexities are polynomial in the number of points. We plan on parallelizing the graph-based approach described here. We also note that the sampling operator here is shift and rotation invariant. This is particularly useful for real-time consecutive frame processing applications such as tracking and registration since we may not need to compute the sampling operator every time step.
+Typically, the number of points in point clouds are on the order of millions. These are however highly redundant and noisy with many outliers. Hence, there is substantial gain from sampling this point cloud into a fewer number of points. However, it is suboptimal to downsample randomly. Instead, in our first building block we want to downsample the point cloud while preserving contour, color and other feature information. This makes computation in the following blocks substantially cheaper since their complexities are polynomial in the number of points. We plan on parallelizing the graph-based approach described in reference 1. We also note that the sampling operator here is shift and rotation invariant. This is particularly useful for real-time consecutive frame processing applications such as tracking and registration since we may not need to compute the sampling operator every time step.
 
 After downsampling our point cloud, our next building block segments this point cloud. There are multiple approaches to do this, but in our first implementation, we want to use the mean-shift or the quick-shift algorithm to perform the segmentation. This approach is again parallelizable. 
 
@@ -42,8 +42,7 @@ After downsampling our point cloud, our next building block segments this point 
 - Computation
 We are starting from scratch. We intend on using the PointCloudLibrary(PCL) for I/O and visualization purposes. 
 Resources we will use to implement our project on are:
- 1. GHC servers
- 2. GPU
+ 1. GHC machines with NVIDIA GTX 1080 GPUs
 
 - References to the algorithms we intend on using, parallelizing and/or modifying:
 1. Fast Resampling of 3D Point Clouds via Graphs: https://arxiv.org/abs/1702.06397
