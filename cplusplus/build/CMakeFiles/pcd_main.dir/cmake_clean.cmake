@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/pcd_main.dir/src/segmentation.cpp.o"
   "CMakeFiles/pcd_main.dir/src/sampling.cpp.o"
   "CMakeFiles/pcd_main.dir/src/viz.cpp.o"
   "CMakeFiles/pcd_main.dir/src/pcd_main.cpp.o"

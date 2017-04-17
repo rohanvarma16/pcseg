@@ -12,6 +12,8 @@
 
 /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/include/sampling.h
 
+/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/include/segmentation.h
+
 /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/include/viz.h
 
 /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/src/helper.hpp
@@ -43,12 +45,16 @@ cstdlib
 -
 string
 -
+map
+-
 ../include/viz.h
 /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/include/viz.h
 ../include/helper.h
 /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/include/helper.h
 ../include/sampling.h
 /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/include/sampling.h
+../include/segmentation.h
+/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/include/segmentation.h
 
 /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/src/sampling.cpp
 math.h
@@ -69,6 +75,28 @@ pcl/kdtree/kdtree_flann.h
 -
 ../include/helper.h
 /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/include/helper.h
+
+/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/src/segmentation.cpp
+math.h
+-
+cstdlib
+-
+algorithm
+-
+functional
+-
+vector
+-
+pcl/point_types.h
+-
+pcl/common/common_headers.h
+-
+pcl/kdtree/kdtree_flann.h
+-
+../include/helper.h
+/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/include/helper.h
+map
+-
 
 /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/src/viz.cpp
 iostream

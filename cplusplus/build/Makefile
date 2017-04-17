@@ -177,6 +177,33 @@ src/sampling.cpp.s:
 	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/src/sampling.cpp.s
 .PHONY : src/sampling.cpp.s
 
+src/segmentation.o: src/segmentation.cpp.o
+
+.PHONY : src/segmentation.o
+
+# target to build an object file
+src/segmentation.cpp.o:
+	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/src/segmentation.cpp.o
+.PHONY : src/segmentation.cpp.o
+
+src/segmentation.i: src/segmentation.cpp.i
+
+.PHONY : src/segmentation.i
+
+# target to preprocess a source file
+src/segmentation.cpp.i:
+	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/src/segmentation.cpp.i
+.PHONY : src/segmentation.cpp.i
+
+src/segmentation.s: src/segmentation.cpp.s
+
+.PHONY : src/segmentation.s
+
+# target to generate assembly for a file
+src/segmentation.cpp.s:
+	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/src/segmentation.cpp.s
+.PHONY : src/segmentation.cpp.s
+
 src/viz.o: src/viz.cpp.o
 
 .PHONY : src/viz.o
@@ -219,6 +246,9 @@ help:
 	@echo "... src/sampling.o"
 	@echo "... src/sampling.i"
 	@echo "... src/sampling.s"
+	@echo "... src/segmentation.o"
+	@echo "... src/segmentation.i"
+	@echo "... src/segmentation.s"
 	@echo "... src/viz.o"
 	@echo "... src/viz.i"
 	@echo "... src/viz.s"

@@ -57,9 +57,33 @@ include CMakeFiles/pcd_main.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/pcd_main.dir/flags.make
 
+CMakeFiles/pcd_main.dir/src/segmentation.cpp.o: CMakeFiles/pcd_main.dir/flags.make
+CMakeFiles/pcd_main.dir/src/segmentation.cpp.o: ../src/segmentation.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/pcd_main.dir/src/segmentation.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/pcd_main.dir/src/segmentation.cpp.o -c /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/src/segmentation.cpp
+
+CMakeFiles/pcd_main.dir/src/segmentation.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pcd_main.dir/src/segmentation.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/src/segmentation.cpp > CMakeFiles/pcd_main.dir/src/segmentation.cpp.i
+
+CMakeFiles/pcd_main.dir/src/segmentation.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pcd_main.dir/src/segmentation.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/src/segmentation.cpp -o CMakeFiles/pcd_main.dir/src/segmentation.cpp.s
+
+CMakeFiles/pcd_main.dir/src/segmentation.cpp.o.requires:
+
+.PHONY : CMakeFiles/pcd_main.dir/src/segmentation.cpp.o.requires
+
+CMakeFiles/pcd_main.dir/src/segmentation.cpp.o.provides: CMakeFiles/pcd_main.dir/src/segmentation.cpp.o.requires
+	$(MAKE) -f CMakeFiles/pcd_main.dir/build.make CMakeFiles/pcd_main.dir/src/segmentation.cpp.o.provides.build
+.PHONY : CMakeFiles/pcd_main.dir/src/segmentation.cpp.o.provides
+
+CMakeFiles/pcd_main.dir/src/segmentation.cpp.o.provides.build: CMakeFiles/pcd_main.dir/src/segmentation.cpp.o
+
+
 CMakeFiles/pcd_main.dir/src/sampling.cpp.o: CMakeFiles/pcd_main.dir/flags.make
 CMakeFiles/pcd_main.dir/src/sampling.cpp.o: ../src/sampling.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/pcd_main.dir/src/sampling.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/pcd_main.dir/src/sampling.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/pcd_main.dir/src/sampling.cpp.o -c /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/src/sampling.cpp
 
 CMakeFiles/pcd_main.dir/src/sampling.cpp.i: cmake_force
@@ -83,7 +107,7 @@ CMakeFiles/pcd_main.dir/src/sampling.cpp.o.provides.build: CMakeFiles/pcd_main.d
 
 CMakeFiles/pcd_main.dir/src/viz.cpp.o: CMakeFiles/pcd_main.dir/flags.make
 CMakeFiles/pcd_main.dir/src/viz.cpp.o: ../src/viz.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/pcd_main.dir/src/viz.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/pcd_main.dir/src/viz.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/pcd_main.dir/src/viz.cpp.o -c /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/src/viz.cpp
 
 CMakeFiles/pcd_main.dir/src/viz.cpp.i: cmake_force
@@ -107,7 +131,7 @@ CMakeFiles/pcd_main.dir/src/viz.cpp.o.provides.build: CMakeFiles/pcd_main.dir/sr
 
 CMakeFiles/pcd_main.dir/src/pcd_main.cpp.o: CMakeFiles/pcd_main.dir/flags.make
 CMakeFiles/pcd_main.dir/src/pcd_main.cpp.o: ../src/pcd_main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/pcd_main.dir/src/pcd_main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/pcd_main.dir/src/pcd_main.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/pcd_main.dir/src/pcd_main.cpp.o -c /Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/src/pcd_main.cpp
 
 CMakeFiles/pcd_main.dir/src/pcd_main.cpp.i: cmake_force
@@ -131,6 +155,7 @@ CMakeFiles/pcd_main.dir/src/pcd_main.cpp.o.provides.build: CMakeFiles/pcd_main.d
 
 # Object files for target pcd_main
 pcd_main_OBJECTS = \
+"CMakeFiles/pcd_main.dir/src/segmentation.cpp.o" \
 "CMakeFiles/pcd_main.dir/src/sampling.cpp.o" \
 "CMakeFiles/pcd_main.dir/src/viz.cpp.o" \
 "CMakeFiles/pcd_main.dir/src/pcd_main.cpp.o"
@@ -138,6 +163,7 @@ pcd_main_OBJECTS = \
 # External object files for target pcd_main
 pcd_main_EXTERNAL_OBJECTS =
 
+../bin/pcd_main: CMakeFiles/pcd_main.dir/src/segmentation.cpp.o
 ../bin/pcd_main: CMakeFiles/pcd_main.dir/src/sampling.cpp.o
 ../bin/pcd_main: CMakeFiles/pcd_main.dir/src/viz.cpp.o
 ../bin/pcd_main: CMakeFiles/pcd_main.dir/src/pcd_main.cpp.o
@@ -359,7 +385,7 @@ pcd_main_EXTERNAL_OBJECTS =
 ../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkfreetype-7.1.1.dylib
 ../bin/pcd_main: /usr/lib/libz.dylib
 ../bin/pcd_main: CMakeFiles/pcd_main.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable ../bin/pcd_main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/rohan/Dropbox/Work/workspace/pointcloud/pcseg/cplusplus/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable ../bin/pcd_main"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/pcd_main.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -367,6 +393,7 @@ CMakeFiles/pcd_main.dir/build: ../bin/pcd_main
 
 .PHONY : CMakeFiles/pcd_main.dir/build
 
+CMakeFiles/pcd_main.dir/requires: CMakeFiles/pcd_main.dir/src/segmentation.cpp.o.requires
 CMakeFiles/pcd_main.dir/requires: CMakeFiles/pcd_main.dir/src/sampling.cpp.o.requires
 CMakeFiles/pcd_main.dir/requires: CMakeFiles/pcd_main.dir/src/viz.cpp.o.requires
 CMakeFiles/pcd_main.dir/requires: CMakeFiles/pcd_main.dir/src/pcd_main.cpp.o.requires
