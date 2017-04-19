@@ -246,6 +246,11 @@ pcd_main_EXTERNAL_OBJECTS =
 ../bin/pcd_main: /usr/local/lib/libpcl_search.dylib
 ../bin/pcd_main: /usr/local/lib/libpcl_visualization.dylib
 ../bin/pcd_main: /usr/local/lib/libpcl_kdtree.dylib
+../bin/pcd_main: /usr/local/lib/libpcl_sample_consensus.dylib
+../bin/pcd_main: /usr/local/lib/libpcl_features.dylib
+../bin/pcd_main: /usr/local/lib/libpcl_ml.dylib
+../bin/pcd_main: /usr/local/lib/libpcl_segmentation.dylib
+../bin/pcd_main: /usr/local/lib/libpcl_filters.dylib
 ../bin/pcd_main: /usr/local/lib/libboost_system-mt.dylib
 ../bin/pcd_main: /usr/local/lib/libboost_filesystem-mt.dylib
 ../bin/pcd_main: /usr/local/lib/libboost_thread-mt.dylib
@@ -325,6 +330,11 @@ pcd_main_EXTERNAL_OBJECTS =
 ../bin/pcd_main: /usr/local/lib/libpcl_search.dylib
 ../bin/pcd_main: /usr/local/lib/libpcl_visualization.dylib
 ../bin/pcd_main: /usr/local/lib/libpcl_kdtree.dylib
+../bin/pcd_main: /usr/local/lib/libpcl_sample_consensus.dylib
+../bin/pcd_main: /usr/local/lib/libpcl_features.dylib
+../bin/pcd_main: /usr/local/lib/libpcl_ml.dylib
+../bin/pcd_main: /usr/local/lib/libpcl_segmentation.dylib
+../bin/pcd_main: /usr/local/lib/libpcl_filters.dylib
 ../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkDomainsChemistry-7.1.1.dylib
 ../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersAMR-7.1.1.dylib
 ../bin/pcd_main: /usr/local/Cellar/vtk/7.1.1/lib/libvtkFiltersParallel-7.1.1.dylib

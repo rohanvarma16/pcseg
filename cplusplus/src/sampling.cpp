@@ -20,7 +20,7 @@ int computeWeights(  pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc, int num_pts, flo
   float sum_p;
 
   for(int i = 0 ; i < num_pts ; i++){
-
+    
     std::vector<int> pointIdxNKNSearch(K);
     std::vector<float> pointNKNSquaredDistance(K);
     pcl::PointXYZRGB searchPoint = pc->points[i];
@@ -97,7 +97,6 @@ std::vector<int> weightedRandomSample (std::vector<float> weights, int num_pts, 
  }
  if(r>imp_wt_rs[num_pts-1]){
    samples[i] = num_pts-1;
-   printf("hello!!!");
  }
 }
 

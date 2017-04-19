@@ -17,15 +17,13 @@ float computeColorDistance(pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc,int i,int x
   return(d);
 }
 
-
-
 void segmentation_computeDensity(pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc, int num_pts, float sigma_sq, int K, std::vector<float>& p_density){
 
   pcl::KdTreeFLANN<pcl::PointXYZRGB> kdtree;
   kdtree.setInputCloud (pc);
   printf("loaded point cloud into kdtree object for density computation \n");
 
-for(int i = 0 ; i < num_pts ; i++){
+  for(int i = 0 ; i < num_pts ; i++){
 
     std::vector<int> pointIdxNKNSearch(K);
     std::vector<float> pointNKNSquaredDistance(K);
@@ -93,28 +91,108 @@ void constructSegments(pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc, int num_pts, s
   int done = 0;
   int treedepth= 0;
 
- 
+
   while(! done)
-{ delta =0;
+    { delta =0;
 
-  for(int i =0 ; i< num_pts ; i++){
+      for(int i =0 ; i< num_pts ; i++){
 
-    if(parents[parents[i]] != parents[i]){
-      parents[i] = parents[parents[i]];
-      delta++;
+        if(parents[parents[i]] != parents[i]){
+          parents[i] = parents[parents[i]];
+          delta++;
+        }
+      }
+      if(delta == 0){
+        done = 1;
+      }
+      treedepth++;
     }
+    printf("treedepth: %d \n",treedepth);
+
   }
-  if(delta == 0){
-    done = 1;
+
+  void constructSegmentedPC(pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc_seg,pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc_rs, int num_pts_rs,std::vector<int>& parents){
+
+    std::vector<int> clusterids;
+    for(int i = 0; i < num_pts_rs ; i++){
+      if (parents[i]==i)
+      {
+        clusterids.push_back(i);
+      }
+    }
+
+    printf("created clusterIDs \n");
+
+    std::map< int,std::vector<int> > parent_map;
+//construct segments:
+    for (std::vector<int>::iterator it = clusterids.begin(); it != clusterids.end(); ++it)
+    {
+      parent_map.insert(std::pair<int,std::vector<int> >(*it,std::vector<int>()));
+    }
+
+    for (int i = 0; i < num_pts_rs; ++i)
+    {
+      parent_map[parents[i]].push_back(i);
+    } 
+
+    printf("created map between clusterIds and members \n ");
+
+    std::map<int,int> red_map;
+    std::map<int,int> green_map;
+    std::map<int,int> blue_map;
+
+// iterate over each segment:
+    for (std::vector<int>::iterator i = clusterids.begin(); i != clusterids.end(); ++i)
+    { 
+      int red_sum = 0;
+      int green_sum = 0;
+      int blue_sum = 0;
+      int count = 0;
+    // iterate over each point in segment
+      for (std::vector<int>::iterator j = parent_map[*i].begin(); j != parent_map[*i].end(); ++j)
+      {
+        int red = static_cast< int >(pc_rs->points[*j].r);
+        int green = static_cast< int >(pc_rs->points[*j].g);
+        int blue = static_cast< int >(pc_rs->points[*j].b);
+
+        blue_sum += blue;
+        green_sum += green;
+        red_sum += red;
+        count++;
+      }
+
+      red_sum =  red_sum/count;
+      green_sum =  green_sum/count;
+      blue_sum =blue_sum/count;
+      red_map[*i] = red_sum;
+      green_map[*i] = green_sum;
+      blue_map[*i] = blue_sum;
+    } 
+
+    printf("computed color composition for each segment (avg for viz) \n ");
+    pc_seg->width = num_pts_rs;
+    pc_seg->height = 1;
+    pc_seg->points.resize(pc_rs->height * pc_rs->width);
+    int idx = 0;
+    for (std::vector<int>::iterator i = clusterids.begin(); i != clusterids.end(); ++i){
+
+      uint8_t r = (uint8_t) red_map[*i];
+      uint8_t g = (uint8_t) green_map[*i];
+      uint8_t b = (uint8_t) blue_map[*i];
+      for (std::vector<int>::iterator j = parent_map[*i].begin(); j != parent_map[*i].end(); ++j){
+
+        int pt_id = *j;
+        pc_seg->points[idx].x = pc_rs->points[pt_id].x;
+        pc_seg->points[idx].y = pc_rs->points[pt_id].y;
+        pc_seg->points[idx].z = pc_rs->points[pt_id].z;
+        pc_seg->points[idx].r = r;
+        pc_seg->points[idx].g = g;
+        pc_seg->points[idx].b = b;
+        idx++;
+      }
+    }
+    printf("constructed segmented point cloud\n");
   }
-  treedepth++;
-}
-printf("treedepth: %d \n",treedepth);
-
-
-}
-
-
 
 
 

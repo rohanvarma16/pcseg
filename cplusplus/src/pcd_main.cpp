@@ -6,6 +6,8 @@
 #include <pcl/visualization/pcl_visualizer.h>
 #include <pcl/kdtree/kdtree_flann.h>
 #include <pcl/console/parse.h>
+#include <pcl/segmentation/supervoxel_clustering.h>
+#include <pcl/filters/voxel_grid.h>
 
 #include <algorithm>
 #include <functional>
@@ -17,6 +19,10 @@
 #include "../include/helper.h"
 #include "../include/sampling.h"
 #include "../include/segmentation.h"
+#include "../include/voxel.h"
+
+// Types
+typedef pcl::PointXYZRGB PointT;
 
 
 int loadPC(pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc, std::string filename){
@@ -32,6 +38,7 @@ int loadPC(pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc, std::string filename){
 int
 main (int argc, char** argv)
 { 
+
   /************************** STAGE 0: INITIALIZATION ****************************************/
 
   printf("reading point cloud file! \n");
@@ -54,6 +61,29 @@ main (int argc, char** argv)
   }
 
 
+  pcl::PCLPointCloud2::Ptr cloud (new pcl::PCLPointCloud2 ());
+  pcl::PCLPointCloud2::Ptr cloud_filtered (new pcl::PCLPointCloud2 ());
+
+  // Fill in the cloud data
+  pcl::PCDReader reader;
+  // Replace the path below with the path where you saved your file
+  reader.read ("/Users/rohan/Dropbox/Work/workspace/pointcloud/data/rgbd-scenes_aligned/kitchen_small/kitchen_small_1/kitchen_small_1.pcd", *cloud); // Remember to download the file first!
+
+  std::cerr << "PointCloud before filtering: " << cloud->width * cloud->height 
+       << " data points (" << pcl::getFieldsList (*cloud) << ").";
+
+  // Create the filtering object
+  pcl::VoxelGrid<pcl::PCLPointCloud2> sor;
+  sor.setInputCloud (cloud);
+  sor.setLeafSize (0.01f, 0.01f, 0.01f);
+
+  Eigen::Vector3i vec = sor.getGridCoordinates(0.1,0.3,0.1);
+  printf("x: %d,y:%d, z:%d \n", vec.x(),vec.y(),vec.z());
+
+
+
+
+  
   /************* STAGE 1 : SAMPLING ************/
 
   /* STEP 1:
@@ -64,7 +94,7 @@ main (int argc, char** argv)
   */
   // tuning_parameters
   float sigma_sq = 0.00005;
-  int numNbrs = 20;
+  int numNbrs = 50;
 
   int num_pts = pc->size();
     // compute importance weights
@@ -77,7 +107,7 @@ main (int argc, char** argv)
    */
 
 // get sample indices
-  int total_samples = 10000;
+  int total_samples = 100000;
   std::vector<int> sampleIdx = weightedRandomSample(imp_wt,num_pts,total_samples);
   printf("randomly sampled %d points \n" ,total_samples);
 
@@ -103,8 +133,9 @@ main (int argc, char** argv)
   int numNbrs_seg = 50;
 
   std::vector<float> p_density(num_pts_rs,0.0);
-  printf("about to compute density");
   segmentation_computeDensity(pc_rs,num_pts_rs,sigma_sq_seg,numNbrs_seg,p_density);
+    printf("computed density \n");
+
   std::vector<int> parents(num_pts_rs,0);
   std::vector<float> distances(num_pts_rs,0.0);
 
@@ -127,135 +158,16 @@ main (int argc, char** argv)
 
 /************* visualize segments: **********/
 
-
-//rootlist:
-   std::vector<int> clusterids;
-  for(int i = 0; i < num_pts_rs ; i++){
-    if (parents[i]==i)
-    {
-      clusterids.push_back(i);
-    }
-  }
-
-  printf("created clusterIDs \n ");
-
-  std::map< int,std::vector<int> > parent_map;
-//construct segments:
-  for (std::vector<int>::iterator it = clusterids.begin(); it != clusterids.end(); ++it)
-  {
-    parent_map.insert(std::pair<int,std::vector<int> >(*it,std::vector<int>()));
-  }
-
-  for (int i = 0; i < num_pts; ++i)
-  {
-    parent_map[parents[i]].push_back(i);
-  } 
-
-  printf("created map between clusterIds and members \n ");
-
-  std::map<int,int> red_map;
-  std::map<int,int> green_map;
-  std::map<int,int> blue_map;
-
-// iterate over each segment:
-  for (std::vector<int>::iterator i = clusterids.begin(); i != clusterids.end(); ++i)
-  { 
-    int red_sum = 0;
-    int green_sum = 0;
-    int blue_sum = 0;
-    int count = 0;
-    // iterate over each point in segment
-    for (std::vector<int>::iterator j = parent_map[*i].begin(); j != parent_map[*i].end(); ++j)
-    {
-      int red = static_cast< int >(pc_rs->points[*j].r);
-      int green = static_cast< int >(pc_rs->points[*j].g);
-      int blue = static_cast< int >(pc_rs->points[*j].b);
-
-      blue_sum += blue;
-      green_sum += green;
-      red_sum += red;
-      count++;
-    }
-
-    red_sum =  red_sum/count;
-    green_sum =  green_sum/count;
-    blue_sum =blue_sum/count;
-    red_map[*i] = red_sum;
-    green_map[*i] = green_sum;
-    blue_map[*i] = blue_sum;
-  } 
-
-printf("computed color composition for each segment (avg for viz) \n ");
-
-// construct new point cloud:
+// construct segmented point cloud:
 
   pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc_seg (new pcl::PointCloud<pcl::PointXYZRGB>);
-  pc_seg->width = num_pts_rs;
-  pc_seg->height = 1;
-  pc_seg->points.resize(pc_rs->height * pc_rs->width);
-  int idx = 0;
-  for (std::vector<int>::iterator i = clusterids.begin(); i != clusterids.end(); ++i){
+  constructSegmentedPC(pc_seg,pc_rs,num_pts_rs,parents);
 
-    uint8_t r = (uint8_t) red_map[*i];
-    uint8_t g = (uint8_t) green_map[*i];
-    uint8_t b = (uint8_t) blue_map[*i];
-    for (std::vector<int>::iterator j = parent_map[*i].begin(); j != parent_map[*i].end(); ++j){
-
-      int pt_id = *j;
-    pc_seg->points[idx].x = pc_rs->points[pt_id].x;
-    pc_seg->points[idx].y = pc_rs->points[pt_id].y;
-    pc_seg->points[idx].z = pc_rs->points[pt_id].z;
-    pc_seg->points[idx].r = r;
-    pc_seg->points[idx].g = g;
-    pc_seg->points[idx].b = b;
-    idx++;
-    }
-  }
-
-
-printf("constructed new point cloud\n");
-
-
-
-int bool_viz_seg = 1;
-printf("visualization of segmented point cloud!\n");
+  int bool_viz_seg = 1;
+  printf("visualization of segmented point cloud!\n");
   if(bool_viz_seg){
     pc_viz(pc_seg);
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   return (0);
 
