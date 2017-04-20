@@ -1,0 +1,1 @@
+/usr/bin/c++       CMakeFiles/saxpy.dir/./saxpy_generated_saxpy.cu.o  -o saxpy -rdynamic /usr/local/depot/cuda-8.0/lib64/libcudart.so -Wl,-rpath,/usr/local/depot/cuda-8.0/lib64 

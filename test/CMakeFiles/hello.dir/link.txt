@@ -1,0 +1,1 @@
+/usr/bin/c++       CMakeFiles/hello.dir/./hello_generated_hello.cu.o  -o hello -rdynamic /usr/local/depot/cuda-8.0/lib64/libcudart.so -Wl,-rpath,/usr/local/depot/cuda-8.0/lib64 
