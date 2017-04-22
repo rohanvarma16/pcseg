@@ -199,30 +199,6 @@ src/segmentation.cpp.s:
 	$(MAKE) -f CMakeFiles/pcd_cuda.dir/build.make CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.s
 .PHONY : src/segmentation.cpp.s
 
-src/viz.o: src/viz.cpp.o
-.PHONY : src/viz.o
-
-# target to build an object file
-src/viz.cpp.o:
-	$(MAKE) -f CMakeFiles/pcd_cuda.dir/build.make CMakeFiles/pcd_cuda.dir/src/viz.cpp.o
-.PHONY : src/viz.cpp.o
-
-src/viz.i: src/viz.cpp.i
-.PHONY : src/viz.i
-
-# target to preprocess a source file
-src/viz.cpp.i:
-	$(MAKE) -f CMakeFiles/pcd_cuda.dir/build.make CMakeFiles/pcd_cuda.dir/src/viz.cpp.i
-.PHONY : src/viz.cpp.i
-
-src/viz.s: src/viz.cpp.s
-.PHONY : src/viz.s
-
-# target to generate assembly for a file
-src/viz.cpp.s:
-	$(MAKE) -f CMakeFiles/pcd_cuda.dir/build.make CMakeFiles/pcd_cuda.dir/src/viz.cpp.s
-.PHONY : src/viz.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -242,9 +218,6 @@ help:
 	@echo "... src/segmentation.o"
 	@echo "... src/segmentation.i"
 	@echo "... src/segmentation.s"
-	@echo "... src/viz.o"
-	@echo "... src/viz.i"
-	@echo "... src/viz.s"
 .PHONY : help
 
 

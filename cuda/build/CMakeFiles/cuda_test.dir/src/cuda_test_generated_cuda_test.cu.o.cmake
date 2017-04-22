@@ -69,7 +69,7 @@ set(generated_file_path "/afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/
 set(generated_file_internal "/afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles/cuda_test.dir/src/./cuda_test_generated_cuda_test.cu.o") # path
 set(generated_cubin_file_internal "/afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles/cuda_test.dir/src/./cuda_test_generated_cuda_test.cu.o.cubin.txt") # path
 
-set(CUDA_NVCC_EXECUTABLE "/usr/local/depot/cuda-8.0/bin/nvcc") # path
+set(CUDA_NVCC_EXECUTABLE "/usr/local/cuda/bin/nvcc") # path
 set(CUDA_NVCC_FLAGS  -std=c++11 ;; ) # list
 # Build specific configuration flags
 set(CUDA_NVCC_FLAGS_DEBUG  ; )
@@ -77,7 +77,7 @@ set(CUDA_NVCC_FLAGS_MINSIZEREL  ; )
 set(CUDA_NVCC_FLAGS_RELEASE  ; )
 set(CUDA_NVCC_FLAGS_RELWITHDEBINFO  ; )
 set(nvcc_flags -m64) # list
-set(CUDA_NVCC_INCLUDE_ARGS "-I/usr/local/depot/cuda-8.0/include;-I/usr/local/depot/cuda-8.0/include") # list (needs to be in quotes to handle spaces properly).
+set(CUDA_NVCC_INCLUDE_ARGS "-I/usr/local/cuda/include;-I/usr/local/cuda/include") # list (needs to be in quotes to handle spaces properly).
 set(format_flag "-dc") # string
 
 if(build_cubin AND NOT generated_cubin_file)

@@ -22,11 +22,11 @@ endif()
 
 
 set(CMAKE_PREFIX_PATH "~/install_dir/pcl/")
-find_package(PCL 1.3 REQUIRED COMPONENTS common io visualization kdtree segmentation filters)
+find_package(PCL 1.3 REQUIRED COMPONENTS common io kdtree)
 include_directories(${PCL_INCLUDE_DIRS})
 link_directories(${PCL_LIBRARY_DIRS})
 add_definitions(${PCL_DEFINITIONS})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "../bin/")
-add_executable(pcd_cuda src/segmentation.cpp src/sampling.cpp src/helper.hpp src/viz.cpp src/pcd_cuda.cpp)
+add_executable(pcd_cuda src/segmentation.cpp src/sampling.cpp src/helper.hpp src/pcd_cuda.cpp)
 target_link_libraries(pcd_cuda cuda_test ${PCL_COMMON_LIBRARIES} ${PCL_IO_LIBRARIES} ${PCL_LIBRARIES})
 

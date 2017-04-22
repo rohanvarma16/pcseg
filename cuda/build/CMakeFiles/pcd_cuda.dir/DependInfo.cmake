@@ -7,7 +7,6 @@ SET(CMAKE_DEPENDS_CHECK_CXX
   "/afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/src/pcd_cuda.cpp" "/afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.o"
   "/afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/src/sampling.cpp" "/afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles/pcd_cuda.dir/src/sampling.cpp.o"
   "/afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/src/segmentation.cpp" "/afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.o"
-  "/afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/src/viz.cpp" "/afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles/pcd_cuda.dir/src/viz.cpp.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -21,7 +20,6 @@ SET(CMAKE_TARGET_DEFINITIONS
   "DISABLE_OPENNI2"
   "DISABLE_PCAP"
   "DISABLE_PNG"
-  "DISABLE_RSSDK"
   "EIGEN_USE_NEW_STDVECTOR"
   "EIGEN_YES_I_KNOW_SPARSE_MODULE_IS_NOT_STABLE_YET"
   "FLANN_STATIC"
@@ -39,7 +37,7 @@ SET(CMAKE_TARGET_LINKED_INFO_FILES
 
 # The include file search paths:
 SET(CMAKE_C_TARGET_INCLUDE_PATH
-  "/usr/local/depot/cuda-8.0/include"
+  "/usr/local/cuda/include"
   "/afs/cs/academic/class/15418-s17/public/sw/VTK/build/Utilities/KWIML"
   "/afs/cs/academic/class/15418-s17/public/sw/VTK/Utilities/KWIML"
   "/afs/cs/academic/class/15418-s17/public/sw/VTK/build/Utilities/KWSys"

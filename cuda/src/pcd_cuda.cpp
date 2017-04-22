@@ -13,7 +13,7 @@
 #include <cstdlib>
 #include <string>
 #include <map>
-#include "../include/viz.h"
+
 #include "../include/helper.h"
 #include "../include/sampling.h"
 #include "../include/segmentation.h"
@@ -52,15 +52,10 @@ main (int argc, char** argv)
 	      << std::endl;
   }
 
-  int bool_viz_or = 0;
-  int bool_viz_rs = 0;
-  
-  if(bool_viz_or){
-    printf("visualization of original point cloud! \n");
-    pc_viz(pc);
-  }
+
 
   int num_pts = pc->size();
+  // num_pts = 100000;
   /**** pre-processing *****/
   float min_x = pc->points[0].x;
   float min_y =pc->points[0].y;
@@ -99,10 +94,14 @@ main (int argc, char** argv)
   float max_xyz = std::max(max_x-min_x,max_y-min_y);
   max_xyz = std::max(max_xyz, max_z-min_z);
 
-  int xy_idx = (max_xyz/x_grid)*(max_xyz/y_grid);
+  //  int xy_idx = (max_xyz/x_grid)*(max_xyz/y_grid);
   int x_idx = max_xyz/x_grid;
   int y_idx  = (max_xyz/y_grid);
   int z_idx = (max_xyz/z_grid);
+  int xy_idx = x_idx * y_idx;
+  printf("xidx: %d \n" ,x_idx);
+  printf("yidx: %d \n" ,y_idx);
+  printf("zidx: %d \n" ,z_idx);
   int num_voxels = x_idx * y_idx * z_idx;
   printf("num_voxels %d \n", num_voxels);
 
@@ -114,7 +113,7 @@ main (int argc, char** argv)
     voxel_pointRGB.push_back(std::vector<float>());
   }
     
-  for (int i = 0 ; i < pc->size() ; i++){
+  for (int i = 0 ; i < num_pts ; i++){
     int voxel_x = (int) floor((pc->points[i].x - min_x)/x_grid);
     int voxel_y = (int) floor((pc->points[i].y - min_y)/y_grid);
     int voxel_z = (int) floor((pc->points[i].z - min_z)/z_grid);    
@@ -142,11 +141,13 @@ main (int argc, char** argv)
   float* flattenXYZ = (float*) malloc(num_pts * 3 * sizeof(float));
   float* flattenRGB = (float*) malloc(num_pts * 3 * sizeof(float));
   int offset_rs = 0;
-  int* voxel_offset = (int*) malloc( sizeof(int) * num_voxels);
+  int* voxel_offset = (int*) malloc( sizeof(int) * (num_voxels+1));
+
   for (int i = 0 ; i < num_voxels ; i++){
     voxel_offset[i] = offset_rs;
     offset_rs += voxel_pointXYZ[i].size();
   }
+  voxel_offset[num_voxels] = offset_rs;
   printf("final offset: %d \n" , offset_rs);
   
   for(int i = 0 ; i < num_voxels ; i++){
@@ -154,7 +155,51 @@ main (int argc, char** argv)
     std::copy(voxel_pointRGB[i].begin(),voxel_pointRGB[i].end(),flattenRGB+voxel_offset[i]);
 }
   
-  device_setup(num_pts, num_voxels, flattenXYZ,flattenRGB,voxel_offset);
+  int* neighbor_ids = (int*) malloc(sizeof(int) * 7 * num_voxels);
+  printf("x_idx: %d, y_idx: %d, z_idx:%d, xy_idx: %d \n",x_idx,y_idx,z_idx,xy_idx);
+  for(int i = 0 ; i < x_idx ; i++)
+    for(int j=0; j < y_idx ; j++)
+      for(int k = 0 ; k < z_idx ; k++){
+
+	int voxel_id = xy_idx * i + y_idx * j + k;
+	if(voxel_id >= num_voxels){
+	  printf("voxel_id : %d \n", voxel_id);
+	  printf("DANGER\n");
+	}
+	
+	neighbor_ids[7 * voxel_id] = voxel_id;
+	
+	int nbr_id_1 = xy_idx * (i+1) + y_idx * j + k;
+	if(nbr_id_1 < 0 || nbr_id_1 >= num_voxels)
+	  nbr_id_1 = -1;
+	int nbr_id_2 = xy_idx *(i-1) +y_idx *j + k;
+	if(nbr_id_2 < 0|| nbr_id_2 >= num_voxels)
+          nbr_id_2 = -1;
+	int nbr_id_3 = xy_idx *i +y_idx *(j+1) + k;
+	if(nbr_id_3 < 0|| nbr_id_3 >= num_voxels)
+          nbr_id_3 = -1;
+	int nbr_id_4 = xy_idx *i +y_idx *(j-1) + k;
+	if(nbr_id_4 < 0|| nbr_id_4 >= num_voxels)
+          nbr_id_4 = -1;
+	int nbr_id_5 = xy_idx *i +y_idx *j + (k+1);
+	if(nbr_id_5 < 0|| nbr_id_5 >= num_voxels)
+          nbr_id_5 = -1;
+	int nbr_id_6 = xy_idx *i +y_idx *j + (k-1);
+	if(nbr_id_6 < 0|| nbr_id_6 >= num_voxels)
+          nbr_id_6 = -1;
+	
+	neighbor_ids[7*voxel_id + 1] = nbr_id_1;
+	neighbor_ids[7*voxel_id+ 2] = nbr_id_2;
+	neighbor_ids[7*voxel_id+ 3] = nbr_id_3;
+	neighbor_ids[7*voxel_id+ 4] = nbr_id_4;
+	neighbor_ids[7*voxel_id+ 5] = nbr_id_5;
+	neighbor_ids[7*voxel_id+ 6] = nbr_id_6;
+	
+      }
+  
+
+  
+   device_setup(num_pts, num_voxels, flattenXYZ,flattenRGB,voxel_offset,neighbor_ids,x_idx,y_idx,z_idx);
   
     
   /************* STAGE 1 : SAMPLING ************/
@@ -183,10 +228,6 @@ main (int argc, char** argv)
   //  resamplePC(pc,pc_rs,sampleIdx,total_samples);
   printf("constructed resampled point cloud \n");
 
-  printf("visualization of resampled point cloud!\n");
-  if(bool_viz_rs){
-    pc_viz(pc_rs);
-  }
 
   /*********** STAGE 2 : SEGMENTATION *************/
    // STEP 3:
@@ -214,13 +255,6 @@ main (int argc, char** argv)
 
   pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc_seg (new pcl::PointCloud<pcl::PointXYZRGB>);
   //constructSegmentedPC(pc_seg,pc_rs,num_pts_rs,parents);
-
-  int bool_viz_seg = 0;
-  printf("visualization of segmented point cloud!\n");
-  if(bool_viz_seg){
-    pc_viz(pc_seg);
-  }
-
   return (0);
 
 }

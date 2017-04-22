@@ -1,0 +1,13 @@
+reading point cloud file! 
+Loaded 3059831 data points from kitchen_small_1.pcd
+min_x  -3.7988
+min_y -1.1471
+ min_z -2.1547 
+max_x  2.1355
+max_y 3.1127
+ max_z 3.9804 
+num_voxels 1728 
+total size:1728
+final offset: 9179493 
+constructed resampled point cloud 
+finished segmentation! 
