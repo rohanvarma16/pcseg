@@ -42,7 +42,8 @@ int
 main (int argc, char** argv)
 { 
   printf("reading point cloud file! \n");
-  std::string filename("/afs/andrew.cmu.edu/usr18/rohanv/data/kitchen_small_1.pcd");
+  std::string filename("/afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/data/sample.pcd");
+  //std::string filename("/afs/andrew.cmu.edu/usr18/ardras/data/kitchen_small_1.pcd");
   pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc (new pcl::PointCloud<pcl::PointXYZRGB>);
 
   if(loadPC(pc,filename)){
@@ -55,7 +56,6 @@ main (int argc, char** argv)
 
 
   int num_pts = pc->size();
-  // num_pts = 100000;
   /**** pre-processing *****/
   float min_x = pc->points[0].x;
   float min_y =pc->points[0].y;
@@ -94,10 +94,10 @@ main (int argc, char** argv)
   float max_xyz = std::max(max_x-min_x,max_y-min_y);
   max_xyz = std::max(max_xyz, max_z-min_z);
 
-  //  int xy_idx = (max_xyz/x_grid)*(max_xyz/y_grid);
-  int x_idx = max_xyz/x_grid;
-  int y_idx  = (max_xyz/y_grid);
-  int z_idx = (max_xyz/z_grid);
+  printf("max_xyz = %f\n", max_xyz);
+  int x_idx = ceil(max_xyz/x_grid);
+  int y_idx  = ceil(max_xyz/y_grid);
+  int z_idx = ceil(max_xyz/z_grid);
   int xy_idx = x_idx * y_idx;
   printf("xidx: %d \n" ,x_idx);
   printf("yidx: %d \n" ,y_idx);
@@ -118,7 +118,7 @@ main (int argc, char** argv)
     int voxel_y = (int) floor((pc->points[i].y - min_y)/y_grid);
     int voxel_z = (int) floor((pc->points[i].z - min_z)/z_grid);    
     int voxel_id = xy_idx * voxel_x + y_idx*voxel_y + voxel_z ;
-
+    
     if(voxel_id > num_voxels){
       std::cout << "DANGER" << endl;
       printf("danger: %0.4f,%0.4f,%0.4f\n",pc->points[i].x,pc->points[i].y,pc->points[i].z);
@@ -135,8 +135,12 @@ main (int argc, char** argv)
     }
   }
   
+  /*printf("Voxel 32 first point x = %f, y %f, z %f\n", voxel_pointXYZ[32][0], 
+                                 voxel_pointXYZ[32][1], voxel_pointXYZ[32][2]);
+  printf("Voxel 32 first point r = %f, g %f, b %f\n", voxel_pointRGB[32][0], 
+                                 voxel_pointRGB[32][1], voxel_pointRGB[32][2]);
   printf("total size:%d\n", voxel_pointXYZ.size());
-
+  */
 
   float* flattenXYZ = (float*) malloc(num_pts * 3 * sizeof(float));
   float* flattenRGB = (float*) malloc(num_pts * 3 * sizeof(float));
@@ -145,61 +149,69 @@ main (int argc, char** argv)
 
   for (int i = 0 ; i < num_voxels ; i++){
     voxel_offset[i] = offset_rs;
-    offset_rs += voxel_pointXYZ[i].size();
+    offset_rs += (voxel_pointXYZ[i].size() / 3);
+    //printf("voxel %d has %d points\n", i, (voxel_pointXYZ[i].size()/3));
   }
   voxel_offset[num_voxels] = offset_rs;
   printf("final offset: %d \n" , offset_rs);
   
   for(int i = 0 ; i < num_voxels ; i++){
-    std::copy(voxel_pointXYZ[i].begin(),voxel_pointXYZ[i].end(),flattenXYZ+voxel_offset[i]);
-    std::copy(voxel_pointRGB[i].begin(),voxel_pointRGB[i].end(),flattenRGB+voxel_offset[i]);
-}
+    std::copy(voxel_pointXYZ[i].begin(),voxel_pointXYZ[i].end(),flattenXYZ+(3*voxel_offset[i]));
+    std::copy(voxel_pointRGB[i].begin(),voxel_pointRGB[i].end(),flattenRGB+(3*voxel_offset[i]));
+  }
   
   int* neighbor_ids = (int*) malloc(sizeof(int) * 7 * num_voxels);
   printf("x_idx: %d, y_idx: %d, z_idx:%d, xy_idx: %d \n",x_idx,y_idx,z_idx,xy_idx);
-  for(int i = 0 ; i < x_idx ; i++)
-    for(int j=0; j < y_idx ; j++)
+  for(int i = 0 ; i < x_idx ; i++){
+    for(int j=0; j < y_idx ; j++){
       for(int k = 0 ; k < z_idx ; k++){
-
-	int voxel_id = xy_idx * i + y_idx * j + k;
-	if(voxel_id >= num_voxels){
-	  printf("voxel_id : %d \n", voxel_id);
-	  printf("DANGER\n");
-	}
+        int voxel_id = xy_idx * i + y_idx * j + k;
+	    if(voxel_id >= num_voxels){
+	      printf("voxel_id : %d \n", voxel_id);
+	      printf("DANGER\n");
+	    }
 	
-	neighbor_ids[7 * voxel_id] = voxel_id;
+	    neighbor_ids[7 * voxel_id] = voxel_id;
 	
-	int nbr_id_1 = xy_idx * (i+1) + y_idx * j + k;
-	if(nbr_id_1 < 0 || nbr_id_1 >= num_voxels)
-	  nbr_id_1 = -1;
-	int nbr_id_2 = xy_idx *(i-1) +y_idx *j + k;
-	if(nbr_id_2 < 0|| nbr_id_2 >= num_voxels)
+	    int nbr_id_1 = xy_idx * (i+1) + y_idx * j + k;
+	    //if(nbr_id_1 < 0 || nbr_id_1 >= num_voxels)
+	    if(i+1 >= x_idx)
+          nbr_id_1 = -1;
+	    int nbr_id_2 = xy_idx *(i-1) +y_idx *j + k;
+	    //if(nbr_id_2 < 0|| nbr_id_2 >= num_voxels)
+        if(i-1 < 0)
           nbr_id_2 = -1;
-	int nbr_id_3 = xy_idx *i +y_idx *(j+1) + k;
-	if(nbr_id_3 < 0|| nbr_id_3 >= num_voxels)
+	    int nbr_id_3 = xy_idx *i +y_idx *(j+1) + k;
+	    //if(nbr_id_3 < 0|| nbr_id_3 >= num_voxels)
+        if(j+1 >= y_idx)
           nbr_id_3 = -1;
-	int nbr_id_4 = xy_idx *i +y_idx *(j-1) + k;
-	if(nbr_id_4 < 0|| nbr_id_4 >= num_voxels)
+	    int nbr_id_4 = xy_idx *i +y_idx *(j-1) + k;
+	    //if(nbr_id_4 < 0|| nbr_id_4 >= num_voxels)
+        if(j-1 < 0)
           nbr_id_4 = -1;
-	int nbr_id_5 = xy_idx *i +y_idx *j + (k+1);
-	if(nbr_id_5 < 0|| nbr_id_5 >= num_voxels)
+	    int nbr_id_5 = xy_idx *i +y_idx *j + (k+1);
+	    //if(nbr_id_5 < 0|| nbr_id_5 >= num_voxels)
+        if(k+1 >= z_idx)  
           nbr_id_5 = -1;
-	int nbr_id_6 = xy_idx *i +y_idx *j + (k-1);
-	if(nbr_id_6 < 0|| nbr_id_6 >= num_voxels)
+	    int nbr_id_6 = xy_idx *i +y_idx *j + (k-1);
+	    //if(nbr_id_6 < 0|| nbr_id_6 >= num_voxels)
+        if(k-1 < 0)  
           nbr_id_6 = -1;
 	
-	neighbor_ids[7*voxel_id + 1] = nbr_id_1;
-	neighbor_ids[7*voxel_id+ 2] = nbr_id_2;
-	neighbor_ids[7*voxel_id+ 3] = nbr_id_3;
-	neighbor_ids[7*voxel_id+ 4] = nbr_id_4;
-	neighbor_ids[7*voxel_id+ 5] = nbr_id_5;
-	neighbor_ids[7*voxel_id+ 6] = nbr_id_6;
-	
+	    neighbor_ids[7*voxel_id + 1] = nbr_id_1;
+	    neighbor_ids[7*voxel_id+ 2] = nbr_id_2;
+	    neighbor_ids[7*voxel_id+ 3] = nbr_id_3;
+	    neighbor_ids[7*voxel_id+ 4] = nbr_id_4;
+	    neighbor_ids[7*voxel_id+ 5] = nbr_id_5;
+	    neighbor_ids[7*voxel_id+ 6] = nbr_id_6;
+        //printf("voxel %d has neighbours %d %d %d %d %d %d\n", voxel_id, nbr_id_1,
+        //        nbr_id_2, nbr_id_3, nbr_id_4, nbr_id_5, nbr_id_6);
       }
-  
+    }
+  }
 
-  
-   device_setup(num_pts, num_voxels, flattenXYZ,flattenRGB,voxel_offset,neighbor_ids,x_idx,y_idx,z_idx);
+  device_setup(num_pts, num_voxels, flattenXYZ,flattenRGB,voxel_offset,
+               neighbor_ids,x_idx,y_idx,z_idx);
   
     
   /************* STAGE 1 : SAMPLING ************/
