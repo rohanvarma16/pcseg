@@ -204,24 +204,34 @@ inline void gpuAssert(cudaError_t code, const char *file, int line, bool abort=t
 
 int device_setup(int num_pts, int num_voxels,   float *flattenXYZ,
 		 float *flattenRGB, int *voxel_offset, int *neighbor_ids,
-         int x_idx, int y_idx, int z_idx)
+		 int x_idx, int y_idx, int z_idx,int num_samples,uint *sample_arr)
 {
   printf("HELLO IN DEVICE SETUP!\n");
 
-  float *device_xyz, *device_rgb, *imp_wt, *pdensity, *host_imp_wt, *host_pdensity;
+  float *device_xyz, *device_rgb;
   int *device_offset, *device_neighbor_ids;
 
-  cudaMalloc(&device_xyz, num_pts*3*sizeof(float));
+  //  cudaMalloc(&device_xyz, num_pts*3*sizeof(float));
   cudaMalloc(&device_xyz, num_pts*3*sizeof(float));
   cudaMalloc(&device_rgb, num_pts*3*sizeof(float));
   cudaMalloc(&device_offset, (num_voxels+1)*sizeof(int));
   cudaMalloc(&device_neighbor_ids , num_voxels * 7 * sizeof(int));
-  cudaMalloc(&imp_wt, num_pts*sizeof(float));
-  cudaMalloc(&pdensity, num_pts*sizeof(float));
-  host_imp_wt = (float*) malloc(num_pts*sizeof(float));
-  host_pdensity = (float*) malloc(num_pts*sizeof(float));
+  //  cudaMalloc(&imp_wt, num_pts*sizeof(float));
+  //cudaMalloc(&pdensity, num_pts*sizeof(float));
+  //host_imp_wt = (float*) malloc(num_pts*sizeof(float));
+  //host_pdensity = (float*) malloc(num_pts*sizeof(float));
 
+  thrust::device_vector<float> dev_imp_wt(num_pts);
+  thrust::device_vector<float> dev_pdensity(num_pts);
+  thrust::host_vector<float> host_imp_wt(num_pts);
+  thrust::host_vector<float> host_pdensity(num_pts);
+  
+  float* imp_wt = thrust::raw_pointer_cast(dev_imp_wt.data());
+  float* pdensity = thrust::raw_pointer_cast(dev_pdensity.data());
   printf("finished mallocing!\n");
+
+  
+
 
   gpuErrchk(cudaMemcpy(device_offset,voxel_offset, (num_voxels+1)*sizeof(int),cudaMemcpyHostToDevice));
   gpuErrchk(cudaMemcpy(device_xyz, flattenXYZ, num_pts*3*sizeof(float),cudaMemcpyHostToDevice));
@@ -237,15 +247,18 @@ int device_setup(int num_pts, int num_voxels,   float *flattenXYZ,
   sampling<<<gridDim,blockDim>>>(device_xyz,device_rgb,device_offset,device_neighbor_ids,xy_idx,y_idx,imp_wt,pdensity);
   printf("finished sampling!\n");
   
-  cudaThreadSynchronize();
+  cudaDeviceSynchronize();
   
-  gpuErrchk(cudaMemcpy(host_imp_wt,imp_wt,num_pts*sizeof(float),cudaMemcpyDeviceToHost));
-  gpuErrchk(cudaMemcpy(host_pdensity,pdensity,num_pts*sizeof(float),cudaMemcpyDeviceToHost));
-  /*
-  for(int i = 0 ; i < 100; i++){
+  thrust::copy(dev_imp_wt.begin(),dev_imp_wt.end(),host_imp_wt.begin());
+  thrust::copy(dev_pdensity.begin(),dev_pdensity.end(),host_pdensity.begin());
+
+  //  gpuErrchk(cudaMemcpy(host_imp_wt,imp_wt,num_pts*sizeof(float),cudaMemcpyDeviceToHost));
+  //gpuErrchk(cudaMemcpy(host_pdensity,pdensity,num_pts*sizeof(float),cudaMemcpyDeviceToHost));
+  
+  for(int i = 0 ; i < 10; i++){
     printf("imp_wt[%d] = %0.9f pdensity[%d] = %f\n",i,host_imp_wt[i],i,host_pdensity[i]);
   }
-  */
+  
 
   /*
   thrust::host_vector<int> h_vec(20); thrust::generate(h_vec.begin(), h_vec.end(), rand);
@@ -268,66 +281,73 @@ int device_setup(int num_pts, int num_voxels,   float *flattenXYZ,
   // WEIGHTED SAMPLING
 
 
-  thrust::host_vector<float> h_wts(5);
-  h_wts[0] = 1.0;
-  h_wts[1] = 5.0;
-  h_wts[2] = 2.0;
-  h_wts[3] = 0.5;
-  h_wts[4] = 1.5;
-  thrust::device_vector<float> d_wts = h_wts;
-
+  
   printf("====================\n");
-
+  printf("going to do weighted sampling\n");
   // step 1: normalize: (TODO: use functor to make fast )
-  float norm_sum = thrust::reduce(d_wts.begin(),d_wts.end());
+  float norm_sum = thrust::reduce(dev_imp_wt.begin(),dev_imp_wt.end());
   float norm_factor = 1.0/norm_sum;
   printf("norm_sum: %f\n",norm_sum);
 
-  thrust::device_vector<float> temp(d_wts.size());
+  thrust::device_vector<float> temp(dev_imp_wt.size());
   thrust::fill(temp.begin(),temp.end(),norm_factor);
-  thrust::transform(d_wts.begin(),d_wts.end(),temp.begin(),d_wts.begin(),thrust::multiplies<float>());
-  thrust::copy(d_wts.begin(),d_wts.end(),h_wts.begin());
+  thrust::transform(dev_imp_wt.begin(),dev_imp_wt.end(),temp.begin(),dev_imp_wt.begin(),thrust::multiplies<float>());
+
+  thrust::copy(dev_imp_wt.begin(),dev_imp_wt.end(),host_imp_wt.begin());
   printf("\n normalized weights \n");
     for(int i = 0 ; i < 5 ; i++){
-      printf("h_wt[%d] = %f , ",i,h_wts[i]);
+      printf("h_wt[%d] = %f , ",i,host_imp_wt[i]);
     }
 
     // step 2: compute prefix sum (clusive scan)
-    thrust::device_vector<float> wts_rs(d_wts.size());
-    thrust::inclusive_scan(d_wts.begin(),d_wts.end(),wts_rs.begin());
+    thrust::device_vector<float> wts_rs(dev_imp_wt.size());
+    thrust::inclusive_scan(dev_imp_wt.begin(),dev_imp_wt.end(),wts_rs.begin());
     printf("\n rolling_sum \n");
-    thrust::copy(wts_rs.begin(),wts_rs.end(),h_wts.begin());
+    thrust::copy(wts_rs.begin(),wts_rs.end(),host_imp_wt.begin());
     for(int i = 0 ; i < 5 ; i++){
-      printf("h_wt[%d] = %f , ",i,h_wts[i]);
+      printf("h_wt[%d] = %0.9f , ",i,host_imp_wt[i]);
     }
 
     // step 3: generate uniform random numbers:
     srand(time(NULL));
     int seed = rand();
     printf("\n get random samples \n");
-    int num_samples = 10;
+
     thrust::device_vector<float> d_unifrands(num_samples);
     thrust::transform( thrust::make_counting_iterator(seed), thrust::make_counting_iterator(seed + num_samples),
                        d_unifrands.begin(),GenUnifRands());
 
 
     // step 4 : generate (weighted) random samples
-    thrust::device_vector<unsigned int> output(num_samples);
-    thrust::lower_bound(wts_rs.begin(),wts_rs.end(),d_unifrands.begin(),d_unifrands.end(),output.begin());
-    thrust::host_vector<unsigned int> h_output(num_samples);
-    thrust::copy(output.begin(),output.end(),h_output.begin());
-    for(int i = 0 ; i < num_samples ; i++){
-      printf("h_output[%d] = %d " , i , h_output[i]);
+    thrust::device_vector<unsigned int> samples(num_samples);
+    thrust::lower_bound(wts_rs.begin(),wts_rs.end(),d_unifrands.begin(),d_unifrands.end(),samples.begin());
+    thrust::host_vector<unsigned int> h_samples(num_samples);
+    thrust::copy(samples.begin(),samples.end(),h_samples.begin());
+    for(int i = 0 ; i < 10 ; i++){
+      printf("h_samples[%d] = %d " , i , h_samples[i]);
     }
    
     printf("\n");
 
+
+
+    uint* pc_samples = thrust::raw_pointer_cast(h_samples.data());
+    //uint* samples_arr = (uint*) malloc(num_samples* sizeof(uint));
+    memcpy(sample_arr, pc_samples,num_samples*sizeof(uint));
+    
+    /*
+    for(int i = 0 ; i < 10; i++){
+      printf("samples_arr[%d] = %d , " , i ,samples_arr[i] );
+    }
+    */
+
+    /*
     thrust::host_vector<float> h_unifrands(num_samples);
     thrust::copy(d_unifrands.begin(),d_unifrands.end(),h_unifrands.begin());
-    for(int i = 0 ; i < num_samples ; i++){
+    for(int i = 0 ; i < 10 ; i++){
       printf("unifrands[%d] = %f " , i , h_unifrands[i]);
     }
- 
+    */
 
     // step 5: use a gather operator to "compress" xyz rgb into appropriate form:
 

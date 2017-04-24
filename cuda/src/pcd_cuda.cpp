@@ -45,8 +45,8 @@ main (int argc, char** argv)
   //std::string filename("/afs/andrew.cmu.edu/usr18/ardras/data/kitchen_small_1.pcd");
 
 
-    std::string filename("/afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/data/sample.pcd");
-    //std::string filename("/afs/andrew.cmu.edu/usr18/rohanv/data/kitchen_small_1.pcd");
+  //std::string filename("/afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/data/sample.pcd");
+   std::string filename("/afs/andrew.cmu.edu/usr18/rohanv/data/kitchen_small_1.pcd");
   pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc (new pcl::PointCloud<pcl::PointXYZRGB>);
 
   if(loadPC(pc,filename)){
@@ -59,7 +59,7 @@ main (int argc, char** argv)
 
 
     int num_pts = pc->size();
-    //  num_pts = 100000;
+     num_pts = 1000000;
   /**** pre-processing *****/
   float min_x = pc->points[0].x;
   float min_y =pc->points[0].y;
@@ -224,10 +224,7 @@ main (int argc, char** argv)
 
   }
   */
-  device_setup(num_pts, num_voxels, flattenXYZ,flattenRGB,voxel_offset,
-               neighbor_ids,x_idx,y_idx,z_idx);
-  
-    
+
   /************* STAGE 1 : SAMPLING ************/
 
   /* STEP 1:
@@ -236,23 +233,46 @@ main (int argc, char** argv)
      A_i,j is a kernel: RBF/Gaussian/Epachanikov. Store in importance vector. Normalize.
      Simultaneously compute density. (can do this later since only need this for sampled points)
   */
-  // tuning_parameters
-  float sigma_sq = 0.00005;
-  int numNbrs = 50;
-
-  
   /* STEP 2:
      Randomly Sample K points according to weights , and construct new resampled pointcloud.
-   */
+  */
 
-// get sample indices
-  int total_samples = 20000;
+
+
+  int num_samples = 20000;
+  uint* samples_arr = (uint*)malloc(num_samples* sizeof(uint));
+  device_setup(num_pts, num_voxels, flattenXYZ,flattenRGB,voxel_offset,
+               neighbor_ids,x_idx,y_idx,z_idx,num_samples,samples_arr);
+
+
+  for(int i = 0 ; i < 10; i++){
+    printf("samples_arr[%d] = %d , " , i ,samples_arr[i] );
+  }
   
 
 // construct resampled point cloud from sample indices:
   pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc_rs (new pcl::PointCloud<pcl::PointXYZRGB>);
-  //  resamplePC(pc,pc_rs,sampleIdx,total_samples);
-  printf("constructed resampled point cloud \n");
+  //    resamplePC(pc,pc_rs,samples_arr,num_samples);
+  
+    pc_rs->width = num_samples;
+    pc_rs->height = 1;
+    pc_rs->points.resize(pc_rs->height * pc_rs->width);
+
+    for (int i =0 ; i < num_samples ;i++){
+      pc_rs->points[i].x = flattenXYZ[samples_arr[i]*3];
+      pc_rs->points[i].y = flattenXYZ[(3*samples_arr[i])+1];
+      pc_rs->points[i].z = flattenXYZ[(3*samples_arr[i])+2];
+      pc_rs->points[i].r = (uint8_t)floor((flattenRGB[samples_arr[i]*3] * 255.0));
+      pc_rs->points[i].g = (uint8_t)floor((flattenRGB[(samples_arr[i]*3)+1] *255.0));
+      pc_rs->points[i].b = (uint8_t)floor((flattenRGB[(samples_arr[i]*3)+2] *255.0));
+    }
+
+    /* write resampled point cloud pc_rs to pcd file */
+    pcl::io::savePCDFileASCII ("rs_pcd.pcd", *pc_rs);
+    std::cerr << "Saved " << pc_rs->size () << " data points to rs_pcd.pcd." << std::endl;
+
+
+printf("constructed and wrote resampled point cloud \n");
 
 
   /*********** STAGE 2 : SEGMENTATION *************/
@@ -262,7 +282,7 @@ main (int argc, char** argv)
   /* STEP 4:
      Do segmentation procedure for each i and link to highest parent. 
    */
-  int num_pts_rs = total_samples;
+  int num_pts_rs = num_samples;
   float sigma_sq_seg = 0.00005;
   int numNbrs_seg = 50;
 
