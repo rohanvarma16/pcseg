@@ -3,11 +3,29 @@
 
 #include <algorithm>
 #include <functional>
-#include <math.h>       /* pow */
+#include <cuda_runtime.h>
 #include <cstdlib>
 #include <string>
 #include <map>
 #include <vector>
+#include <math.h>
+#include <cuda.h>
+#include <float.h>
+#include <thrust/host_vector.h>
+#include <thrust/device_vector.h>
+#include <thrust/transform.h>
+#include <thrust/sequence.h>
+#include <thrust/copy.h>
+#include <thrust/fill.h>
+#include <thrust/replace.h>
+#include <thrust/functional.h>
+#include <thrust/sort.h> 
+#include <iostream> 
+#include <thrust/binary_search.h>
+#include <thrust/random.h>
+#include <curand.h>
+#include <time.h>
+#include <stdlib.h>
 
 #define THREADS_PER_BLOCK 256
 
@@ -20,6 +38,26 @@ void saxpy(int n, float a, float *x, float *y)
   int i = blockIdx.x*blockDim.x + threadIdx.x;
   if (i < n) y[i] = a*x[i] + y[i];
 }
+
+ __device__ __inline__ float my_exp(float a) {
+  float b;
+  //  b = exp(a);
+  b = 2*a;
+  return b;
+}
+
+
+struct GenUnifRands
+{
+    __device__
+    float operator () (int idx)
+  {
+    thrust::default_random_engine randEng;
+    thrust::uniform_real_distribution<float> uniDist;
+    randEng.discard(idx);
+    return uniDist(randEng);
+  }
+};
 
 __global__
 void sampling(float *device_xyz, float *device_rgb, int *device_offset, 
@@ -48,11 +86,11 @@ void sampling(float *device_xyz, float *device_rgb, int *device_offset,
   float3 my_rgb;
   float3 my_xyz;
   float sigma_sq = 0.00005;
-  /*if((threadId == 0)){
-    printf("my_num_pts: %d , blockId: %d \n", my_num_pts, blockId );
-  }*/
-
+  
+  float Aij_ew;
+  float Aij_ew2;
   // Iterate over all points in voxel, num_threads points at a time. 
+    int sum_nbr_num_pts = 0;
   for(int i = 0 ; i < my_num_pts ; i+= num_threads){
     pdensity_sum = 0.0;
     norm_sum = 0.0;
@@ -62,14 +100,14 @@ void sampling(float *device_xyz, float *device_rgb, int *device_offset,
     nbr_feature[3] = 0.0;
     nbr_feature[4] = 0.0;
     nbr_feature[5] = 0.0;
-    
+
     if(threadId + i > my_num_pts){
       return;
     }
 
     my_xyz = *(float3*) &device_xyz[3*(device_offset[blockId] + i + threadId)];
     my_rgb = *(float3*) &device_rgb[3*(device_offset[blockId] + i + threadId)];
-
+    
     /*if(blockId == 32 && threadId == 0)
     {
         printf("my x %f, my y %f, my z %f\n", my_xyz.x, my_xyz.y, my_xyz.z);
@@ -77,13 +115,19 @@ void sampling(float *device_xyz, float *device_rgb, int *device_offset,
     }*/
 
     // Iterate over the neighbouring blocks including yourself. 
+    if(threadId == 0){
+    sum_nbr_num_pts = 0;
+    }
     for(int j = 0 ; j < 7 ; j++){
       if(neighbor_id[7*blockId+j] == -1){
 	    continue;
       }
 
       int nbr_num_pts = device_offset[neighbor_id[7*blockId +j] + 1] - device_offset[neighbor_id[7*blockId + j]];
-
+      
+      if(threadId ==0){
+      sum_nbr_num_pts += nbr_num_pts;
+      }
       // Iterate over all the points in the neighbouring block.
       for(int k = 0; k < nbr_num_pts; k++){
         
@@ -98,15 +142,19 @@ void sampling(float *device_xyz, float *device_rgb, int *device_offset,
           printf("nbr r %f, nbr g %f, nbr b %f\n", nbr_rgb.x, nbr_rgb.y, nbr_rgb.z);
         }*/
 
-	    float xyz_dist = pow(my_xyz.x - nbr_xyz.x,2.0) + pow((my_xyz.y - nbr_xyz.y),2.0) +
+	    float xyz_dist =  pow(my_xyz.x - nbr_xyz.x,2.0) + pow((my_xyz.y - nbr_xyz.y),2.0) +
                          pow((my_xyz.z - nbr_xyz.z),2.0);
  
-        float rgb_dist = pow((my_rgb.x - nbr_rgb.x),2.0) + pow((my_rgb.y - nbr_rgb.y),2.0) +
+        float rgb_dist =  pow((my_rgb.x - nbr_rgb.x),2.0) + pow((my_rgb.y - nbr_rgb.y),2.0) +
 						 pow((my_rgb.z - nbr_rgb.z),2.0);
 						     
-        float Aij_ew = exp(-1.0 * xyz_dist/sigma_sq);
-	    float Aij_ew2 = exp(-1.0 * (xyz_dist + rgb_dist)/sigma_sq); 
-						     
+	Aij_ew =  __expf(-1.0f * (xyz_dist/sigma_sq));
+	Aij_ew2 = __expf(-1.0f * (xyz_dist + rgb_dist)/sigma_sq); 
+	//Aij_ew = pow(xyz_dist,2.0);
+	//Aij_ew2 = pow(xyz_dist + rgb_dist,2.0);
+	    if(threadId == 1 && blockId==4){
+	      printf("xyz_dst: %f , rgb_dst: %f, Aij_ew: %f, Aij_ew2: %f\n",xyz_dist,rgb_dist,Aij_ew, Aij_ew2);
+	    }
 	    pdensity_sum += Aij_ew2;
 		nbr_feature[0] += Aij_ew * nbr_xyz.x;
 	    nbr_feature[1] += Aij_ew * nbr_xyz.y;
@@ -125,10 +173,18 @@ void sampling(float *device_xyz, float *device_rgb, int *device_offset,
     norm_sum += pow(my_rgb.z - nbr_feature[5],2.0);
     
     pdensity[device_offset[blockId] + i + threadId] = pdensity_sum;
+
     imp_wt[device_offset[blockId] + i + threadId] = norm_sum;
     
   }
+  /*
+  if((threadId == 0)){
+    printf("my_num_pts: %d ,my_sum_nbr_pts:%d, blockId: %d \n", my_num_pts,sum_nbr_num_pts, blockId );
+    }
+  */
 }
+
+
   
   
 
@@ -185,10 +241,95 @@ int device_setup(int num_pts, int num_voxels,   float *flattenXYZ,
   
   gpuErrchk(cudaMemcpy(host_imp_wt,imp_wt,num_pts*sizeof(float),cudaMemcpyDeviceToHost));
   gpuErrchk(cudaMemcpy(host_pdensity,pdensity,num_pts*sizeof(float),cudaMemcpyDeviceToHost));
-
+  /*
   for(int i = 0 ; i < 100; i++){
-    printf("imp_wt[%d] = %f pdensity[%d] = %f\n",i,host_imp_wt[i],i,host_pdensity[i]);
+    printf("imp_wt[%d] = %0.9f pdensity[%d] = %f\n",i,host_imp_wt[i],i,host_pdensity[i]);
   }
+  */
+
+  /*
+  thrust::host_vector<int> h_vec(20); thrust::generate(h_vec.begin(), h_vec.end(), rand);
+  for(int i = 0; i < 20 ; i++){
+    printf("i:%d, %d\n" , i, h_vec[i]);
+  }
+  // transfer data to the device
+  thrust::device_vector<int> d_vec = h_vec;
+  // sort data on the device (805 Mkeys/sec on GeForce GTX 480)
+  thrust::sort(d_vec.begin(), d_vec.end()); // transfer data back to host
+  thrust::copy(d_vec.begin(), d_vec.end(), h_vec.begin());
+  for(int i = 0 ; i < 20 ; i++){
+    printf("i:%d, %d\n" , i, h_vec[i]);
+}
+  */
+
+
+
+
+  // WEIGHTED SAMPLING
+
+
+  thrust::host_vector<float> h_wts(5);
+  h_wts[0] = 1.0;
+  h_wts[1] = 5.0;
+  h_wts[2] = 2.0;
+  h_wts[3] = 0.5;
+  h_wts[4] = 1.5;
+  thrust::device_vector<float> d_wts = h_wts;
+
+  printf("====================\n");
+
+  // step 1: normalize: (TODO: use functor to make fast )
+  float norm_sum = thrust::reduce(d_wts.begin(),d_wts.end());
+  float norm_factor = 1.0/norm_sum;
+  printf("norm_sum: %f\n",norm_sum);
+
+  thrust::device_vector<float> temp(d_wts.size());
+  thrust::fill(temp.begin(),temp.end(),norm_factor);
+  thrust::transform(d_wts.begin(),d_wts.end(),temp.begin(),d_wts.begin(),thrust::multiplies<float>());
+  thrust::copy(d_wts.begin(),d_wts.end(),h_wts.begin());
+  printf("\n normalized weights \n");
+    for(int i = 0 ; i < 5 ; i++){
+      printf("h_wt[%d] = %f , ",i,h_wts[i]);
+    }
+
+    // step 2: compute prefix sum (clusive scan)
+    thrust::device_vector<float> wts_rs(d_wts.size());
+    thrust::inclusive_scan(d_wts.begin(),d_wts.end(),wts_rs.begin());
+    printf("\n rolling_sum \n");
+    thrust::copy(wts_rs.begin(),wts_rs.end(),h_wts.begin());
+    for(int i = 0 ; i < 5 ; i++){
+      printf("h_wt[%d] = %f , ",i,h_wts[i]);
+    }
+
+    // step 3: generate uniform random numbers:
+    srand(time(NULL));
+    int seed = rand();
+    printf("\n get random samples \n");
+    int num_samples = 10;
+    thrust::device_vector<float> d_unifrands(num_samples);
+    thrust::transform( thrust::make_counting_iterator(seed), thrust::make_counting_iterator(seed + num_samples),
+                       d_unifrands.begin(),GenUnifRands());
+
+
+    // step 4 : generate (weighted) random samples
+    thrust::device_vector<unsigned int> output(num_samples);
+    thrust::lower_bound(wts_rs.begin(),wts_rs.end(),d_unifrands.begin(),d_unifrands.end(),output.begin());
+    thrust::host_vector<unsigned int> h_output(num_samples);
+    thrust::copy(output.begin(),output.end(),h_output.begin());
+    for(int i = 0 ; i < num_samples ; i++){
+      printf("h_output[%d] = %d " , i , h_output[i]);
+    }
+   
+    printf("\n");
+
+    thrust::host_vector<float> h_unifrands(num_samples);
+    thrust::copy(d_unifrands.begin(),d_unifrands.end(),h_unifrands.begin());
+    for(int i = 0 ; i < num_samples ; i++){
+      printf("unifrands[%d] = %f " , i , h_unifrands[i]);
+    }
+ 
+
+    // step 5: use a gather operator to "compress" xyz rgb into appropriate form:
 
   return(1);
 }

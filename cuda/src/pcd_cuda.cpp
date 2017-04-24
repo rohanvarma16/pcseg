@@ -20,8 +20,7 @@
 #include <omp.h>
 #include "../include/cuda_test.h"
 
-const int N = 16; 
-const int blocksize = 16; 
+
  
 
 // Types
@@ -42,8 +41,12 @@ int
 main (int argc, char** argv)
 { 
   printf("reading point cloud file! \n");
-  std::string filename("/afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/data/sample.pcd");
+  //  std::string filename("/afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/data/sample.pcd");
   //std::string filename("/afs/andrew.cmu.edu/usr18/ardras/data/kitchen_small_1.pcd");
+
+
+    std::string filename("/afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/data/sample.pcd");
+    //std::string filename("/afs/andrew.cmu.edu/usr18/rohanv/data/kitchen_small_1.pcd");
   pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc (new pcl::PointCloud<pcl::PointXYZRGB>);
 
   if(loadPC(pc,filename)){
@@ -55,7 +58,8 @@ main (int argc, char** argv)
 
 
 
-  int num_pts = pc->size();
+    int num_pts = pc->size();
+    //  num_pts = 100000;
   /**** pre-processing *****/
   float min_x = pc->points[0].x;
   float min_y =pc->points[0].y;
@@ -88,9 +92,9 @@ main (int argc, char** argv)
 
   // initialize voxels
 
-  float x_grid = 0.5;
-  float y_grid = 0.5;
-  float z_grid = 0.5;
+  float x_grid = 0.05;
+  float y_grid = 0.05;
+  float z_grid = 0.05;
   float max_xyz = std::max(max_x-min_x,max_y-min_y);
   max_xyz = std::max(max_xyz, max_z-min_z);
 
@@ -210,6 +214,16 @@ main (int argc, char** argv)
     }
   }
 
+  /*
+  for(int i = 0 ;i < num_voxels ; i++){
+    printf("voxel_id: %d, mynbrids: ",i);
+    for(int j = 0; j < 7 ; j++){
+      printf(" %d , ",neighbor_ids[7*i + j]);
+    }
+    printf("\n");
+
+  }
+  */
   device_setup(num_pts, num_voxels, flattenXYZ,flattenRGB,voxel_offset,
                neighbor_ids,x_idx,y_idx,z_idx);
   
