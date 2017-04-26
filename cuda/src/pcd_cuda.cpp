@@ -41,12 +41,9 @@ int
 main (int argc, char** argv)
 { 
   printf("reading point cloud file! \n");
-  //  std::string filename("/afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/data/sample.pcd");
-  //std::string filename("/afs/andrew.cmu.edu/usr18/ardras/data/kitchen_small_1.pcd");
+  //std::string filename("/afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/data/sample.pcd");
+  std::string filename("/afs/andrew.cmu.edu/usr18/ardras/data/kitchen_small_1.pcd");
 
-
-  //std::string filename("/afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/data/sample.pcd");
-   std::string filename("/afs/andrew.cmu.edu/usr18/rohanv/data/kitchen_small_1.pcd");
   pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc (new pcl::PointCloud<pcl::PointXYZRGB>);
 
   if(loadPC(pc,filename)){
@@ -58,8 +55,8 @@ main (int argc, char** argv)
 
 
 
-    int num_pts = pc->size();
-     num_pts = 1000000;
+  int num_pts = pc->size();
+  //num_pts = 1000000;
   /**** pre-processing *****/
   float min_x = pc->points[0].x;
   float min_y =pc->points[0].y;
@@ -92,20 +89,28 @@ main (int argc, char** argv)
 
   // initialize voxels
 
-  float x_grid = 0.05;
-  float y_grid = 0.05;
-  float z_grid = 0.05;
-  float max_xyz = std::max(max_x-min_x,max_y-min_y);
-  max_xyz = std::max(max_xyz, max_z-min_z);
+  float x_grid = 0.1;
+  float y_grid = 0.1;
+  float z_grid = 0.1;
+  float x_range = max_x - min_x;
+  float y_range = max_y - min_y;
+  float z_range = max_z - min_z;
+    
+  //float max_xyz = std::max(max_x-min_x,max_y-min_y);
+  //max_xyz = std::max(max_xyz, max_z-min_z);
+  //printf(" = %f\n", max_xyz);
+  
+  printf("x_range = %f, y_range = %f, z_range = %f\n", x_range, y_range, z_range);
 
-  printf("max_xyz = %f\n", max_xyz);
-  int x_idx = ceil(max_xyz/x_grid);
-  int y_idx  = ceil(max_xyz/y_grid);
-  int z_idx = ceil(max_xyz/z_grid);
-  int xy_idx = x_idx * y_idx;
+  int x_idx = std::max(1.0, ceil(x_range/x_grid));
+  int y_idx  = std::max(1.0, ceil(y_range/y_grid));
+  int z_idx = std::max(1.0, ceil(z_range/z_grid));
+  int yz_idx = y_idx * z_idx;
+
   printf("xidx: %d \n" ,x_idx);
   printf("yidx: %d \n" ,y_idx);
   printf("zidx: %d \n" ,z_idx);
+  
   int num_voxels = x_idx * y_idx * z_idx;
   printf("num_voxels %d \n", num_voxels);
 
@@ -117,11 +122,11 @@ main (int argc, char** argv)
     voxel_pointRGB.push_back(std::vector<float>());
   }
     
-  for (int i = 0 ; i < num_pts ; i++){
+  for(int i = 0 ; i < num_pts ; i++){
     int voxel_x = (int) floor((pc->points[i].x - min_x)/x_grid);
     int voxel_y = (int) floor((pc->points[i].y - min_y)/y_grid);
     int voxel_z = (int) floor((pc->points[i].z - min_z)/z_grid);    
-    int voxel_id = xy_idx * voxel_x + y_idx*voxel_y + voxel_z ;
+    int voxel_id = yz_idx * voxel_x + z_idx * voxel_y + voxel_z ;
     
     if(voxel_id > num_voxels){
       std::cout << "DANGER" << endl;
@@ -165,11 +170,11 @@ main (int argc, char** argv)
   }
   
   int* neighbor_ids = (int*) malloc(sizeof(int) * 7 * num_voxels);
-  printf("x_idx: %d, y_idx: %d, z_idx:%d, xy_idx: %d \n",x_idx,y_idx,z_idx,xy_idx);
+  printf("x_idx: %d, y_idx: %d, z_idx:%d, yz_idx: %d \n", x_idx, y_idx, z_idx, yz_idx);
   for(int i = 0 ; i < x_idx ; i++){
     for(int j=0; j < y_idx ; j++){
       for(int k = 0 ; k < z_idx ; k++){
-        int voxel_id = xy_idx * i + y_idx * j + k;
+        int voxel_id = yz_idx * i + z_idx * j + k;
 	    if(voxel_id >= num_voxels){
 	      printf("voxel_id : %d \n", voxel_id);
 	      printf("DANGER\n");
@@ -177,27 +182,27 @@ main (int argc, char** argv)
 	
 	    neighbor_ids[7 * voxel_id] = voxel_id;
 	
-	    int nbr_id_1 = xy_idx * (i+1) + y_idx * j + k;
+	    int nbr_id_1 = yz_idx * (i+1) + z_idx * j + k;
 	    //if(nbr_id_1 < 0 || nbr_id_1 >= num_voxels)
 	    if(i+1 >= x_idx)
           nbr_id_1 = -1;
-	    int nbr_id_2 = xy_idx *(i-1) +y_idx *j + k;
+	    int nbr_id_2 = yz_idx *(i-1) + z_idx * j + k;
 	    //if(nbr_id_2 < 0|| nbr_id_2 >= num_voxels)
         if(i-1 < 0)
           nbr_id_2 = -1;
-	    int nbr_id_3 = xy_idx *i +y_idx *(j+1) + k;
+	    int nbr_id_3 = yz_idx * i + z_idx * (j+1) + k;
 	    //if(nbr_id_3 < 0|| nbr_id_3 >= num_voxels)
         if(j+1 >= y_idx)
           nbr_id_3 = -1;
-	    int nbr_id_4 = xy_idx *i +y_idx *(j-1) + k;
+	    int nbr_id_4 = yz_idx * i + z_idx * (j-1) + k;
 	    //if(nbr_id_4 < 0|| nbr_id_4 >= num_voxels)
         if(j-1 < 0)
           nbr_id_4 = -1;
-	    int nbr_id_5 = xy_idx *i +y_idx *j + (k+1);
+	    int nbr_id_5 = yz_idx * i + z_idx * j + (k+1);
 	    //if(nbr_id_5 < 0|| nbr_id_5 >= num_voxels)
         if(k+1 >= z_idx)  
           nbr_id_5 = -1;
-	    int nbr_id_6 = xy_idx *i +y_idx *j + (k-1);
+	    int nbr_id_6 = yz_idx *i + z_idx * j + (k-1);
 	    //if(nbr_id_6 < 0|| nbr_id_6 >= num_voxels)
         if(k-1 < 0)  
           nbr_id_6 = -1;
@@ -238,21 +243,21 @@ main (int argc, char** argv)
   */
 
 
-
-  int num_samples = 20000;
-  uint* samples_arr = (uint*)malloc(num_samples* sizeof(uint));
-  device_setup(num_pts, num_voxels, flattenXYZ,flattenRGB,voxel_offset,
+    
+    int num_samples = 20000;
+    uint* samples_arr = (uint*)malloc(num_samples* sizeof(uint));
+    device_setup(num_pts, num_voxels, flattenXYZ,flattenRGB,voxel_offset,
                neighbor_ids,x_idx,y_idx,z_idx,num_samples,samples_arr);
 
 
-  for(int i = 0 ; i < 10; i++){
-    printf("samples_arr[%d] = %d , " , i ,samples_arr[i] );
-  }
+    for(int i = 0 ; i < 10; i++){
+        printf("samples_arr[%d] = %d , " , i ,samples_arr[i] );
+    }
   
 
-// construct resampled point cloud from sample indices:
-  pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc_rs (new pcl::PointCloud<pcl::PointXYZRGB>);
-  //    resamplePC(pc,pc_rs,samples_arr,num_samples);
+    // construct resampled point cloud from sample indices:
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc_rs (new pcl::PointCloud<pcl::PointXYZRGB>);
+    //    resamplePC(pc,pc_rs,samples_arr,num_samples);
   
     pc_rs->width = num_samples;
     pc_rs->height = 1;
@@ -267,40 +272,40 @@ main (int argc, char** argv)
       pc_rs->points[i].b = (uint8_t)floor((flattenRGB[(samples_arr[i]*3)+2] *255.0));
     }
 
-    /* write resampled point cloud pc_rs to pcd file */
+    // write resampled point cloud pc_rs to pcd file 
     pcl::io::savePCDFileASCII ("rs_pcd.pcd", *pc_rs);
     std::cerr << "Saved " << pc_rs->size () << " data points to rs_pcd.pcd." << std::endl;
 
 
-printf("constructed and wrote resampled point cloud \n");
+    printf("constructed and wrote resampled point cloud \n");
+    //
 
+    //           STAGE 2 : SEGMENTATION              //
+    // STEP 3:
+    //   Compute P_n = sum A'_{i,j} for all i in resampled point cloud. A'_{i,j} is another kernel.
 
-  /*********** STAGE 2 : SEGMENTATION *************/
-   // STEP 3:
-   //   Compute P_n = sum A'_{i,j} for all i in resampled point cloud. A'_{i,j} is another kernel.
+    // STEP 4:
+    // Do segmentation procedure for each i and link to highest parent. 
+    //
+    int num_pts_rs = num_samples;
+    float sigma_sq_seg = 0.00005;
+    int numNbrs_seg = 50;
 
-  /* STEP 4:
-     Do segmentation procedure for each i and link to highest parent. 
-   */
-  int num_pts_rs = num_samples;
-  float sigma_sq_seg = 0.00005;
-  int numNbrs_seg = 50;
-
-   //segmentation parameter:
-  float tau = 0.1;
+    //segmentation parameter:
+    float tau = 0.1;
   
-  //print parents:
+    //print parents:
   
-  printf("finished segmentation! \n");
-  //  printf("number of segments: %d \n", num_trees);
+    printf("finished segmentation! \n");
+    //  printf("number of segments: %d \n", num_trees);
+        
 
+    /************* visualize segments: **********/
 
-/************* visualize segments: **********/
+    // construct segmented point cloud:
 
-// construct segmented point cloud:
-
-  pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc_seg (new pcl::PointCloud<pcl::PointXYZRGB>);
-  //constructSegmentedPC(pc_seg,pc_rs,num_pts_rs,parents);
-  return (0);
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc_seg (new pcl::PointCloud<pcl::PointXYZRGB>);
+    //constructSegmentedPC(pc_seg,pc_rs,num_pts_rs,parents);
+    return (0);
 
 }

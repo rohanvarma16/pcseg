@@ -61,14 +61,14 @@ struct GenUnifRands
 
 __global__
 void sampling(float *device_xyz, float *device_rgb, int *device_offset, 
-              int *neighbor_id, int xy_idx, int y_idx, float *imp_wt, 
+              int *neighbor_id, int yz_idx, int z_idx, float *imp_wt, 
               float* pdensity)
 {
   int block_i = blockIdx.x;
   int block_j = blockIdx.y;
   int block_k = blockIdx.z;
 
-  int blockId = xy_idx * block_i + y_idx* block_j + block_k ;
+  int blockId = yz_idx * block_i + z_idx* block_j + block_k ;
   int threadId = threadIdx.x;
   
   if( blockId==0 && threadId==0){
@@ -238,13 +238,13 @@ int device_setup(int num_pts, int num_voxels,   float *flattenXYZ,
   gpuErrchk(cudaMemcpy(device_rgb, flattenRGB, num_pts*3*sizeof(float),cudaMemcpyHostToDevice));
   gpuErrchk(cudaMemcpy(device_neighbor_ids, neighbor_ids, num_voxels*7*sizeof(int),cudaMemcpyHostToDevice));
   
-  int xy_idx = x_idx * y_idx;
+  int yz_idx = y_idx * z_idx;
 
   dim3 gridDim(x_idx,y_idx,z_idx);
   dim3 blockDim(THREADS_PER_BLOCK,1,1);
   
   printf("about to call kernel\n");
-  sampling<<<gridDim,blockDim>>>(device_xyz,device_rgb,device_offset,device_neighbor_ids,xy_idx,y_idx,imp_wt,pdensity);
+  sampling<<<gridDim,blockDim>>>(device_xyz,device_rgb,device_offset,device_neighbor_ids,yz_idx,z_idx,imp_wt,pdensity);
   printf("finished sampling!\n");
   
   cudaDeviceSynchronize();
