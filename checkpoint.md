@@ -3,13 +3,13 @@
 ## Rohan Varma (rohanv)
 
 ### Process Review
-We have finished implementing a CPU version of the parallel downsampling and segmentation blocks. Below are images of the original point cloud with 3 million points, the resampled point cloud with 10000 points and the resulting segementation. 
-We have finished implementing the sampling block in CUDA. Our initial implementation shows significant speedup and we are currently working on the segmentation block. 
+We have finished implementing a CPU version of the parallel downsampling and segmentation blocks.  
+We have finished implementing the sampling block in CUDA. Our initial implementation shows significant speedup and we are currently working on the segmentation block. Below (in order) are images of the original point cloud with 3 million points, the resampled point cloud with 10000 points and the resulting segementation.
 <img src="pc_or.png">
 <img src="pc_rs.png">
 <img src="pc_seg.png">
 ### Goals and Deliverables
-Our goals haven't changed and we believe we are on track to meeting our original deliverable of a fast segmentation of large point clouds. 
+Our goals haven't changed and we believe we are on track to meeting our original deliverable of a framework for fast resampling and segmentation of large point clouds. 
 ### Revised Schedule
 
 |   Time    | What we plan to do | Status |
