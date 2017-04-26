@@ -3,9 +3,13 @@
 ## Rohan Varma (rohanv)
 
 ### Process Review
-
+We have finished implementing a CPU version of the parallel downsampling and segmentation blocks. Below are images of the original point cloud with 3 million points, the resampled point cloud with 10000 points and the resulting segementation. 
+We have finished implementing the sampling block in CUDA. Our initial implementation shows significant speedup and we are currently working on the segmentation block. 
+<img src="pc_or.png">
+<img src="pc_rs.png">
+<img src="pc_seg.png">
 ### Goals and Deliverables
-
+Our goals haven't changed and we believe we are on track to meeting our original deliverable of a fast segmentation of large point clouds. 
 ### Revised Schedule
 
 |   Time    | What we plan to do | Status |
@@ -17,3 +21,7 @@
 | April 27 ~ May 1 | Do further optimizations and testing of CUDA Implementation |  |
 | May 2 ~ May 5 | Compare the CPU and GPU implementations |  |
 | May 6 ~ Parallel Competition Day | Write final report and prepare for presentation   |    |
+
+
+### Resources/Issues
+Due to the large size of the pointclouds we are processing, we have issues with the space limit on the GHC servers. To get around this, we might need to use AWS or an increased disk quota on GHC.
