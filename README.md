@@ -2,8 +2,8 @@
 ## Ardra Singh (ardras)
 ## Rohan Varma (rohanv)
 
-<div style="text-align: center;"><a class="nav"  href="https://rohanvarma16.github.io/pcseg" target="_blank">Checkpoint Report</a>
-
+<style>a.nav { color: #585858; border-radius: 5px; background: #E6E6E6; padding: .2em .7em; text-decoration: none; margin: .5em .5em; display:inline-block; }a.nav:hover { background: #D8D8D8; color: black;}a.nav.selected { background: #D8D8D8; font-weight: bold; }small{color: #5e5e5e; display:block;text-align:center;margin-bottom: 1em;}</style>
+<div style="text-align: center;"><a class="nav"  href="https://rohanvarma16.github.io/pcseg" target="_blank">Checkpoint Report</a></div>
 
 ### Summary
 In our project we intend to implement a framework for segmenting point clouds on GPUs. We plan on modifying algorithms based on sequential implementations to design subsampling and segmentation building blocks such that they are amenable to a fast CUDA implementation. We intend on providing a comparison between a CPU-based implementation and a parallel implementation that runs on a GPU. Since segmentation is a critical first step in many applications that process point clouds, a fast implementation that is still accurate and is amenable to processing consecutive frames of point clouds at a high frame rate is valuable.
