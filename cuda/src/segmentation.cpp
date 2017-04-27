@@ -114,14 +114,16 @@ void constructSegments(pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc, int num_pts, s
   void constructSegmentedPC(pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc_seg,pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc_rs, int num_pts_rs,std::vector<int>& parents){
 
     std::vector<int> clusterids;
+    int counter = 0;
     for(int i = 0; i < num_pts_rs ; i++){
       if (parents[i]==i)
       {
+	counter++;
         clusterids.push_back(i);
       }
     }
 
-    printf("created clusterIDs \n");
+    printf("created clusterIDs,num_clusters: %d, \n",counter);
 
     std::map< int,std::vector<int> > parent_map;
 //construct segments:
@@ -160,7 +162,7 @@ void constructSegments(pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc, int num_pts, s
         red_sum += red;
         count++;
       }
-
+      printf("num_pts in cluster: %d\n", count);
       red_sum =  red_sum/count;
       green_sum =  green_sum/count;
       blue_sum =blue_sum/count;

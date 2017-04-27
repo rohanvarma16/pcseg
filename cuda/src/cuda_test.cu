@@ -20,6 +20,8 @@
 #include <thrust/replace.h>
 #include <thrust/functional.h>
 #include <thrust/sort.h> 
+#include <thrust/gather.h>
+#include <thrust/execution_policy.h>
 #include <iostream> 
 #include <thrust/binary_search.h>
 #include <thrust/random.h>
@@ -58,6 +60,84 @@ struct GenUnifRands
     return uniDist(randEng);
   }
 };
+
+
+__global__
+void segmentation_kernel(float* device_xyz,float* device_rgb,int* device_offset,
+			 int* neighbor_id,float* device_pdens,int yz_idx,
+			 int z_idx,int* parents,float* distances){
+  int block_i = blockIdx.x;
+  int block_j = blockIdx.y;
+  int block_k = blockIdx.z;
+
+  int blockId = yz_idx * block_i + z_idx* block_j + block_k ;
+  int threadId = threadIdx.x;
+
+  if( blockId==0 && threadId==0){
+    printf("hello in kernel! \n");
+  }
+
+  int num_threads = THREADS_PER_BLOCK;
+  int my_num_pts = device_offset[blockId + 1] - device_offset[blockId];
+  float3 nbr_xyz;
+  float3 my_xyz;
+  int my_idx;
+  int nbr_idx;
+  // Iterate over all points in voxel, num_threads points at a time.
+
+
+  for(int i = 0 ; i < my_num_pts ; i+= num_threads){
+
+    if(threadId + i > my_num_pts){
+      return;
+    }
+    my_idx = device_offset[blockId] + i + threadId;
+    //my_idx = 0;
+    my_xyz = *(float3*) &device_xyz[3*my_idx];
+   
+
+    // Iterate over the neighbouring blocks including yourself.
+    float min_distance = 10000000.0;
+    float current_parent = my_idx;
+    
+    for(int j = 0 ; j < 7 ; j++){
+      if(neighbor_id[7*blockId+j] == -1){
+	continue;
+      }
+
+      int nbr_num_pts = device_offset[neighbor_id[7*blockId +j] + 1] - device_offset[neighbor_id[7*blockId + j]];
+      
+      
+      // Iterate over all the points in the neighbouring block.
+      for(int k = 0; k < nbr_num_pts; k++){
+
+	nbr_idx = device_offset[neighbor_id[blockId*7 + j]] + k;
+	//	nbr_idx = 1;
+	nbr_xyz = *(float3*) &device_xyz[3*nbr_idx];
+
+	if(nbr_idx == my_idx){
+	  continue;
+	}
+
+	float xyz_dist =  pow(my_xyz.x - nbr_xyz.x,2.0) + pow((my_xyz.y - nbr_xyz.y),2.0) +
+	  pow((my_xyz.z - nbr_xyz.z),2.0);
+	
+	if(device_pdens[nbr_idx] > device_pdens[my_idx] && xyz_dist < min_distance){
+	  min_distance = xyz_dist;
+	  current_parent = nbr_idx;
+	  printf("I am here!");
+	}
+	
+      }
+
+    }
+      
+        distances[my_idx] = min_distance;
+    parents[my_idx] = current_parent;
+  }
+
+}
+
 
 __global__
 void sampling(float *device_xyz, float *device_rgb, int *device_offset, 
@@ -136,7 +216,8 @@ void sampling(float *device_xyz, float *device_rgb, int *device_offset,
     
         /*if(blockId == 32 && threadId == 0)
         {
-          printf("neighbour block = %d, offset = %d\n", neighbor_id[blockId*7 + j],
+        
+  printf("neighbour block = %d, offset = %d\n", neighbor_id[blockId*7 + j],
                                 3*(device_offset[neighbor_id[blockId*7+j]] + k)); 
           printf("nbr x %f, nbr y %f, nbr z %f\n", nbr_xyz.x, nbr_xyz.y, nbr_xyz.z);
           printf("nbr r %f, nbr g %f, nbr b %f\n", nbr_rgb.x, nbr_rgb.y, nbr_rgb.z);
@@ -204,7 +285,7 @@ inline void gpuAssert(cudaError_t code, const char *file, int line, bool abort=t
 
 int device_setup(int num_pts, int num_voxels,   float *flattenXYZ,
 		 float *flattenRGB, int *voxel_offset, int *neighbor_ids,
-		 int x_idx, int y_idx, int z_idx,int num_samples,uint *sample_arr)
+		 int x_idx, int y_idx, int z_idx,int num_samples,uint *sample_arr,float *pdens)
 {
   printf("HELLO IN DEVICE SETUP!\n");
 
@@ -251,6 +332,7 @@ int device_setup(int num_pts, int num_voxels,   float *flattenXYZ,
   
   thrust::copy(dev_imp_wt.begin(),dev_imp_wt.end(),host_imp_wt.begin());
   thrust::copy(dev_pdensity.begin(),dev_pdensity.end(),host_pdensity.begin());
+
 
   //  gpuErrchk(cudaMemcpy(host_imp_wt,imp_wt,num_pts*sizeof(float),cudaMemcpyDeviceToHost));
   //gpuErrchk(cudaMemcpy(host_pdensity,pdensity,num_pts*sizeof(float),cudaMemcpyDeviceToHost));
@@ -328,12 +410,17 @@ int device_setup(int num_pts, int num_voxels,   float *flattenXYZ,
     }
    
     printf("\n");
-
-
-
     uint* pc_samples = thrust::raw_pointer_cast(h_samples.data());
     //uint* samples_arr = (uint*) malloc(num_samples* sizeof(uint));
     memcpy(sample_arr, pc_samples,num_samples*sizeof(uint));
+    
+    
+    thrust::device_vector<float> dev_pdensity_rs(num_samples);
+    thrust::host_vector<float> host_pdensity_rs(num_samples);
+    thrust::gather(thrust::device,samples.begin(),samples.end(),dev_pdensity.begin(),dev_pdensity_rs.begin());
+    thrust::copy(dev_pdensity_rs.begin(),dev_pdensity_rs.end(),host_pdensity_rs.begin());
+    float* host_pdensity_rs_ptr = thrust::raw_pointer_cast(host_pdensity_rs.data());
+    memcpy(pdens, host_pdensity_rs_ptr,num_samples*sizeof(float));
     
     /*
     for(int i = 0 ; i < 10; i++){
@@ -357,3 +444,70 @@ int device_setup(int num_pts, int num_voxels,   float *flattenXYZ,
 
 
 
+
+
+int segmentation(int num_pts, int num_voxels, float* pdens,  float *flattenXYZ,
+                 float *flattenRGB, int *voxel_offset, int *neighbor_ids,
+                 int x_idx, int y_idx, int z_idx,int* parents_ptr)
+{
+  printf("HELLO IN SEGMENTATION KERNEL!\n");
+
+  float *device_xyz, *device_rgb, *device_pdens;
+  int *device_offset, *device_neighbor_ids;
+
+
+  cudaMalloc(&device_xyz, num_pts*3*sizeof(float));
+  cudaMalloc(&device_rgb, num_pts*3*sizeof(float));
+  cudaMalloc(&device_offset, (num_voxels+1)*sizeof(int));
+  cudaMalloc(&device_neighbor_ids , num_voxels * 7 * sizeof(int));
+  cudaMalloc(&device_pdens, num_pts*sizeof(float));
+
+  thrust::device_vector<int> dev_parents(num_pts);
+  thrust::host_vector<int> host_parents(num_pts);
+  thrust::device_vector<float> dev_distances(num_pts);
+  thrust::host_vector<float> host_distances(num_pts);
+
+  int* parents = thrust::raw_pointer_cast(dev_parents.data());
+  float* distances = thrust::raw_pointer_cast(dev_distances.data());
+  printf("finished mallocing!\n");
+
+  gpuErrchk(cudaMemcpy(device_offset,voxel_offset, (num_voxels+1)*sizeof(int),cudaMemcpyHostToDevice));
+  gpuErrchk(cudaMemcpy(device_xyz, flattenXYZ, num_pts*3*sizeof(float),cudaMemcpyHostToDevice));
+  gpuErrchk(cudaMemcpy(device_rgb, flattenRGB, num_pts*3*sizeof(float),cudaMemcpyHostToDevice));
+  gpuErrchk(cudaMemcpy(device_neighbor_ids, neighbor_ids, num_voxels*7*sizeof(int),cudaMemcpyHostToDevice));
+  gpuErrchk(cudaMemcpy(device_pdens, pdens, num_pts * sizeof(float), cudaMemcpyHostToDevice));
+
+  int yz_idx = y_idx * z_idx;
+  dim3 gridDim(x_idx,y_idx,z_idx);
+  dim3 blockDim(THREADS_PER_BLOCK,1,1);
+
+  printf("about to call kernel\n");
+  segmentation_kernel<<<gridDim,blockDim>>>(device_xyz,device_rgb,device_offset,device_neighbor_ids,device_pdens,yz_idx,z_idx,parents,distances);
+  printf("finished segmentation!\n");
+  
+  int num_gather = 6;
+  thrust::device_vector<int> temp_1(num_pts);
+  thrust::device_vector<int> temp_2(num_pts);
+
+  thrust::copy(dev_parents.begin(),dev_parents.end(),temp_1.begin());
+  for(int i  = 0 ; i < num_gather ; i++){
+    thrust::gather(thrust::device, dev_parents.begin(),dev_parents.end(),temp_1.begin(),temp_2.begin());
+    thrust::copy(temp_2.begin(),temp_2.end(),temp_1.begin());
+    thrust::copy(temp_2.begin(),temp_2.end(),dev_parents.begin());
+  }
+  
+
+  printf("finished tree cutting!\n");
+  thrust::copy(dev_parents.begin(),dev_parents.end(),host_parents.begin());
+   int* host_parents_ptr = thrust::raw_pointer_cast(host_parents.data());
+   memcpy(parents_ptr, host_parents_ptr,num_pts*sizeof(int));
+   
+  for(int i = 0 ; i < 10000 ; i++){
+    printf("parents[%d] = %d \n", i ,host_parents[i]);
+  }
+  
+  
+  printf("DONE!!!!");
+  cudaDeviceSynchronize();
+  return(1);
+}

@@ -1,0 +1,2 @@
+/usr/bin/ar cr libcuda_test.a  CMakeFiles/cuda_test.dir/src/./cuda_test_generated_cuda_test.cu.o CMakeFiles/cuda_test.dir/./cuda_test_intermediate_link.o
+/usr/bin/ranlib libcuda_test.a
