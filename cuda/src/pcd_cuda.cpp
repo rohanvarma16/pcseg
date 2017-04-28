@@ -37,7 +37,7 @@ int loadPC(pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc, std::string filename){
   return (1);
 }
 
-void preprocess_step1(int num_pts, pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc, float x_grid,float y_grid, float z_grid, int& num_voxels,int& x_idx, int& y_idx, int& z_idx, int& yz_idx, std::vector<std::vector<float> >& voxel_pointXYZ, std::vector<std::vector<float> >& voxel_pointRGB){
+void preprocess_step1(int num_pts, pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc, float* pdensity, float x_grid,float y_grid, float z_grid, int& num_voxels,int& x_idx, int& y_idx, int& z_idx, int& yz_idx, std::vector<std::vector<float> >& voxel_pointXYZ, std::vector<std::vector<float> >& voxel_pointRGB,std::vector<std::vector<float> >& voxel_pdensity){
 
   //  int num_pts = pc->size();
   //  num_pts = 1000000;
@@ -78,10 +78,6 @@ void preprocess_step1(int num_pts, pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc, fl
   float y_range = max_y - min_y;
   float z_range = max_z - min_z;
 
-  //float max_xyz = std::max(max_x-min_x,max_y-min_y);
-  //max_xyz = std::max(max_xyz, max_z-min_z);
-  //printf(" = %f\n", max_xyz);
-
   printf("x_range = %f, y_range = %f, z_range = %f\n", x_range, y_range, z_range);
 
    x_idx = std::max(1.0, ceil(x_range/x_grid));
@@ -101,6 +97,7 @@ void preprocess_step1(int num_pts, pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc, fl
   for(int i = 0 ; i < num_voxels ; i++){
     voxel_pointXYZ.push_back(std::vector<float>());
     voxel_pointRGB.push_back(std::vector<float>());
+    voxel_pdensity.push_back(std::vector<float>());
   }
 
   for(int i = 0 ; i < num_pts ; i++){
@@ -122,13 +119,16 @@ void preprocess_step1(int num_pts, pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc, fl
       voxel_pointRGB[voxel_id].push_back(float(pc->points[i].r)/255.0);
       voxel_pointRGB[voxel_id].push_back(float(pc->points[i].g)/255.0);
       voxel_pointRGB[voxel_id].push_back(float(pc->points[i].b)/255.0);
+      voxel_pdensity[voxel_id].push_back(pdensity[i]);
     }
   }
 }
 
 
 
-void preprocess_step2(std::vector<std::vector<float> >& voxel_pointXYZ,std::vector<std::vector<float> >& voxel_pointRGB,int x_idx,int y_idx,int z_idx,int yz_idx,int num_voxels,float* flattenXYZ,float* flattenRGB,int* voxel_offset,int* neighbor_ids){
+void preprocess_step2(std::vector<std::vector<float> >& voxel_pointXYZ,std::vector<std::vector<float> >& voxel_pointRGB,
+		      std::vector<std::vector<float> >& voxel_pdensity, int x_idx,int y_idx,int z_idx,int yz_idx,int num_voxels,
+		      float* flattenXYZ,float* flattenRGB,float* pdensity_new,int* voxel_offset,int* neighbor_ids){
 
   int offset_rs = 0;
   for (int i = 0 ; i < num_voxels ; i++){
@@ -142,6 +142,7 @@ void preprocess_step2(std::vector<std::vector<float> >& voxel_pointXYZ,std::vect
   for(int i = 0 ; i < num_voxels ; i++){
     std::copy(voxel_pointXYZ[i].begin(),voxel_pointXYZ[i].end(),flattenXYZ+(3*voxel_offset[i]));
     std::copy(voxel_pointRGB[i].begin(),voxel_pointRGB[i].end(),flattenRGB+(3*voxel_offset[i]));
+    std::copy(voxel_pdensity[i].begin(),voxel_pdensity[i].end(),pdensity_new + voxel_offset[i]);
   }
 
 
@@ -213,10 +214,10 @@ main (int argc, char** argv)
 	      << std::endl;
   }
   int num_pts = pc->size();
-  num_pts = 300000;
-  float x_grid = 0.1;
-  float y_grid = 0.1;
-  float z_grid = 0.1;
+  num_pts = 2000000;
+  float x_grid = 0.02;
+  float y_grid = 0.02;
+  float z_grid = 0.02;
   int x_idx;
   int y_idx;
   int z_idx;
@@ -224,7 +225,10 @@ main (int argc, char** argv)
   int num_voxels;
   std::vector<std::vector<float> > voxel_pointXYZ;
   std::vector<std::vector<float> > voxel_pointRGB;
-  preprocess_step1(num_pts,pc,x_grid,y_grid,z_grid,num_voxels,x_idx,y_idx,z_idx,yz_idx,voxel_pointXYZ,voxel_pointRGB);
+  std::vector<std::vector<float> > voxel_pdensity_1;
+  float* pdensity_dummy = new float[num_pts]();
+  float* pdensity_dummy2 = new float[num_pts]();
+  preprocess_step1(num_pts,pc,pdensity_dummy,x_grid,y_grid,z_grid,num_voxels,x_idx,y_idx,z_idx,yz_idx,voxel_pointXYZ,voxel_pointRGB,voxel_pdensity_1);
 
   //device_setup(num_pts, num_voxels, flattenXYZ,flattenRGB,voxel_offset,
   //               neighbor_ids,x_idx,y_idx,z_idx,num_samples,samples_arr);
@@ -233,7 +237,7 @@ main (int argc, char** argv)
   int* voxel_offset = (int*) malloc( sizeof(int) * (num_voxels+1));
   int* neighbor_ids = (int*) malloc(sizeof(int) * 7 * num_voxels);
 
-  preprocess_step2(voxel_pointXYZ,voxel_pointRGB,x_idx,y_idx,z_idx,yz_idx,num_voxels,flattenXYZ,flattenRGB,voxel_offset,neighbor_ids);
+  preprocess_step2(voxel_pointXYZ,voxel_pointRGB,voxel_pdensity_1,x_idx,y_idx,z_idx,yz_idx,num_voxels,flattenXYZ,flattenRGB,pdensity_dummy2,voxel_offset,neighbor_ids);
 
   
   /************* STAGE 1 : SAMPLING ************/
@@ -247,10 +251,10 @@ main (int argc, char** argv)
   /* STEP 2:
      Randomly Sample K points according to weights , and construct new resampled pointcloud.
   */
-    int num_samples = 20000;
+    int num_samples = 100000;
     uint* samples_arr = (uint*)malloc(num_samples* sizeof(uint));
     float* pdens = (float*) malloc(num_samples * sizeof(float));
-
+    
     device_setup(num_pts, num_voxels, flattenXYZ,flattenRGB,voxel_offset,
 		 neighbor_ids,x_idx,y_idx,z_idx,num_samples,samples_arr,pdens);
 
@@ -273,13 +277,14 @@ main (int argc, char** argv)
     pc_rs->height = 1;
     pc_rs->points.resize(pc_rs->height * pc_rs->width);
 
+
     for (int i =0 ; i < num_samples ;i++){
       pc_rs->points[i].x = flattenXYZ[samples_arr[i]*3];
       pc_rs->points[i].y = flattenXYZ[(3*samples_arr[i])+1];
       pc_rs->points[i].z = flattenXYZ[(3*samples_arr[i])+2];
       pc_rs->points[i].r = (uint8_t)floor((flattenRGB[samples_arr[i]*3] * 255.0));
       pc_rs->points[i].g = (uint8_t)floor((flattenRGB[(samples_arr[i]*3)+1] *255.0));
-      pc_rs->points[i].b = (uint8_t)floor((flattenRGB[(samples_arr[i]*3)+2] *255.0));
+      pc_rs->points[i].b = (uint8_t)floor((flattenRGB[(samples_arr[i]*3)+2] *255.0));  
     }
 
     // write resampled point cloud pc_rs to pcd file 
@@ -307,21 +312,25 @@ main (int argc, char** argv)
     int num_voxels_rs;
     std::vector<std::vector<float> > voxel_pointXYZ_rs;
     std::vector<std::vector<float> > voxel_pointRGB_rs;
-    preprocess_step1(num_pts_rs,pc_rs,x_grid_rs,y_grid_rs,z_grid_rs,num_voxels_rs,x_idx_rs,y_idx_rs,z_idx_rs,yz_idx_rs,voxel_pointXYZ_rs,voxel_pointRGB_rs);
+    std::vector<std::vector<float> > voxel_pdensity_rs;
+
+    
+    preprocess_step1(num_pts_rs,pc_rs,pdens,x_grid_rs,y_grid_rs,z_grid_rs,num_voxels_rs,x_idx_rs,y_idx_rs,z_idx_rs,yz_idx_rs,voxel_pointXYZ_rs,voxel_pointRGB_rs,voxel_pdensity_rs);
     printf("finished step1\n");
 
     float* flattenXYZ_rs = (float*) malloc(num_pts_rs * 3 * sizeof(float));
     float* flattenRGB_rs = (float*) malloc(num_pts_rs * 3 * sizeof(float));
+    float* pdens_new = (float*) malloc(num_pts_rs * sizeof(float));
     int* voxel_offset_rs = (int*) malloc( sizeof(int) * (num_voxels_rs+1));
     int* neighbor_ids_rs = (int*) malloc(sizeof(int) * 7 * num_voxels_rs);
     int* parents = (int*) malloc(num_pts_rs * sizeof(int));
-    preprocess_step2(voxel_pointXYZ_rs,voxel_pointRGB_rs,x_idx_rs,y_idx_rs,z_idx_rs,yz_idx_rs,num_voxels_rs,flattenXYZ_rs,flattenRGB_rs,voxel_offset_rs,neighbor_ids_rs);
+    preprocess_step2(voxel_pointXYZ_rs,voxel_pointRGB_rs,voxel_pdensity_rs,x_idx_rs,y_idx_rs,z_idx_rs,yz_idx_rs,num_voxels_rs,flattenXYZ_rs,flattenRGB_rs,pdens_new,voxel_offset_rs,neighbor_ids_rs);
     printf("finished step2\n");
     //segmentation parameter:
     float tau = 0.1;  
     //print parents:
     
-    segmentation(num_pts_rs, num_voxels_rs,pdens, flattenXYZ_rs,flattenRGB_rs,voxel_offset_rs,
+    segmentation(num_pts_rs, num_voxels_rs,pdens_new, flattenXYZ_rs,flattenRGB_rs,voxel_offset_rs,
 			neighbor_ids_rs,x_idx_rs,y_idx_rs,z_idx_rs,parents);
 
     printf("finished segmentation!,back to main \n");
@@ -338,7 +347,7 @@ main (int argc, char** argv)
     std::copy(parents, parents+num_pts_rs,parents_vec.begin()); 
 
     pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc_seg (new pcl::PointCloud<pcl::PointXYZRGB>);
-    constructSegmentedPC(pc_seg,pc_rs,num_pts_rs,parents_vec);
+    constructSegmentedPC(pc_seg,pc_rs,num_pts_rs,parents_vec,flattenXYZ_rs,flattenRGB_rs);
     // write segmented point cloud pc_rs to pcd file
     pcl::io::savePCDFileASCII ("seg_pcd.pcd", *pc_seg);
     std::cerr << "Saved " << pc_seg->size() << " data points to seg_pcd.pcd." << std::endl;

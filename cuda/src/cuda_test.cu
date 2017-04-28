@@ -125,7 +125,7 @@ void segmentation_kernel(float* device_xyz,float* device_rgb,int* device_offset,
 	if(device_pdens[nbr_idx] > device_pdens[my_idx] && xyz_dist < min_distance){
 	  min_distance = xyz_dist;
 	  current_parent = nbr_idx;
-	  printf("I am here!");
+	  //	  printf("I am here!");
 	}
 	
       }
@@ -502,7 +502,7 @@ int segmentation(int num_pts, int num_voxels, float* pdens,  float *flattenXYZ,
    int* host_parents_ptr = thrust::raw_pointer_cast(host_parents.data());
    memcpy(parents_ptr, host_parents_ptr,num_pts*sizeof(int));
    
-  for(int i = 0 ; i < 10000 ; i++){
+  for(int i = 0 ; i < 5 ; i++){
     printf("parents[%d] = %d \n", i ,host_parents[i]);
   }
   
