@@ -28,5 +28,5 @@ link_directories(${PCL_LIBRARY_DIRS})
 add_definitions(${PCL_DEFINITIONS})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "../bin/")
 add_executable(pcd_cuda src/segmentation.cpp src/sampling.cpp src/helper.hpp src/pcd_cuda.cpp)
-target_link_libraries(pcd_cuda cuda_test ${PCL_COMMON_LIBRARIES} ${PCL_IO_LIBRARIES} ${PCL_LIBRARIES})
+target_link_libraries(pcd_cuda cuda_test ${CUDA_LIBRARIES} ${PCL_COMMON_LIBRARIES} ${PCL_IO_LIBRARIES} ${PCL_LIBRARIES})
 
