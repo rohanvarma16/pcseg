@@ -1,0 +1,158 @@
+#include <iostream>
+#include <stdio.h>
+#include <pcl/io/pcd_io.h>
+#include <pcl/point_types.h>
+#include <pcl/common/common_headers.h>
+#include <pcl/visualization/pcl_visualizer.h>
+#include <pcl/kdtree/kdtree_flann.h>
+#include <pcl/console/parse.h>
+#include <pcl/filters/voxel_grid.h>
+
+#include <algorithm>
+#include <functional>
+#include <math.h>       /* pow */
+#include <cstdlib>
+#include <string>
+#include <map>
+#include "../include/viz.h"
+#include "../include/helper.h"
+#include "../include/sampling.h"
+#include "../include/segmentation.h"
+#include "../include/voxel.h"
+
+// Types
+typedef pcl::PointXYZRGB PointT;
+
+
+int loadPC(pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc, std::string filename){
+
+  if (pcl::io::loadPCDFile<pcl::PointXYZRGB> (filename, *pc) == -1) //* load the file
+  {
+    PCL_ERROR ("Couldn't read file test_pcd.pcd \n");
+    return (-1);
+  }
+  return (1);
+}
+
+int
+main (int argc, char** argv)
+{ 
+
+  /************************** STAGE 0: INITIALIZATION ****************************************/
+
+  printf("reading point cloud file! \n");
+  //  std::string filename("/Users/rohan/Dropbox/Work/workspace/pointcloud/data/rgbd-scenes_aligned/kitchen_small/kitchen_small_1/kitchen_small_1.pcd");
+//  std::string filename("/Users/rohan/Dropbox/Work/workspace/pointcloud/data/sample.pcd");
+
+ std::string filename("/Users/rohan/Dropbox/Work/workspace/pointcloud/data/seg_pcd.pcd");
+
+  pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc (new pcl::PointCloud<pcl::PointXYZRGB>);
+
+  if(loadPC(pc,filename)){
+    std::cout << "Loaded "
+    << pc->width * pc->height
+    << " data points from kitchen_small_1.pcd"
+    << std::endl;
+  }
+
+  int bool_viz_or = 1;
+  int bool_viz_rs = 1;
+  
+  if(bool_viz_or){
+    printf("visualization of original point cloud! \n");
+    pc_viz(pc);
+  }
+  return;
+  /************* STAGE 1 : SAMPLING ************/
+
+  /* STEP 1:
+     For all i, points:
+     In single step, compute (iterative sum/reduction) for all j neighbors of i, A_i,j * x_j, and sum. then || x_i - sum || is weight
+     A_i,j is a kernel: RBF/Gaussian/Epachanikov. Store in importance vector. Normalize.
+     Simultaneously compute density. (can do this later since only need this for sampled points)
+  */
+  // tuning_parameters
+  float sigma_sq = 0.5;
+  int numNbrs = 50;
+
+  int num_pts = pc->size();
+    // compute importance weights
+  std::vector<float> imp_wt(num_pts,0.0);
+  computeWeights(pc, num_pts, sigma_sq, numNbrs,imp_wt);
+  printf("computed weights\n");
+
+  // for (int i = 0; i < num_pts; ++i)
+  // {
+  //   printf("imp_wt[%d]= %f \n",i,imp_wt[i]);
+  // }
+
+  /* STEP 2:
+     Randomly Sample K points according to weights , and construct new resampled pointcloud.
+   */
+
+// get sample indices
+  int total_samples = 20000;
+  std::vector<int> sampleIdx = weightedRandomSample(imp_wt,num_pts,total_samples);
+  printf("randomly sampled %d points \n" ,total_samples);
+
+// construct resampled point cloud from sample indices:
+  pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc_rs (new pcl::PointCloud<pcl::PointXYZRGB>);
+  resamplePC(pc,pc_rs,sampleIdx,total_samples);
+  printf("constructed resampled point cloud \n");
+
+  printf("visualization of resampled point cloud!\n");
+  if(bool_viz_rs){
+    pc_viz(pc_rs);
+  }
+
+  /*********** STAGE 2 : SEGMENTATION *************/
+   // STEP 3:
+   //   Compute P_n = sum A'_{i,j} for all i in resampled point cloud. A'_{i,j} is another kernel.
+
+  /* STEP 4:
+     Do segmentation procedure for each i and link to highest parent. 
+   */
+  int num_pts_rs = total_samples;
+  float sigma_sq_seg = 0.00005;
+  int numNbrs_seg = 50;
+
+  std::vector<float> p_density(num_pts_rs,0.0);
+  segmentation_computeDensity(pc_rs,num_pts_rs,sigma_sq_seg,numNbrs_seg,p_density);
+    printf("computed density \n");
+
+  std::vector<int> parents(num_pts_rs,0);
+  std::vector<float> distances(num_pts_rs,0.0);
+
+ //segmentation parameter:
+  float tau = 0.1;
+  segmentation_linkNeighbors(pc_rs,num_pts_rs, tau, p_density, parents,distances);
+  constructSegments(pc_rs,num_pts_rs,parents,distances);
+
+  //print parents:
+  int num_trees = 0;
+  for (int i =0 ; i<num_pts_rs; i++){
+    //printf("i:%d , parent:%d \n",i,parents[i]);
+    if(parents[i]==i){
+      num_trees++;
+    }
+  }
+  printf("finished segmentation! \n");
+  printf("number of segments: %d \n", num_trees);
+
+
+/************* visualize segments: **********/
+
+// construct segmented point cloud:
+
+  pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc_seg (new pcl::PointCloud<pcl::PointXYZRGB>);
+  constructSegmentedPC(pc_seg,pc_rs,num_pts_rs,parents);
+
+  int bool_viz_seg = 1;
+  printf("visualization of segmented point cloud!\n");
+  if(bool_viz_seg){
+    pc_viz(pc_seg);
+  }
+
+  return (0);
+
+}
