@@ -52,19 +52,42 @@ include CMakeFiles/pcd_cuda.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/pcd_cuda.dir/flags.make
 
+CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.o: CMakeFiles/pcd_cuda.dir/flags.make
+CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.o: ../src/preprocess.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.o -c /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/src/preprocess.cpp
+
+CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/src/preprocess.cpp > CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.i
+
+CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/src/preprocess.cpp -o CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.s
+
+CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.o.requires:
+.PHONY : CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.o.requires
+
+CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.o.provides: CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.o.requires
+	$(MAKE) -f CMakeFiles/pcd_cuda.dir/build.make CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.o.provides.build
+.PHONY : CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.o.provides
+
+CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.o.provides.build: CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.o
+
 CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.o: CMakeFiles/pcd_cuda.dir/flags.make
 CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.o: ../src/segmentation.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.o"
-	/usr/lib64/ccache/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.o -c /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/src/segmentation.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.o -c /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/src/segmentation.cpp
 
 CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.i"
-	/usr/lib64/ccache/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/src/segmentation.cpp > CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/src/segmentation.cpp > CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.i
 
 CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.s"
-	/usr/lib64/ccache/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/src/segmentation.cpp -o CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/src/segmentation.cpp -o CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.s
 
 CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.o.requires:
 .PHONY : CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.o.requires
@@ -75,42 +98,19 @@ CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.o.provides: CMakeFiles/pcd_cuda.dir
 
 CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.o.provides.build: CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.o
 
-CMakeFiles/pcd_cuda.dir/src/sampling.cpp.o: CMakeFiles/pcd_cuda.dir/flags.make
-CMakeFiles/pcd_cuda.dir/src/sampling.cpp.o: ../src/sampling.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles $(CMAKE_PROGRESS_2)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/pcd_cuda.dir/src/sampling.cpp.o"
-	/usr/lib64/ccache/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/pcd_cuda.dir/src/sampling.cpp.o -c /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/src/sampling.cpp
-
-CMakeFiles/pcd_cuda.dir/src/sampling.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pcd_cuda.dir/src/sampling.cpp.i"
-	/usr/lib64/ccache/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/src/sampling.cpp > CMakeFiles/pcd_cuda.dir/src/sampling.cpp.i
-
-CMakeFiles/pcd_cuda.dir/src/sampling.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pcd_cuda.dir/src/sampling.cpp.s"
-	/usr/lib64/ccache/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/src/sampling.cpp -o CMakeFiles/pcd_cuda.dir/src/sampling.cpp.s
-
-CMakeFiles/pcd_cuda.dir/src/sampling.cpp.o.requires:
-.PHONY : CMakeFiles/pcd_cuda.dir/src/sampling.cpp.o.requires
-
-CMakeFiles/pcd_cuda.dir/src/sampling.cpp.o.provides: CMakeFiles/pcd_cuda.dir/src/sampling.cpp.o.requires
-	$(MAKE) -f CMakeFiles/pcd_cuda.dir/build.make CMakeFiles/pcd_cuda.dir/src/sampling.cpp.o.provides.build
-.PHONY : CMakeFiles/pcd_cuda.dir/src/sampling.cpp.o.provides
-
-CMakeFiles/pcd_cuda.dir/src/sampling.cpp.o.provides.build: CMakeFiles/pcd_cuda.dir/src/sampling.cpp.o
-
 CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.o: CMakeFiles/pcd_cuda.dir/flags.make
 CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.o: ../src/pcd_cuda.cpp
 	$(CMAKE_COMMAND) -E cmake_progress_report /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.o"
-	/usr/lib64/ccache/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.o -c /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/src/pcd_cuda.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.o -c /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/src/pcd_cuda.cpp
 
 CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.i"
-	/usr/lib64/ccache/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/src/pcd_cuda.cpp > CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/src/pcd_cuda.cpp > CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.i
 
 CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.s"
-	/usr/lib64/ccache/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/src/pcd_cuda.cpp -o CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/src/pcd_cuda.cpp -o CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.s
 
 CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.o.requires:
 .PHONY : CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.o.requires
@@ -123,18 +123,18 @@ CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.o.provides.build: CMakeFiles/pcd_cuda.d
 
 # Object files for target pcd_cuda
 pcd_cuda_OBJECTS = \
+"CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.o" \
 "CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.o" \
-"CMakeFiles/pcd_cuda.dir/src/sampling.cpp.o" \
 "CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.o"
 
 # External object files for target pcd_cuda
 pcd_cuda_EXTERNAL_OBJECTS =
 
+../bin/pcd_cuda: CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.o
 ../bin/pcd_cuda: CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.o
-../bin/pcd_cuda: CMakeFiles/pcd_cuda.dir/src/sampling.cpp.o
 ../bin/pcd_cuda: CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.o
 ../bin/pcd_cuda: CMakeFiles/pcd_cuda.dir/build.make
-../bin/pcd_cuda: libcuda_test.a
+../bin/pcd_cuda: libcuda_methods_lib.a
 ../bin/pcd_cuda: /usr/local/cuda/lib64/libcudart.so
 ../bin/pcd_cuda: /usr/lib64/libboost_system-mt.so
 ../bin/pcd_cuda: /usr/lib64/libboost_filesystem-mt.so
@@ -598,8 +598,8 @@ pcd_cuda_EXTERNAL_OBJECTS =
 CMakeFiles/pcd_cuda.dir/build: ../bin/pcd_cuda
 .PHONY : CMakeFiles/pcd_cuda.dir/build
 
+CMakeFiles/pcd_cuda.dir/requires: CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.o.requires
 CMakeFiles/pcd_cuda.dir/requires: CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.o.requires
-CMakeFiles/pcd_cuda.dir/requires: CMakeFiles/pcd_cuda.dir/src/sampling.cpp.o.requires
 CMakeFiles/pcd_cuda.dir/requires: CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.o.requires
 .PHONY : CMakeFiles/pcd_cuda.dir/requires
 

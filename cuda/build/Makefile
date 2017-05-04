@@ -102,17 +102,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named cuda_test
+# Target rules for targets named cuda_methods_lib
 
 # Build rule for target.
-cuda_test: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 cuda_test
-.PHONY : cuda_test
+cuda_methods_lib: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 cuda_methods_lib
+.PHONY : cuda_methods_lib
 
 # fast build rule for target.
-cuda_test/fast:
-	$(MAKE) -f CMakeFiles/cuda_test.dir/build.make CMakeFiles/cuda_test.dir/build
-.PHONY : cuda_test/fast
+cuda_methods_lib/fast:
+	$(MAKE) -f CMakeFiles/cuda_methods_lib.dir/build.make CMakeFiles/cuda_methods_lib.dir/build
+.PHONY : cuda_methods_lib/fast
 
 #=============================================================================
 # Target rules for targets named pcd_cuda
@@ -151,29 +151,29 @@ src/pcd_cuda.cpp.s:
 	$(MAKE) -f CMakeFiles/pcd_cuda.dir/build.make CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.s
 .PHONY : src/pcd_cuda.cpp.s
 
-src/sampling.o: src/sampling.cpp.o
-.PHONY : src/sampling.o
+src/preprocess.o: src/preprocess.cpp.o
+.PHONY : src/preprocess.o
 
 # target to build an object file
-src/sampling.cpp.o:
-	$(MAKE) -f CMakeFiles/pcd_cuda.dir/build.make CMakeFiles/pcd_cuda.dir/src/sampling.cpp.o
-.PHONY : src/sampling.cpp.o
+src/preprocess.cpp.o:
+	$(MAKE) -f CMakeFiles/pcd_cuda.dir/build.make CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.o
+.PHONY : src/preprocess.cpp.o
 
-src/sampling.i: src/sampling.cpp.i
-.PHONY : src/sampling.i
+src/preprocess.i: src/preprocess.cpp.i
+.PHONY : src/preprocess.i
 
 # target to preprocess a source file
-src/sampling.cpp.i:
-	$(MAKE) -f CMakeFiles/pcd_cuda.dir/build.make CMakeFiles/pcd_cuda.dir/src/sampling.cpp.i
-.PHONY : src/sampling.cpp.i
+src/preprocess.cpp.i:
+	$(MAKE) -f CMakeFiles/pcd_cuda.dir/build.make CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.i
+.PHONY : src/preprocess.cpp.i
 
-src/sampling.s: src/sampling.cpp.s
-.PHONY : src/sampling.s
+src/preprocess.s: src/preprocess.cpp.s
+.PHONY : src/preprocess.s
 
 # target to generate assembly for a file
-src/sampling.cpp.s:
-	$(MAKE) -f CMakeFiles/pcd_cuda.dir/build.make CMakeFiles/pcd_cuda.dir/src/sampling.cpp.s
-.PHONY : src/sampling.cpp.s
+src/preprocess.cpp.s:
+	$(MAKE) -f CMakeFiles/pcd_cuda.dir/build.make CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.s
+.PHONY : src/preprocess.cpp.s
 
 src/segmentation.o: src/segmentation.cpp.o
 .PHONY : src/segmentation.o
@@ -205,16 +205,16 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... cuda_test"
+	@echo "... cuda_methods_lib"
 	@echo "... edit_cache"
 	@echo "... pcd_cuda"
 	@echo "... rebuild_cache"
 	@echo "... src/pcd_cuda.o"
 	@echo "... src/pcd_cuda.i"
 	@echo "... src/pcd_cuda.s"
-	@echo "... src/sampling.o"
-	@echo "... src/sampling.i"
-	@echo "... src/sampling.s"
+	@echo "... src/preprocess.o"
+	@echo "... src/preprocess.i"
+	@echo "... src/preprocess.s"
 	@echo "... src/segmentation.o"
 	@echo "... src/segmentation.i"
 	@echo "... src/segmentation.s"

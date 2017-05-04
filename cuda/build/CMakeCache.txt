@@ -67,7 +67,7 @@ CMAKE_BUILD_TYPE:STRING=
 CMAKE_COLOR_MAKEFILE:BOOL=ON
 
 //CXX compiler.
-CMAKE_CXX_COMPILER:FILEPATH=/usr/lib64/ccache/c++
+CMAKE_CXX_COMPILER:FILEPATH=/usr/bin/c++
 
 //Flags used by the compiler during all build types.
 CMAKE_CXX_FLAGS:STRING=
@@ -87,7 +87,7 @@ CMAKE_CXX_FLAGS_RELEASE:STRING=-O3 -DNDEBUG
 CMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG
 
 //C compiler.
-CMAKE_C_COMPILER:FILEPATH=/usr/lib64/ccache/cc
+CMAKE_C_COMPILER:FILEPATH=/usr/bin/cc
 
 //Flags used by the compiler during all build types.
 CMAKE_C_FLAGS:STRING=
@@ -224,7 +224,7 @@ CUDA_GENERATED_OUTPUT_DIR:PATH=
 CUDA_HOST_COMPILATION_CPP:BOOL=ON
 
 //Host side compiler used by NVCC
-CUDA_HOST_COMPILER:FILEPATH=/usr/lib64/ccache/cc
+CUDA_HOST_COMPILER:FILEPATH=/usr/bin/cc
 
 //Path to a program.
 CUDA_NVCC_EXECUTABLE:FILEPATH=/usr/local/cuda/bin/nvcc
@@ -390,7 +390,7 @@ PCL_OCTREE_LIBRARY_DEBUG:FILEPATH=/afs/andrew.cmu.edu/usr18/rohanv/install_dir/p
 PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/bin/pkg-config
 
 //Dependencies for the target
-cuda_test_LIB_DEPENDS:STATIC=general;/usr/local/cuda/lib64/libcudart.so;
+cuda_methods_lib_LIB_DEPENDS:STATIC=general;/usr/local/cuda/lib64/libcudart.so;
 
 //Value Computed by CMake
 pcl_seg_BINARY_DIR:STATIC=/afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build
@@ -554,7 +554,7 @@ CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 CUDA_64_BIT_DEVICE_CODE-ADVANCED:INTERNAL=1
 //List of intermediate files that are part of the cuda dependency
 // scanning.
-CUDA_ADDITIONAL_CLEAN_FILES:INTERNAL=/afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles/cuda_compile.dir/src/cuda_compile_generated_cuda_test.cu.o.depend;/afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles/cuda_test.dir/src/cuda_test_generated_cuda_test.cu.o.depend
+CUDA_ADDITIONAL_CLEAN_FILES:INTERNAL=/afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles/cuda_compile.dir/src/cuda_compile_generated_cuda_methods.cu.o.depend;/afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles/cuda_methods_lib.dir/src/cuda_methods_lib_generated_cuda_methods.cu.o.depend
 //ADVANCED property for variable: CUDA_ATTACH_VS_BUILD_RULE_TO_CUDA_FILE
 CUDA_ATTACH_VS_BUILD_RULE_TO_CUDA_FILE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CUDA_CUDART_LIBRARY

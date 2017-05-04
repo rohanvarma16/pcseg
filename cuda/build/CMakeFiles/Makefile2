@@ -56,45 +56,45 @@ CMAKE_SOURCE_DIR = /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda
 CMAKE_BINARY_DIR = /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build
 
 #=============================================================================
-# Target rules for target CMakeFiles/cuda_test.dir
+# Target rules for target CMakeFiles/cuda_methods_lib.dir
 
 # All Build rule for target.
-CMakeFiles/cuda_test.dir/all:
-	$(MAKE) -f CMakeFiles/cuda_test.dir/build.make CMakeFiles/cuda_test.dir/depend
-	$(MAKE) -f CMakeFiles/cuda_test.dir/build.make CMakeFiles/cuda_test.dir/build
+CMakeFiles/cuda_methods_lib.dir/all:
+	$(MAKE) -f CMakeFiles/cuda_methods_lib.dir/build.make CMakeFiles/cuda_methods_lib.dir/depend
+	$(MAKE) -f CMakeFiles/cuda_methods_lib.dir/build.make CMakeFiles/cuda_methods_lib.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles  1 2 3
-	@echo "Built target cuda_test"
-.PHONY : CMakeFiles/cuda_test.dir/all
+	@echo "Built target cuda_methods_lib"
+.PHONY : CMakeFiles/cuda_methods_lib.dir/all
 
 # Include target in all.
-all: CMakeFiles/cuda_test.dir/all
+all: CMakeFiles/cuda_methods_lib.dir/all
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/cuda_test.dir/rule: cmake_check_build_system
+CMakeFiles/cuda_methods_lib.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles 3
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/cuda_test.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/cuda_methods_lib.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles 0
-.PHONY : CMakeFiles/cuda_test.dir/rule
+.PHONY : CMakeFiles/cuda_methods_lib.dir/rule
 
 # Convenience name for target.
-cuda_test: CMakeFiles/cuda_test.dir/rule
-.PHONY : cuda_test
+cuda_methods_lib: CMakeFiles/cuda_methods_lib.dir/rule
+.PHONY : cuda_methods_lib
 
 # clean rule for target.
-CMakeFiles/cuda_test.dir/clean:
-	$(MAKE) -f CMakeFiles/cuda_test.dir/build.make CMakeFiles/cuda_test.dir/clean
-.PHONY : CMakeFiles/cuda_test.dir/clean
+CMakeFiles/cuda_methods_lib.dir/clean:
+	$(MAKE) -f CMakeFiles/cuda_methods_lib.dir/build.make CMakeFiles/cuda_methods_lib.dir/clean
+.PHONY : CMakeFiles/cuda_methods_lib.dir/clean
 
 # clean rule for target.
-clean: CMakeFiles/cuda_test.dir/clean
+clean: CMakeFiles/cuda_methods_lib.dir/clean
 .PHONY : clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/pcd_cuda.dir
 
 # All Build rule for target.
-CMakeFiles/pcd_cuda.dir/all: CMakeFiles/cuda_test.dir/all
+CMakeFiles/pcd_cuda.dir/all: CMakeFiles/cuda_methods_lib.dir/all
 	$(MAKE) -f CMakeFiles/pcd_cuda.dir/build.make CMakeFiles/pcd_cuda.dir/depend
 	$(MAKE) -f CMakeFiles/pcd_cuda.dir/build.make CMakeFiles/pcd_cuda.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles  4 5 6

@@ -1,0 +1,2 @@
+/usr/bin/ar cr libcuda_methods_lib.a  CMakeFiles/cuda_methods_lib.dir/src/./cuda_methods_lib_generated_cuda_methods.cu.o CMakeFiles/cuda_methods_lib.dir/./cuda_methods_lib_intermediate_link.o
+/usr/bin/ranlib libcuda_methods_lib.a
