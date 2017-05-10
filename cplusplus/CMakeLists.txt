@@ -1,11 +1,12 @@
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
 project(pcl_seg)
 
-set(PCL_DIR "/afs/cs/academic/class/15418-s17/public/sw/pcl/build/")
-find_package(PCL 1.3 REQUIRED COMPONENTS common io visualization kdtree segmentation filters)
+set(CMAKE_PREFIX_PATH "~/install_dir/pcl/")
+find_package(PCL 1.3 REQUIRED COMPONENTS common io kdtree)
 include_directories(${PCL_INCLUDE_DIRS})
 link_directories(${PCL_LIBRARY_DIRS})
 add_definitions(${PCL_DEFINITIONS})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "../bin/")
-add_executable(pcd_main src/segmentation.cpp src/sampling.cpp src/helper.hpp src/viz.cpp  src/pcd_main.cpp)
+
+add_executable(pcd_main src/segmentation.cpp src/sampling.cpp src/helper.hpp src/pcd_main.cpp)
 target_link_libraries(pcd_main ${PCL_COMMON_LIBRARIES} ${PCL_IO_LIBRARIES} ${PCL_LIBRARIES})

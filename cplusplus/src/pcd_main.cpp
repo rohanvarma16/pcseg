@@ -1,13 +1,14 @@
 #include <iostream>
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include <pcl/io/pcd_io.h>
 #include <pcl/point_types.h>
 #include <pcl/common/common_headers.h>
 #include <pcl/visualization/pcl_visualizer.h>
 #include <pcl/kdtree/kdtree_flann.h>
 #include <pcl/console/parse.h>
-#include <pcl/segmentation/supervoxel_clustering.h>
-#include <pcl/filters/voxel_grid.h>
+#include <boost/program_options.hpp>
 
 #include <algorithm>
 #include <functional>
@@ -15,7 +16,7 @@
 #include <cstdlib>
 #include <string>
 #include <map>
-#include "../include/viz.h"
+//#include "../include/viz.h"
 #include "../include/helper.h"
 #include "../include/sampling.h"
 #include "../include/segmentation.h"
@@ -24,6 +25,17 @@
 
 // Types
 typedef pcl::PointXYZRGB PointT;
+
+
+void showhelpinfo(char *s)
+{
+  cout<<"Usage:   "<<s<<" [-option] [argument]"<<endl;
+  cout<<"option:  "<<"-h  show help information"<<endl;
+  cout<<"         "<<"-n number of points"<<endl;
+  cout<<"         "<<"-m number of samples"<<endl;
+  cout<<"         "<<"-a voxelization grid size in sampling step"<<endl;
+  cout<<"         "<<"-b voxelization grid size in segmentation step"<<endl;
+}
 
 
 int loadPC(pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc, std::string filename){
@@ -41,6 +53,72 @@ main (int argc, char** argv)
 { 
 
 
+
+
+  int num_samples_in;
+  float grid_size_1;
+  float grid_size_2;
+  int num_pts_in;
+  int help_bool = 0;
+  int full_file = 1;
+  // default:
+
+  if(argc == 1)
+    {
+      printf("no args!, running default parameters \n");
+      num_samples_in = 100000;
+      grid_size_1 = 20;
+      grid_size_2 = 0.12;
+      full_file = 0;
+      num_pts_in = 1000000;
+      cout<<" number of pts input: "<<num_pts_in<<endl;
+      cout<<" number of samples: "<<num_samples_in<<endl;
+      cout<<" grid size in sampling: "<<grid_size_1<<endl;
+      cout<<" grid size in segmentation: "<<grid_size_2<<endl;
+    }
+  else{
+    char tmp;
+    while((tmp=getopt(argc,argv,"hn:m:a:b:"))!=-1)
+      {
+	switch(tmp)
+	  {
+	    /*option h : help infomation*/
+	  case 'h':
+	    showhelpinfo(argv[0]);
+	    help_bool = 1;
+	    break;
+	    /*option n : set number of input points to read */
+	  case 'n':
+	    num_pts_in = atoi(optarg);
+	    full_file = 0;
+	    cout<<" number of pts input: "<<optarg<<endl;
+	    break;
+	    /*option m : set number of samples */
+	  case 'm':
+	    num_samples_in = atoi(optarg);
+	    cout<<" number of samples: "<<optarg<<endl;
+	    break;
+	    /*option a : set sampling grid size*/
+	  case 'a':
+	    grid_size_1 = atof(optarg);
+	    cout<<" grid size in sampling: "<<optarg<<endl;
+	    break;
+	    /*option b: set segmentation grid size */
+	  case 'b':
+	    grid_size_2 = atof(optarg);
+	    cout<<" grid size in segmentation: "<<optarg<<endl;
+	    break;
+	  default:
+	    showhelpinfo(argv[0]);
+	    break;
+	  }
+      }
+  }
+  if(help_bool == 1){
+    return(0);
+  }
+
+
   double readTime = 0.f;
   double samplingTime = 0.f;
   double segmentTime = 0.f;
@@ -52,7 +130,8 @@ main (int argc, char** argv)
   /************************** STAGE 0: INITIALIZATION ****************************************/
 
   printf("reading point cloud file! \n");
-  std::string filename("/Users/rohan/Dropbox/Work/workspace/pointcloud/data/rgbd-scenes_aligned/kitchen_small/kitchen_small_1/kitchen_small_1.pcd");
+  //  std::string filename("/Users/rohan/Dropbox/Work/workspace/pointcloud/data/rgbd-scenes_aligned/kitchen_small/kitchen_small_1/kitchen_small_1.pcd");
+  std::string filename("/afs/andrew.cmu.edu/usr18/rohanv/data/kitchen_small_1.pcd");
   pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc (new pcl::PointCloud<pcl::PointXYZRGB>);
 
   if(loadPC(pc,filename)){
@@ -62,40 +141,24 @@ main (int argc, char** argv)
     << std::endl;
   }
 
+
+  if(full_file == 1){
+    num_pts_in = pc->size();
+    cout<<" number of pts_input: "<<num_pts_in<<endl;
+  }
   int bool_viz_or = 0;
   int bool_viz_rs = 0;
   
   if(bool_viz_or){
     printf("visualization of original point cloud! \n");
-    pc_viz(pc);
+    //  pc_viz(pc);
   }
 
 
   printf("finished reading point cloud file! \n");
   double endReadTime = CycleTimer::currentSeconds();
 
-  pcl::PCLPointCloud2::Ptr cloud (new pcl::PCLPointCloud2 ());
-  pcl::PCLPointCloud2::Ptr cloud_filtered (new pcl::PCLPointCloud2 ());
-
-  // Fill in the cloud data
-  pcl::PCDReader reader;
-  // Replace the path below with the path where you saved your file
-  reader.read ("/Users/rohan/Dropbox/Work/workspace/pointcloud/data/rgbd-scenes_aligned/kitchen_small/kitchen_small_1/kitchen_small_1.pcd", *cloud); // Remember to download the file first!
-
-  std::cerr << "PointCloud before filtering: " << cloud->width * cloud->height 
-       << " data points (" << pcl::getFieldsList (*cloud) << ").";
-
-  // Create the filtering object
-  pcl::VoxelGrid<pcl::PCLPointCloud2> sor;
-  sor.setInputCloud (cloud);
-  sor.setLeafSize (0.01f, 0.01f, 0.01f);
-
-  Eigen::Vector3i vec = sor.getGridCoordinates(0.1,0.3,0.1);
-  printf("x: %d,y:%d, z:%d \n", vec.x(),vec.y(),vec.z());
-
-
-
-
+  
   
   /************* STAGE 1 : SAMPLING ************/
 
@@ -106,10 +169,12 @@ main (int argc, char** argv)
      Simultaneously compute density. (can do this later since only need this for sampled points)
   */
   // tuning_parameters
-  float sigma_sq = 0.00005;
-  int numNbrs = 50;
+  
 
-  int num_pts = pc->size();
+  float sigma_sq = 0.00005;
+  //  int numNbrs = 50;
+  int numNbrs = (int) grid_size_1;
+  int num_pts = num_pts_in;
     // compute importance weights
   std::vector<float> imp_wt(num_pts,0.0);
   computeWeights(pc, num_pts, sigma_sq, numNbrs,imp_wt);
@@ -120,7 +185,8 @@ main (int argc, char** argv)
    */
 
 // get sample indices
-  int total_samples = 100000;
+
+  int total_samples = num_samples_in;
   std::vector<int> sampleIdx = weightedRandomSample(imp_wt,num_pts,total_samples);
   printf("randomly sampled %d points \n" ,total_samples);
 
@@ -131,7 +197,7 @@ main (int argc, char** argv)
 
   printf("visualization of resampled point cloud!\n");
   if(bool_viz_rs){
-    pc_viz(pc_rs);
+    //    pc_viz(pc_rs);
   }
 
   double endSamplingTime = CycleTimer::currentSeconds();
@@ -155,7 +221,8 @@ main (int argc, char** argv)
   std::vector<float> distances(num_pts_rs,0.0);
 
  //segmentation parameter:
-  float tau = 0.1;
+float  tau = grid_size_2;
+  //  float tau = 0.1;
   segmentation_linkNeighbors(pc_rs,num_pts_rs, tau, p_density, parents,distances);
   constructSegments(pc_rs,num_pts_rs,parents,distances);
 
@@ -191,10 +258,10 @@ main (int argc, char** argv)
   pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc_seg (new pcl::PointCloud<pcl::PointXYZRGB>);
   constructSegmentedPC(pc_seg,pc_rs,num_pts_rs,parents);
 
-  int bool_viz_seg = 1;
+  int bool_viz_seg = 0;
   printf("visualization of segmented point cloud!\n");
   if(bool_viz_seg){
-    pc_viz(pc_seg);
+    //  pc_viz(pc_seg);
   }
 
   return (0);
