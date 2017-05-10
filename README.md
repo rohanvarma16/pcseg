@@ -65,6 +65,7 @@ We note that the overhead of sampling is largely negligible compared to the dras
 ## Comparison with Segmentation of an Image:
 
 Images exhibit regularity and here we intend to analyze how much the irregularity of the density points in the space affects our performance. Irregularity affects the number of points each block/voxel processes. This in turn leads to extremely skewed workload imbalance patterns. We equalize the number of pixels in the image and the number of points in the point cloud. 
+<img src="Plot4.png">
 
 ### Summary
 This is simply a high level overview of our project and design. We have tried to highlight the novel and most interesting parts of our design. For our final report/presentation, we intend to show more detailed performance analysis of each step in the design flow and a more comprehensive analysis of the workload, the introduction of the sampling stage, and work on further tuning the object detector.
