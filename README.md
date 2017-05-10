@@ -58,6 +58,7 @@ We provide a caveat here that this is with respect to a single-threaded sequenti
 ## Time with Sampling vs. Without Sampling:
 
 We note that the overhead of sampling is largely negligible compared to the drastic speedup of the segmentation block. We note that we sample ?? points which preserves detection performance. This is for the CUDA-based implementation.
+<img src="Plot1.png">
 
 ## Comparison with Segmentation of an Image:
 
