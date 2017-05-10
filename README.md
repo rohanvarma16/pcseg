@@ -53,11 +53,13 @@ Example of a a cereal box we detect as a result of the segmentation.
 
 Below, we present preliminary analysis of our results.
 ## GPU vs. CPU:
-We provide a caveat here that this is with respect to a single-threaded sequential implementation. For our final results, we intend to compare the GPU version with a multi-threaded version.
+We have GPU results with and without results.
+We provide a caveat here that this is with respect to a single-threaded sequential implementation. For our final results, we intend to compare the GPU version (with and without sampling) with a multi-threaded version.
+<img src="Plot3.png">
 
 ## Time with Sampling vs. Without Sampling:
 
-We note that the overhead of sampling is largely negligible compared to the drastic speedup of the segmentation block. We note that we sample ?? points which preserves detection performance. This is for the CUDA-based implementation.
+We note that the overhead of sampling is largely negligible compared to the drastic speedup of the segmentation block. We note that we sample ?? points which preserves detection performance. This is for the CUDA-based implementation. In addition, sampling is especially useful when doing coarse segmentations (since we need to search over larger neighborhoods, higher density would imply extremely large implementation)
 <img src="Plot1.png">
 
 ## Comparison with Segmentation of an Image:
