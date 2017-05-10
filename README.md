@@ -27,7 +27,11 @@ We primarily use the <div style="text-align: center;"><a class="nav"  href="http
 The block diagram of the initial design is as above. We use the quick shift algorithm to perform the image segmentation. It is amenable to parallelism because of it’s computational characteristics and memory access patterns.
 As can be seen in the block diagram, we first compute a local density estimate of each point by looking at it’s neighborhood, before again doing a spatially local computation to construct a tree before cutting the tree appropriate to get the resulting segmentation.
 
-The first contribution is to leverage the spatial local characteristics of the computation to voxelize the pointcloud and map each voxel to a CUDA thread block. This way every point in a voxel performs the same computation over its neighborhood and possesses the same memory access patterns. This change to the original framework makes it well suited for a fast CUDA implementation. 
+The first contribution is to leverage the spatial local characteristics of the computation to voxelize the pointcloud and map each voxel to a CUDA thread block. This way every point in a voxel performs the same computation over its neighborhood and possesses the same memory access patterns. This change to the original framework makes it well suited for a fast CUDA implementation. We voxelize by cubing the minimum bounding box of the point cloud. The neighborhood of a voxel is it's neighboring voxels.
+<img src="voxelgrid.png">
+<img src="voxel_nbr.jpg">
+
+
 However, this is quite slow, especially because the large number of points being processed in the segmentation and tree-cutting step. We ask whether we can do better? 
 
 
@@ -37,13 +41,29 @@ However, this is quite slow, especially because the large number of points being
 Here we introduce our second main contribution, a resampling block into our design. The sampling step occurs in two stages, we first need to assign an importance weight to each point (effectively a local high pass filter, again a spatially local computation), before performing a weighted sampling of the points. The latter can be implemented quickly with the help of CUDA  thrust libraries. It turns out we can subsample by preserving up to 5% of the total number of points and preserve detection performance.
 
 We mention a caveat here in that, our weighted CPU-based sequential sampler, performs the sampling naively with O(KN) (K is the number of samples). (The sampler pre-computes a rolling sum of the normalized weights and then samples a uniform random number and see in which bin it falls (binary search)). While we implement this same algorithm on CUDA, this is not the fastest way to perform weighted sampling on CUDA. A faster CPU-based implementation would be based on the Alias-Walker method which samples in O(K+N). 
+Another interesting point is that the sampler helps to smoothen the uneven density of points across the space. 
 
-
-## Results:
-Below is an image of the result of the segmentation on the kitchen scene.
-
+### Results:
+Below is an image of the result of the segmentation on the kitchen scene. The original point cloud has around 3 million points and we preserve only 80000 samples.
+<img src="seg_example.png">
 Example of a a cereal box we detect as a result of the segmentation.
 <img src="detector.png">
+
+Below, we present preliminary analysis of our results.
+## GPU vs. CPU:
+We provide a caveat here that this is with respect to a single-threaded sequential implementation. For our final results, we intend to compare the GPU version with a multi-threaded version.
+
+## Time with Sampling vs. Without Sampling:
+
+We note that the overhead of sampling is largely negligible compared to the drastic speedup of the segmentation block. We note that we sample ?? points which preserves detection performance. This is for the CUDA-based implementation.
+
+## Comparison with Segmentation of an Image:
+
+Images exhibit regularity and here we intend to analyze how much the irregularity of the density points in the space affects our performance. Irregularity affects the number of points each block/voxel processes. This in turn leads to extremely skewed workload imbalance patterns. We equalize the number of pixels in the image and the number of points in the point cloud. 
+
+### Summary
+This is simply a high level overview of our project and design. We have tried to highlight the novel and most interesting parts of our design. For our final report/presentation, we intend to show more detailed performance analysis of each step in the design flow and a more comprehensive analysis of the workload, the introduction of the sampling stage, and work on further tuning the object detector.
+
 
 
 
