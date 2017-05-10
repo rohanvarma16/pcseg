@@ -29,7 +29,7 @@ SET(CMAKE_TARGET_LINKED_INFO_FILES
 
 # The include file search paths:
 SET(CMAKE_C_TARGET_INCLUDE_PATH
-  "/usr/local/cuda/include"
+  "/usr/local/depot/cuda-8.0/include"
   "/afs/cs/academic/class/15418-s17/public/sw/VTK/build/Utilities/KWIML"
   "/afs/cs/academic/class/15418-s17/public/sw/VTK/Utilities/KWIML"
   "/afs/cs/academic/class/15418-s17/public/sw/VTK/build/Utilities/KWSys"
@@ -262,7 +262,7 @@ SET(CMAKE_C_TARGET_INCLUDE_PATH
   "/afs/cs/academic/class/15418-s17/public/sw/VTK/Views/Context2D"
   "/afs/cs/academic/class/15418-s17/public/sw/VTK/build/Views/Infovis"
   "/afs/cs/academic/class/15418-s17/public/sw/VTK/Views/Infovis"
-  "/afs/andrew.cmu.edu/usr18/rohanv/install_dir/pcl/include/pcl-1.8"
+  "/afs/andrew.cmu.edu/usr18/ardras/install_dir/pcl/include/pcl-1.8"
   "/afs/cs/academic/class/15418-s17/public/sw/eigen/include/eigen3"
   "/afs/cs/academic/class/15418-s17/public/sw/flann/cmake/include"
   )

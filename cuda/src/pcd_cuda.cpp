@@ -19,6 +19,7 @@
 #include "../include/cuda_methods.h"
 #include "../include/preprocess.h"
 #include <boost/program_options.hpp>
+#include "../include/cycleTimer.h"
 
 int loadPC(pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc, std::string filename){
 
@@ -79,12 +80,12 @@ main (int argc, char** argv)
 	  showhelpinfo(argv[0]);
 	  help_bool = 1;
 	  break;
-          /*option n : set number of input points to read */
-        case 'n':
-          num_pts_in = atoi(optarg);
+      /*option n : set number of input points to read */
+    case 'n':
+      num_pts_in = atoi(optarg);
 	  full_file = 0;
-          cout<<" number of pts input: "<<optarg<<endl;
-          break;
+      cout<<" number of pts input: "<<optarg<<endl;
+      break;
 	  /*option m : set number of samples */
 	case 'm':
 	  num_samples_in = atoi(optarg);
@@ -99,7 +100,7 @@ main (int argc, char** argv)
 	case 'b':
 	  grid_size_2 = atof(optarg);
 	  cout<<" grid size in segmentation: "<<optarg<<endl;
-          break;
+      break;
 	default:
 	  showhelpinfo(argv[0]);
 	  break;
@@ -111,11 +112,21 @@ main (int argc, char** argv)
     return(0);
   }
 
+  double readTime = 0.f;
+  double samplingPreprocessTime = 0.f;
+  double samplingTime = 0.f;
+  double sampledWriteTime = 0.f;
+  double segmentPreprocessTime = 0.f;
+  double segmentTime = 0.f;
+  double totalTime = 0.f;
+
+  double startTime = CycleTimer::currentSeconds();
+
 
   printf("reading point cloud file! \n");
   //std::string filename("/afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/data/sample.pcd");
-  //  std::string filename("/afs/andrew.cmu.edu/usr18/ardras/data/kitchen_small_1.pcd");
-  std::string filename("/afs/andrew.cmu.edu/usr18/rohanv/data/kitchen_small_1.pcd");
+  std::string filename("/afs/andrew.cmu.edu/usr18/ardras/data/kitchen_small_1.pcd");
+  //std::string filename("/afs/andrew.cmu.edu/usr18/rohanv/data/kitchen_small_1.pcd");
 
   pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc (new pcl::PointCloud<pcl::PointXYZRGB>);
 
@@ -125,6 +136,10 @@ main (int argc, char** argv)
 	      << " data points from kitchen_small_1.pcd"
 	      << std::endl;
   }
+
+  printf("finished reading point cloud file! \n");
+  double endReadTime = CycleTimer::currentSeconds();
+
   /************* STAGE 0 : PREPROCESS POINT CLOUD **************/
   if(full_file == 1){
     num_pts_in = pc->size();
@@ -156,6 +171,8 @@ main (int argc, char** argv)
 		   flattenXYZ,flattenRGB,pdensity_dummy2,voxel_offset,neighbor_ids);
 
   
+  double endSamplingPreprocessTime = CycleTimer::currentSeconds();
+
   /************* STAGE 1 : SAMPLING ************/
   /* STEP 1:
      For all i, points:
@@ -173,6 +190,9 @@ main (int argc, char** argv)
     
     cuda_resampling(num_pts, num_voxels, flattenXYZ,flattenRGB,voxel_offset,
 	       neighbor_ids,x_idx,y_idx,z_idx,num_samples,samples_arr,pdens);
+
+
+    double endSamplingTime = CycleTimer::currentSeconds();
 
     // construct resampled point cloud from sample indices:
     pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc_rs (new pcl::PointCloud<pcl::PointXYZRGB>);  
@@ -193,6 +213,7 @@ main (int argc, char** argv)
     pcl::io::savePCDFileASCII ("rs_pcd.pcd", *pc_rs);
     std::cerr << "Saved " << pc_rs->size () << " data points to resampled point cloud rs_pcd.pcd." << std::endl;
     
+    double endWriteResampledTime = CycleTimer::currentSeconds();
 
     /************* STAGE 3 : PREPROCESS POINT CLOUD **************/
     int num_pts_rs = pc_rs->size();
@@ -221,6 +242,8 @@ main (int argc, char** argv)
     preprocess_step2(voxel_pointXYZ_rs,voxel_pointRGB_rs,voxel_pdensity_rs,x_idx_rs,y_idx_rs,z_idx_rs,
 		     yz_idx_rs,num_voxels_rs,flattenXYZ_rs,flattenRGB_rs,pdens_new,voxel_offset_rs,neighbor_ids_rs);
     
+    double endSegmentPreprocessTime = CycleTimer::currentSeconds();
+
     /*************** STAGE 4 : SEGMENTATION ***************/
     /* STEP 3:
      * Compute P_n = sum A'_{i,j} for all i in resampled point cloud. A'_{i,j} is another kernel.
@@ -230,6 +253,26 @@ main (int argc, char** argv)
 
     cuda_segmentation(num_pts_rs, num_voxels_rs,pdens_new, flattenXYZ_rs,flattenRGB_rs,voxel_offset_rs,
 			neighbor_ids_rs,x_idx_rs,y_idx_rs,z_idx_rs,parents);
+
+    double endTime = CycleTimer::currentSeconds();
+
+    /*************** PRINT TIMING INFORMATION ***************/
+    
+    readTime               = 1000.f * (endReadTime - startTime);
+    samplingPreprocessTime = 1000.f * (endSamplingPreprocessTime - endReadTime);
+    samplingTime           = 1000.f * (endSamplingTime - endSamplingPreprocessTime);
+    sampledWriteTime       = 1000.f * (endWriteResampledTime - endSamplingTime);
+    segmentPreprocessTime  = 1000.f * (endSegmentPreprocessTime - endWriteResampledTime);
+    segmentTime            = 1000.f * (endTime - endSegmentPreprocessTime);
+    totalTime              = 1000.f * (endTime - startTime);
+
+    printf("Time for reading input PCD file:              %.4f ms\n", readTime);
+    printf("Time for preprocessing PCD for sampling:      %.4f ms\n", samplingPreprocessTime);
+    printf("Time for sampling:                            %.4f ms\n", samplingTime);
+    printf("Time for writing sampled PCD file:            %.4f ms\n", sampledWriteTime);
+    printf("Time for preprocessing PCD for segmentation:  %.4f ms\n", segmentPreprocessTime);
+    printf("Time for segmentation:                        %.4f ms\n", segmentTime);
+    printf("Total time:                                   %.4f ms\n", totalTime);
 
 
     /************* STAGE 5: VISUALIZATION **********/

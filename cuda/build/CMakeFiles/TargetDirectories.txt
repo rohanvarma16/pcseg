@@ -1,2 +1,2 @@
-/afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles/cuda_methods_lib.dir
-/afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles/pcd_cuda.dir
+/afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/build/CMakeFiles/cuda_methods_lib.dir
+/afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/build/CMakeFiles/pcd_cuda.dir

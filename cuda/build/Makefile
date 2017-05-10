@@ -42,10 +42,10 @@ EQUALS = =
 CMAKE_EDIT_COMMAND = /usr/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda
+CMAKE_SOURCE_DIR = /afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build
+CMAKE_BINARY_DIR = /afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -72,9 +72,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/build/CMakeFiles /afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target

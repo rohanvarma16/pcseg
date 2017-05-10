@@ -38,10 +38,10 @@ EQUALS = =
 CMAKE_EDIT_COMMAND = /usr/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda
+CMAKE_SOURCE_DIR = /afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build
+CMAKE_BINARY_DIR = /afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/pcd_cuda.dir/depend.make
@@ -54,17 +54,17 @@ include CMakeFiles/pcd_cuda.dir/flags.make
 
 CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.o: CMakeFiles/pcd_cuda.dir/flags.make
 CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.o: ../src/preprocess.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.o -c /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/src/preprocess.cpp
+	/usr/lib64/ccache/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.o -c /afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/src/preprocess.cpp
 
 CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/src/preprocess.cpp > CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.i
+	/usr/lib64/ccache/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/src/preprocess.cpp > CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.i
 
 CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/src/preprocess.cpp -o CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.s
+	/usr/lib64/ccache/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/src/preprocess.cpp -o CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.s
 
 CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.o.requires:
 .PHONY : CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.o.requires
@@ -77,17 +77,17 @@ CMakeFiles/pcd_cuda.dir/src/preprocess.cpp.o.provides.build: CMakeFiles/pcd_cuda
 
 CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.o: CMakeFiles/pcd_cuda.dir/flags.make
 CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.o: ../src/segmentation.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.o -c /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/src/segmentation.cpp
+	/usr/lib64/ccache/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.o -c /afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/src/segmentation.cpp
 
 CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/src/segmentation.cpp > CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.i
+	/usr/lib64/ccache/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/src/segmentation.cpp > CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.i
 
 CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/src/segmentation.cpp -o CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.s
+	/usr/lib64/ccache/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/src/segmentation.cpp -o CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.s
 
 CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.o.requires:
 .PHONY : CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.o.requires
@@ -100,17 +100,17 @@ CMakeFiles/pcd_cuda.dir/src/segmentation.cpp.o.provides.build: CMakeFiles/pcd_cu
 
 CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.o: CMakeFiles/pcd_cuda.dir/flags.make
 CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.o: ../src/pcd_cuda.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	$(CMAKE_COMMAND) -E cmake_progress_report /afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/build/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.o -c /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/src/pcd_cuda.cpp
+	/usr/lib64/ccache/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.o -c /afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/src/pcd_cuda.cpp
 
 CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/src/pcd_cuda.cpp > CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.i
+	/usr/lib64/ccache/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/src/pcd_cuda.cpp > CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.i
 
 CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/src/pcd_cuda.cpp -o CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.s
+	/usr/lib64/ccache/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/src/pcd_cuda.cpp -o CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.s
 
 CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.o.requires:
 .PHONY : CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.o.requires
@@ -135,14 +135,14 @@ pcd_cuda_EXTERNAL_OBJECTS =
 ../bin/pcd_cuda: CMakeFiles/pcd_cuda.dir/src/pcd_cuda.cpp.o
 ../bin/pcd_cuda: CMakeFiles/pcd_cuda.dir/build.make
 ../bin/pcd_cuda: libcuda_methods_lib.a
-../bin/pcd_cuda: /usr/local/cuda/lib64/libcudart.so
+../bin/pcd_cuda: /usr/local/depot/cuda-8.0/lib64/libcudart.so
 ../bin/pcd_cuda: /usr/lib64/libboost_system-mt.so
 ../bin/pcd_cuda: /usr/lib64/libboost_filesystem-mt.so
 ../bin/pcd_cuda: /usr/lib64/libboost_thread-mt.so
 ../bin/pcd_cuda: /usr/lib64/libboost_date_time-mt.so
 ../bin/pcd_cuda: /usr/lib64/libboost_iostreams-mt.so
 ../bin/pcd_cuda: /usr/lib64/libboost_serialization-mt.so
-../bin/pcd_cuda: /afs/andrew.cmu.edu/usr18/rohanv/install_dir/pcl/lib/libpcl_common.so
+../bin/pcd_cuda: /afs/andrew.cmu.edu/usr18/ardras/install_dir/pcl/lib/libpcl_common.so
 ../bin/pcd_cuda: /afs/cs/academic/class/15418-s17/public/sw/VTK/build/lib/libvtksys-7.1.so.1
 ../bin/pcd_cuda: /afs/cs/academic/class/15418-s17/public/sw/VTK/build/lib/libvtkCommonCore-7.1.so.1
 ../bin/pcd_cuda: /afs/cs/academic/class/15418-s17/public/sw/VTK/build/lib/libvtkCommonMath-7.1.so.1
@@ -253,30 +253,30 @@ pcd_cuda_EXTERNAL_OBJECTS =
 ../bin/pcd_cuda: /afs/cs/academic/class/15418-s17/public/sw/VTK/build/lib/libvtkRenderingVolumeOpenGL2-7.1.so.1
 ../bin/pcd_cuda: /afs/cs/academic/class/15418-s17/public/sw/VTK/build/lib/libvtkViewsContext2D-7.1.so.1
 ../bin/pcd_cuda: /afs/cs/academic/class/15418-s17/public/sw/VTK/build/lib/libvtkViewsInfovis-7.1.so.1
-../bin/pcd_cuda: /afs/andrew.cmu.edu/usr18/rohanv/install_dir/pcl/lib/libpcl_io.so
+../bin/pcd_cuda: /afs/andrew.cmu.edu/usr18/ardras/install_dir/pcl/lib/libpcl_io.so
 ../bin/pcd_cuda: /usr/lib64/libboost_system-mt.so
 ../bin/pcd_cuda: /usr/lib64/libboost_filesystem-mt.so
 ../bin/pcd_cuda: /usr/lib64/libboost_thread-mt.so
 ../bin/pcd_cuda: /usr/lib64/libboost_date_time-mt.so
 ../bin/pcd_cuda: /usr/lib64/libboost_iostreams-mt.so
 ../bin/pcd_cuda: /usr/lib64/libboost_serialization-mt.so
-../bin/pcd_cuda: /afs/andrew.cmu.edu/usr18/rohanv/install_dir/pcl/lib/libpcl_common.so
-../bin/pcd_cuda: /afs/andrew.cmu.edu/usr18/rohanv/install_dir/pcl/lib/libpcl_octree.so
+../bin/pcd_cuda: /afs/andrew.cmu.edu/usr18/ardras/install_dir/pcl/lib/libpcl_common.so
+../bin/pcd_cuda: /afs/andrew.cmu.edu/usr18/ardras/install_dir/pcl/lib/libpcl_octree.so
 ../bin/pcd_cuda: /usr/lib64/libboost_system-mt.so
 ../bin/pcd_cuda: /usr/lib64/libboost_filesystem-mt.so
 ../bin/pcd_cuda: /usr/lib64/libboost_thread-mt.so
 ../bin/pcd_cuda: /usr/lib64/libboost_date_time-mt.so
 ../bin/pcd_cuda: /usr/lib64/libboost_iostreams-mt.so
 ../bin/pcd_cuda: /usr/lib64/libboost_serialization-mt.so
-../bin/pcd_cuda: /afs/andrew.cmu.edu/usr18/rohanv/install_dir/pcl/lib/libpcl_common.so
+../bin/pcd_cuda: /afs/andrew.cmu.edu/usr18/ardras/install_dir/pcl/lib/libpcl_common.so
 ../bin/pcd_cuda: /usr/lib64/libboost_system-mt.so
 ../bin/pcd_cuda: /usr/lib64/libboost_filesystem-mt.so
 ../bin/pcd_cuda: /usr/lib64/libboost_thread-mt.so
 ../bin/pcd_cuda: /usr/lib64/libboost_date_time-mt.so
 ../bin/pcd_cuda: /usr/lib64/libboost_iostreams-mt.so
 ../bin/pcd_cuda: /usr/lib64/libboost_serialization-mt.so
-../bin/pcd_cuda: /afs/andrew.cmu.edu/usr18/rohanv/install_dir/pcl/lib/libpcl_common.so
-../bin/pcd_cuda: /afs/andrew.cmu.edu/usr18/rohanv/install_dir/pcl/lib/libpcl_octree.so
+../bin/pcd_cuda: /afs/andrew.cmu.edu/usr18/ardras/install_dir/pcl/lib/libpcl_common.so
+../bin/pcd_cuda: /afs/andrew.cmu.edu/usr18/ardras/install_dir/pcl/lib/libpcl_octree.so
 ../bin/pcd_cuda: /afs/cs/academic/class/15418-s17/public/sw/VTK/build/lib/libvtksys-7.1.so.1
 ../bin/pcd_cuda: /afs/cs/academic/class/15418-s17/public/sw/VTK/build/lib/libvtkCommonCore-7.1.so.1
 ../bin/pcd_cuda: /afs/cs/academic/class/15418-s17/public/sw/VTK/build/lib/libvtkCommonMath-7.1.so.1
@@ -387,9 +387,9 @@ pcd_cuda_EXTERNAL_OBJECTS =
 ../bin/pcd_cuda: /afs/cs/academic/class/15418-s17/public/sw/VTK/build/lib/libvtkRenderingVolumeOpenGL2-7.1.so.1
 ../bin/pcd_cuda: /afs/cs/academic/class/15418-s17/public/sw/VTK/build/lib/libvtkViewsContext2D-7.1.so.1
 ../bin/pcd_cuda: /afs/cs/academic/class/15418-s17/public/sw/VTK/build/lib/libvtkViewsInfovis-7.1.so.1
-../bin/pcd_cuda: /afs/andrew.cmu.edu/usr18/rohanv/install_dir/pcl/lib/libpcl_io.so
+../bin/pcd_cuda: /afs/andrew.cmu.edu/usr18/ardras/install_dir/pcl/lib/libpcl_io.so
 ../bin/pcd_cuda: /afs/cs/academic/class/15418-s17/public/sw/flann/cmake/lib/libflann_cpp_s.a
-../bin/pcd_cuda: /afs/andrew.cmu.edu/usr18/rohanv/install_dir/pcl/lib/libpcl_kdtree.so
+../bin/pcd_cuda: /afs/andrew.cmu.edu/usr18/ardras/install_dir/pcl/lib/libpcl_kdtree.so
 ../bin/pcd_cuda: /usr/lib64/libboost_system-mt.so
 ../bin/pcd_cuda: /usr/lib64/libboost_filesystem-mt.so
 ../bin/pcd_cuda: /usr/lib64/libboost_thread-mt.so
@@ -507,10 +507,10 @@ pcd_cuda_EXTERNAL_OBJECTS =
 ../bin/pcd_cuda: /afs/cs/academic/class/15418-s17/public/sw/VTK/build/lib/libvtkRenderingVolumeOpenGL2-7.1.so.1
 ../bin/pcd_cuda: /afs/cs/academic/class/15418-s17/public/sw/VTK/build/lib/libvtkViewsContext2D-7.1.so.1
 ../bin/pcd_cuda: /afs/cs/academic/class/15418-s17/public/sw/VTK/build/lib/libvtkViewsInfovis-7.1.so.1
-../bin/pcd_cuda: /afs/andrew.cmu.edu/usr18/rohanv/install_dir/pcl/lib/libpcl_common.so
-../bin/pcd_cuda: /afs/andrew.cmu.edu/usr18/rohanv/install_dir/pcl/lib/libpcl_io.so
-../bin/pcd_cuda: /afs/andrew.cmu.edu/usr18/rohanv/install_dir/pcl/lib/libpcl_octree.so
-../bin/pcd_cuda: /afs/andrew.cmu.edu/usr18/rohanv/install_dir/pcl/lib/libpcl_kdtree.so
+../bin/pcd_cuda: /afs/andrew.cmu.edu/usr18/ardras/install_dir/pcl/lib/libpcl_common.so
+../bin/pcd_cuda: /afs/andrew.cmu.edu/usr18/ardras/install_dir/pcl/lib/libpcl_io.so
+../bin/pcd_cuda: /afs/andrew.cmu.edu/usr18/ardras/install_dir/pcl/lib/libpcl_octree.so
+../bin/pcd_cuda: /afs/andrew.cmu.edu/usr18/ardras/install_dir/pcl/lib/libpcl_kdtree.so
 ../bin/pcd_cuda: /afs/cs/academic/class/15418-s17/public/sw/VTK/build/lib/libvtkDomainsChemistry-7.1.so.1
 ../bin/pcd_cuda: /afs/cs/academic/class/15418-s17/public/sw/VTK/build/lib/libvtkverdict-7.1.so.1
 ../bin/pcd_cuda: /afs/cs/academic/class/15418-s17/public/sw/VTK/build/lib/libvtkFiltersAMR-7.1.so.1
@@ -608,6 +608,6 @@ CMakeFiles/pcd_cuda.dir/clean:
 .PHONY : CMakeFiles/pcd_cuda.dir/clean
 
 CMakeFiles/pcd_cuda.dir/depend:
-	cd /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build /afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles/pcd_cuda.dir/DependInfo.cmake --color=$(COLOR)
+	cd /afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda /afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda /afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/build /afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/build /afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/build/CMakeFiles/pcd_cuda.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/pcd_cuda.dir/depend
 

@@ -56,20 +56,20 @@ endif()
 
 # Set these up as variables to make reading the generated file easier
 set(CMAKE_COMMAND "/usr/bin/cmake") # path
-set(source_file "/afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/src/cuda_methods.cu") # path
-set(NVCC_generated_dependency_file "/afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles/cuda_methods_lib.dir/src/cuda_methods_lib_generated_cuda_methods.cu.o.NVCC-depend") # path
-set(cmake_dependency_file "/afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles/cuda_methods_lib.dir/src/cuda_methods_lib_generated_cuda_methods.cu.o.depend") # path
+set(source_file "/afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/src/cuda_methods.cu") # path
+set(NVCC_generated_dependency_file "/afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/build/CMakeFiles/cuda_methods_lib.dir/src/cuda_methods_lib_generated_cuda_methods.cu.o.NVCC-depend") # path
+set(cmake_dependency_file "/afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/build/CMakeFiles/cuda_methods_lib.dir/src/cuda_methods_lib_generated_cuda_methods.cu.o.depend") # path
 set(CUDA_make2cmake "/usr/share/cmake/Modules/FindCUDA/make2cmake.cmake") # path
 set(CUDA_parse_cubin "/usr/share/cmake/Modules/FindCUDA/parse_cubin.cmake") # path
 set(build_cubin OFF) # bool
-set(CUDA_HOST_COMPILER "/usr/bin/cc") # bool
+set(CUDA_HOST_COMPILER "/usr/lib64/ccache/cc") # bool
 # We won't actually use these variables for now, but we need to set this, in
 # order to force this file to be run again if it changes.
-set(generated_file_path "/afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles/cuda_methods_lib.dir/src/.") # path
-set(generated_file_internal "/afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles/cuda_methods_lib.dir/src/./cuda_methods_lib_generated_cuda_methods.cu.o") # path
-set(generated_cubin_file_internal "/afs/andrew.cmu.edu/usr18/rohanv/workspace/15618/pcseg/cuda/build/CMakeFiles/cuda_methods_lib.dir/src/./cuda_methods_lib_generated_cuda_methods.cu.o.cubin.txt") # path
+set(generated_file_path "/afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/build/CMakeFiles/cuda_methods_lib.dir/src/.") # path
+set(generated_file_internal "/afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/build/CMakeFiles/cuda_methods_lib.dir/src/./cuda_methods_lib_generated_cuda_methods.cu.o") # path
+set(generated_cubin_file_internal "/afs/andrew.cmu.edu/usr18/ardras/private/15-618/pcseg/cuda/build/CMakeFiles/cuda_methods_lib.dir/src/./cuda_methods_lib_generated_cuda_methods.cu.o.cubin.txt") # path
 
-set(CUDA_NVCC_EXECUTABLE "/usr/local/cuda/bin/nvcc") # path
+set(CUDA_NVCC_EXECUTABLE "/usr/local/depot/cuda-8.0/bin/nvcc") # path
 set(CUDA_NVCC_FLAGS  -std=c++11 ;; ) # list
 # Build specific configuration flags
 set(CUDA_NVCC_FLAGS_DEBUG  ; )
@@ -77,7 +77,7 @@ set(CUDA_NVCC_FLAGS_MINSIZEREL  ; )
 set(CUDA_NVCC_FLAGS_RELEASE  ; )
 set(CUDA_NVCC_FLAGS_RELWITHDEBINFO  ; )
 set(nvcc_flags -m64) # list
-set(CUDA_NVCC_INCLUDE_ARGS "-I/usr/local/cuda/include;-I/usr/local/cuda/include") # list (needs to be in quotes to handle spaces properly).
+set(CUDA_NVCC_INCLUDE_ARGS "-I/usr/local/depot/cuda-8.0/include;-I/usr/local/depot/cuda-8.0/include") # list (needs to be in quotes to handle spaces properly).
 set(format_flag "-dc") # string
 
 if(build_cubin AND NOT generated_cubin_file)

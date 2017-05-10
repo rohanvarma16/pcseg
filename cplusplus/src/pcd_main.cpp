@@ -20,6 +20,7 @@
 #include "../include/sampling.h"
 #include "../include/segmentation.h"
 #include "../include/voxel.h"
+#include "../include/cycleTimer.h"
 
 // Types
 typedef pcl::PointXYZRGB PointT;
@@ -38,6 +39,15 @@ int loadPC(pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc, std::string filename){
 int
 main (int argc, char** argv)
 { 
+
+
+  double readTime = 0.f;
+  double samplingTime = 0.f;
+  double segmentTime = 0.f;
+  double totalTime = 0.f;
+
+  double startTime = CycleTimer::currentSeconds();
+
 
   /************************** STAGE 0: INITIALIZATION ****************************************/
 
@@ -60,6 +70,9 @@ main (int argc, char** argv)
     pc_viz(pc);
   }
 
+
+  printf("finished reading point cloud file! \n");
+  double endReadTime = CycleTimer::currentSeconds();
 
   pcl::PCLPointCloud2::Ptr cloud (new pcl::PCLPointCloud2 ());
   pcl::PCLPointCloud2::Ptr cloud_filtered (new pcl::PCLPointCloud2 ());
@@ -121,6 +134,8 @@ main (int argc, char** argv)
     pc_viz(pc_rs);
   }
 
+  double endSamplingTime = CycleTimer::currentSeconds();
+
   /*********** STAGE 2 : SEGMENTATION *************/
    // STEP 3:
    //   Compute P_n = sum A'_{i,j} for all i in resampled point cloud. A'_{i,j} is another kernel.
@@ -154,6 +169,19 @@ main (int argc, char** argv)
   }
   printf("finished segmentation! \n");
   printf("number of segments: %d \n", num_trees);
+
+  double endTime = CycleTimer::currentSeconds();
+
+  readTime               = 1000.f * (endReadTime - startTime);
+  samplingTime           = 1000.f * (endSamplingTime - endReadTime);
+  segmentTime            = 1000.f * (endTime - endSamplingTime);
+  totalTime              = 1000.f * (endTime - startTime);
+
+  printf("Time for reading input PCD file:              %.4f ms\n", readTime);
+  printf("Time for sampling:                            %.4f ms\n", samplingTime);
+  printf("Time for segmentation:                        %.4f ms\n", segmentTime);
+  printf("Total time:                                   %.4f ms\n", totalTime);
+
 
 
 /************* visualize segments: **********/
