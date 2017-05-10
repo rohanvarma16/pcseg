@@ -10,13 +10,13 @@
 
 In our project, we study spatially local computation on 3-d pointclouds of sizes in the millions and present two main ways with which we can increase speed/throughput on a GPU while preserving the performance accuracy of the end result. By spatially-local, we mean that each pixel independently, performs a computation based on the points in its local neighborhood.
 There are two main contributions we want to highlight here. First, we show a mapping of approximate local neighborhoods to CUDA thread blocks to accelerate GPU throughput while preserving accuracy.
-Secondly, we implement a fast parallel version of the contour-preserving resampler presented in [this paper] to subsample the pointcloud (preserving just 5% of the points does well!) while preserving important features. This helps to alleviate the cost of the high redundancy, while still preserving output accuracy.
+Secondly, we implement a fast parallel version of the contour-preserving resampler presented in <a class="nav"  href="https://arxiv.org/abs/1702.06397"> target="_blank">this paper</a> to subsample the pointcloud (preserving just 5% of the points does well!) while preserving important features. This helps to alleviate the cost of the high redundancy, while still preserving output accuracy.
 
-Specifically we chose to study the important problem of segmentation which is an important step in many computer vision application pipelines. That is,  “clustering” point clouds into multiple homogeneous regions, the points in the same region will have the same properties. This problem has many applications in robotics such as intelligent vehicles, autonomous mapping, navigation, household tasks and so on. Point clouds are a particular challenge because they often have uneven point density, high redundancy, and are noisy with many outliers. 
+Specifically we chose to study the critical problem of segmentation which is an important step in many computer vision application pipelines. That is,  “clustering” point clouds into multiple homogeneous regions, the points in the same region will have the same properties. This problem has many applications in robotics such as intelligent vehicles, autonomous mapping, navigation, household tasks and so on. Point clouds are a particular challenge because they often have uneven point density, high redundancy, and are noisy with many outliers. 
 
 Since it not clear what is the best “metric” for evaluating segmentation, we build a simple object detector (by computing features and finding the nearest neighbor in a pre-computed object feature database). On a high level, we say a segmentation of good quality, if it’s able to reliably detect objects which we have trained upon. We would like to emphasize here, that the object detection is not the main focus of our project. Instead, we show how we can perform fast processing of point-cloud data on a GPU.
 
-We primarily use the <div style="text-align: center;"><a class="nav"  href="http://rgbd-dataset.cs.washington.edu/dataset/" target="_blank">RGB-D Object Database</a></div> which has point clouds of scenes with objects like below as well as models of the objects themselves which we use to train features (using the point cloud library).
+We primarily use the <a class="nav"  href="http://rgbd-dataset.cs.washington.edu/dataset/" target="_blank">RGB-D Object Database</a> which has point clouds of scenes with objects like below as well as models of the objects themselves which we use to train features (using the point cloud library).
 <img src="pc_or.png">
 
 ### Design and Challenges:
@@ -76,6 +76,12 @@ Example of image segmentation, original image and segmented image:
 ### Summary
 This is simply a high level overview of our project and design and rough analysis of the workload/performance. We have tried to highlight the novel and most interesting parts of our design. For our final report/presentation, we intend to show more detailed performance analysis of each step in the design flow and a more comprehensive analysis of the workload, the introduction of the sampling stage, the addition of an OpenMP multithread implemenation for more fair analysis and work on further tuning the object detector.
 
+### References
+
+1. Fast Resampling of 3D Point Clouds via Graphs: https://arxiv.org/abs/1702.06397
+2. Really quick shift: Image segmentation on a GPU http://www.vision.cs.ucla.edu/papers/fulkersonS10really.pdf
+3. Min-Cut Based Segmentation of Point Clouds http://www.cs.princeton.edu/~funk/s3dv09.pdf
+4. 3D Point Cloud Segmentation: A survey http://ieeexplore.ieee.org/document/6758588/
 
 
 
