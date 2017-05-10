@@ -57,16 +57,20 @@ We have GPU results with and without results.
 We provide a caveat here that this is with respect to a single-threaded sequential implementation. For our final results, we intend to compare the GPU version (with and without sampling) with a multi-threaded version.
 <img src="Plot3.png">
 
-We have raw speedup of the CUDA implementation vs single threaded CPU implementation of around 60x for a point cloud of 1 million times (segmentation with the same quality/granularity for fairness).
+We have raw speedup of the CUDA implementation vs single threaded CPU implementation of around 60x for a point cloud of 1 million points (segmentation with the same quality/granularity for fairness).
 
 ## Time with Sampling vs. Without Sampling:
 
-We note that the overhead of sampling is largely negligible compared to the drastic speedup of the segmentation block. We note that we sample ?? points which preserves detection performance. This is for the CUDA-based implementation. In addition, sampling is especially useful when doing coarse segmentations (since we need to search over larger neighborhoods, higher density would imply extremely large implementation)
+We note that the overhead of sampling is largely negligible compared to the drastic speedup of the segmentation block. We note that we sample a range of points from 10k to 100k points which preserves detection performance. This is for the CUDA-based implementation. In addition, sampling is especially useful when doing coarse segmentations (since we need to search over larger neighborhoods, higher density would imply extremely large implementation)
 <img src="Plot5.png">
 
 ## Comparison with Segmentation of an Image:
 
 Images exhibit regularity and here we intend to analyze how much the irregularity of the density points in the space affects our performance. Irregularity affects the number of points each block/voxel processes. This in turn leads to extremely skewed workload imbalance patterns. We equalize the number of pixels in the image and the number of points in the point cloud. 
+Example of image segmentation, original image and segmented image:
+<img src="original_bird.jpg">
+<img src="d_15_t_12.jpg">
+
 <img src="Plot4.png">
 
 ### Summary
