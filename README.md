@@ -28,7 +28,7 @@ The block diagram of the initial design is as above. We use the quick shift algo
 As can be seen in the block diagram, we first compute a local density estimate of each point by looking at it’s neighborhood, before again doing a spatially local computation to construct a tree before cutting the tree appropriate to get the resulting segmentation.
 
 The first contribution is to leverage the spatial local characteristics of the computation to voxelize the pointcloud and map each voxel to a CUDA thread block. This way every point in a voxel performs the same computation over its neighborhood and possesses the same memory access patterns. This change to the original framework makes it well suited for a fast CUDA implementation. We voxelize by cubing the minimum bounding box of the point cloud. The neighborhood of a voxel is it's neighboring voxels.
-
+We note that to compare to the sequential version fairly, we use a k-d tree (efficient for spatially local data access) to store the point cloud.
 <img src="voxelgrid.png">
 
 <img src="voxel_nbr.jpg">
@@ -56,6 +56,8 @@ Below, we present preliminary analysis of our results.
 We have GPU results with and without results.
 We provide a caveat here that this is with respect to a single-threaded sequential implementation. For our final results, we intend to compare the GPU version (with and without sampling) with a multi-threaded version.
 <img src="Plot3.png">
+
+We have raw speedup of the CUDA implementation vs single threaded CPU implementation of around 60x for a point cloud of 1 million times (segmentation with the same quality/granularity for fairness).
 
 ## Time with Sampling vs. Without Sampling:
 
