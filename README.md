@@ -47,7 +47,7 @@ Another interesting point is that the sampler helps to smoothen the uneven densi
 
 ### Results:
 Below is an image of the result of the segmentation on the kitchen scene. The original point cloud has around 3 million points and we preserve only 80000 samples.
-<img src="seg_example.png">
+<img src="pc_seg.png">
 Example of a a cereal box we detect as a result of the segmentation.
 <img src="detector.png">
 
