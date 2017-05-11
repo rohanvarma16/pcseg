@@ -269,7 +269,7 @@ SET(CMAKE_C_TARGET_INCLUDE_PATH
   "/afs/cs/academic/class/15418-s17/public/sw/VTK/build/Views/Infovis"
   "/afs/cs/academic/class/15418-s17/public/sw/VTK/Views/Infovis"
   "/afs/andrew.cmu.edu/usr18/rohanv/install_dir/pcl/include/pcl-1.8"
-  "/afs/cs/academic/class/15418-s17/public/sw/eigen-3.0.6"
+  "/afs/cs/academic/class/15418-s17/public/sw/eigen/include/eigen3"
   "/afs/cs/academic/class/15418-s17/public/sw/flann/cmake/include"
   "/afs/cs/academic/class/15418-s17/public/sw/VTK/build/ThirdParty/hdf5/vtkhdf5/hl/src"
   "/afs/cs/academic/class/15418-s17/public/sw/VTK/build/ThirdParty/hdf5/vtkhdf5/src"

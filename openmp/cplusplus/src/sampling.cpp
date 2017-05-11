@@ -67,9 +67,17 @@ int computeWeights(  pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc, int num_pts, flo
     imp_wt[i] = 0.0;
   }
   normalization_sum += imp_wt[i];  
+  
   }
-
 #pragma omp barrier 
+
+      /*
+#pragma omp single
+{
+  printf("normalization_sum : %f", normalization_sum);
+}
+      */
+
 #pragma omp for
 for(int i = 0 ; i < num_pts ; i++){
   imp_wt[i] = imp_wt[i] / normalization_sum;
@@ -85,17 +93,15 @@ std::vector<int> weightedRandomSample (std::vector<float> weights, int num_pts, 
 	srand (static_cast <unsigned> (time(0)));
 	std::vector<int> samples(num_pts,0);
 	std::vector<float> imp_wt_rs(num_pts,0.0);
+
+	for (int i = 1 ; i< num_pts ; i++){
+	  imp_wt_rs[i] = imp_wt_rs[i-1] + weights[i-1];
+	}
+
 #pragma omp parallel \
  shared(weights,num_pts,total_samples,samples,imp_wt_rs)
     { 
-	// calculate rolling sum of weights:
-#pragma omp for	
-for (int i = 1 ; i< num_pts ; i++){
-   imp_wt_rs[i] = imp_wt_rs[i-1] + weights[i-1];
- }
-
-#pragma omp barrier 
-
+      // calculate rolling sum of weights:
 #pragma omp for
  for (int i = 0 ; i < total_samples ; i++){
    float r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
@@ -103,8 +109,6 @@ for (int i = 1 ; i< num_pts ; i++){
    for (int j = 0 ; j < num_pts-1; j++){
     if(r <= imp_wt_rs[j+1] && r >= imp_wt_rs[j]){
      samples[i] = j;
-	        //printf("r: %f, low: %f, high: %f \n",r,imp_wt_rs[j],imp_wt_rs[j+1]);
-	        //printf("sampleidx: %d, imp_wt: %0.9f \n ", j, imp_wt[j]);
      break;
    }
  }

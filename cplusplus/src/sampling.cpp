@@ -64,7 +64,7 @@ int computeWeights(  pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc, int num_pts, flo
   }
   normalization_sum += imp_wt[i];  
 }
-
+  printf("normalization sum : %f \n" , normalization_sum);
 for(int i = 0 ; i < num_pts ; i++){
   imp_wt[i] = imp_wt[i] / normalization_sum;
 }

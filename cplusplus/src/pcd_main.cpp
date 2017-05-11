@@ -263,7 +263,7 @@ float  tau = grid_size_2;
   if(bool_viz_seg){
     //  pc_viz(pc_seg);
   }
-
+  pcl::io::savePCDFileASCII ("seg_pcd_seq.pcd", *pc_seg);
   return (0);
 
 }
