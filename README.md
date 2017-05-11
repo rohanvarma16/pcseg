@@ -29,6 +29,8 @@ As can be seen in the block diagram, we first compute a local density estimate o
 
 The first contribution is to leverage the spatial local characteristics of the computation to voxelize the pointcloud and map each voxel to a CUDA thread block. This way every point in a voxel performs the same computation over its neighborhood and possesses the same memory access patterns. This change to the original framework makes it well suited for a fast CUDA implementation. We voxelize by cubing the minimum bounding box of the point cloud. The neighborhood of a voxel is it's neighboring voxels.
 We note that to compare to the sequential version fairly, we use a k-d tree (efficient for spatially local data access) to store the point cloud.
+
+
 <figure class="half">
 <img src="voxelgrid.png">
 <img src="voxel_nbr.jpg">
