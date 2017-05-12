@@ -22,11 +22,33 @@ We primarily use the <a class="nav"  href="http://rgbd-dataset.cs.washington.edu
 
 ### Algorithms
 
+## Quick Shift Segmentation:
+
+The quick shift segmentation occurs in 2 steps, it first computes a local density estimate before assigning a parent to every node:
+
 ```
-function test() {
-  console.log("notice the blank line before this function?");
+function compute_density() {
+  for each point p in pointcloud:
+    for each neighbor x in neighborhood(p):
+      density[p] += dist_estimate(p,x);
+    end
+  end
 }
 ```
+
+```
+function construct_tree(){
+  for each point p in pointcloud:
+    for each neighbor x in neighborhood(p):
+      if(density[x] > density[p] && dist(x,p) < min_dist)
+        parents[p] = x;
+        min_dist = dist(x,p)
+    end
+  end
+}
+
+```
+
 
 
 ### Design and Challenges:
@@ -57,6 +79,19 @@ Here we introduce our second main contribution, a resampling block into our desi
 
 We mention a caveat here in that, our weighted CPU-based sequential sampler, performs the sampling naively with O(KN) (K is the number of samples). (The sampler pre-computes a rolling sum of the normalized weights and then samples a uniform random number and see in which bin it falls (binary search)). While we implement this same algorithm on CUDA, this is not the fastest way to perform weighted sampling on a CPU. A faster CPU-based implementation would be based on the Alias-Walker method which samples in O(K+N). 
 Another interesting point is that the sampler helps to smoothen the uneven density of points across the space. 
+
+## Importance Weight Sampling Algorithm:
+```
+function compute_weight() {
+  for each point p in pointcloud:
+    weighted_sum =0; 
+    for each neighbor x in neighborhood(p):
+      weighted_sum += weighted_neighbor(p,x);
+    end
+    weight[p] = dist(x, weighted_sum)
+  end
+}
+```
 
 ### Results:
 Below is an image of the result of the segmentation on the kitchen scene. The original point cloud has around 3 million points and we preserve only 80000 samples.
