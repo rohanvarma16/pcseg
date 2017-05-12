@@ -119,7 +119,7 @@ Example of image segmentation, original image and segmented image:
 
 ## Conclusion
 
-In conclusion, we studied the problem of fast parallel segmentation for point clouds and implemented frameworks with which we were able to segment point clouds consisting of millions of points in a few seconds. Specifically, we design both a multi-threaded CPU and an optimized GPU implementation which gives us speedup on the order of 20x. A key contribution is the incoroporation of a subsampling stage preceding the actual segmentation which helps to further accelerate the segmentation stage without compromising segmentation quality.
+In conclusion, we studied the problem of fast parallel segmentation for point clouds and implemented frameworks with which we were able to segment point clouds consisting of millions of points in a few seconds. Specifically, we design both a multi-threaded CPU and an optimized GPU implementation which gives us speedup on the order of 20x. A key contribution is the incorporation of a subsampling stage preceding the actual segmentation which helps to further accelerate the segmentation stage without compromising segmentation quality.
 
 ## References
 
