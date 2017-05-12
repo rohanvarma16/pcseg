@@ -19,38 +19,6 @@ Since it not clear what is the best “metric” for evaluating segmentation, we
 We primarily use the <a class="nav"  href="http://rgbd-dataset.cs.washington.edu/dataset/" target="_blank">RGB-D Object Database</a> which has point clouds of scenes with objects like below as well as models of the objects themselves which we use to train features (using the point cloud library).
 <img src="pc_or.png">
 
-
-### Algorithms
-
-## Quick Shift Segmentation:
-
-The quick shift segmentation occurs in 2 steps, it first computes a local density estimate before assigning a parent to every node:
-
-```
-function compute_density() {
-  for each point p in pointcloud:
-    for each neighbor x in neighborhood(p):
-      density[p] += dist_estimate(p,x);
-    end
-  end
-}
-```
-
-```
-function construct_tree(){
-  for each point p in pointcloud:
-    for each neighbor x in neighborhood(p):
-      if(density[x] > density[p] && dist(x,p) < min_dist)
-        parents[p] = x;
-        min_dist = dist(x,p)
-    end
-  end
-}
-
-```
-
-
-
 ### Design and Challenges:
 
 ## v 1.0
@@ -80,19 +48,6 @@ Here we introduce our second main contribution, a resampling block into our desi
 We mention a caveat here in that, our weighted CPU-based sequential sampler, performs the sampling naively with O(KN) (K is the number of samples). (The sampler pre-computes a rolling sum of the normalized weights and then samples a uniform random number and see in which bin it falls (binary search)). While we implement this same algorithm on CUDA, this is not the fastest way to perform weighted sampling on a CPU. A faster CPU-based implementation would be based on the Alias-Walker method which samples in O(K+N). 
 Another interesting point is that the sampler helps to smoothen the uneven density of points across the space. 
 
-## Importance Weight Sampling Algorithm:
-```
-function compute_weight() {
-  for each point p in pointcloud:
-    weighted_sum =0; 
-    for each neighbor x in neighborhood(p):
-      weighted_sum += weighted_neighbor(p,x);
-    end
-    weight[p] = dist(x, weighted_sum)
-  end
-}
-```
-
 ### Results:
 Below is an image of the result of the segmentation on the kitchen scene. The original point cloud has around 3 million points and we preserve only 80000 samples.
 <img src="pc_seg.png">
@@ -101,15 +56,15 @@ Example of a a cereal box we detect as a result of the segmentation.
 
 Below, we present preliminary analysis of our results.
 ## GPU vs. CPU:
-We have GPU results with and without results.
-We provide a caveat here that this is with respect to a single-threaded sequential implementation. For our final results, we intend to compare the GPU version (with and without sampling) with a multi-threaded version.
+Our main focus was to maximize segmentation throughput on a GPU, and so, although we optimized the CPU implentation with open MP pragmas to run on 16 threads, it is still not the best possible CPU implementation.
+
+The graph shown below compares the runtime for various computation steps of the segmentation process for our open MP and CUDA implementations. The overall speedup of the CUDA implementation over the open MP implentation increases from 8X for 100k points to ~20X for 2 million points. This non-linear increase in speedup is in sync with what we expect since increasing the number of points increases the point density which in turn increases per voxel computation at a cubic order. Also, the speedup of the sampling step is more than 1000X because we use highly optimized thrust library functions for the parallel scan and gather operations.
 <img src="Scaling_4.png">
 
-We have raw speedup of the CUDA implementation vs single threaded CPU implementation of around 60x for a point cloud of 1 million points (segmentation with the same quality/granularity for fairness).
 
 ## Time with Sampling vs. Without Sampling:
-
-We note that the overhead of sampling is largely negligible compared to the drastic speedup of the segmentation block. We note that we sample a range of points from 10k to 100k points which preserves detection performance. This is for the CUDA-based implementation. In addition, sampling is especially useful when doing coarse segmentations (since we need to search over larger neighborhoods, higher density would imply extremely large implementation)
+This graph compares speedup of CUDA with and without sampling over the multithreaded open MP implementation. Without sampling the CUDA implementation is only 2X faster, however incorporating the sampling step in CUDA boosts the speedup up to ~20X.
+We note that the overhead of sampling is largely negligible compared to the drastic speedup of the segmentation block. We note that we sample a range of points from 10k to 100k points which preserves detection performance. This is for the CUDA-based implementation. In addition, sampling is especially useful when doing coarse segmentations (since we need to search over larger neighborhoods, higher density would imply extremely large implementation).
 <img src="plot_comparison.png">
 
 ## Comparison with Segmentation of an Image:
