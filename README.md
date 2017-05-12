@@ -19,6 +19,13 @@ Since it not clear what is the best “metric” for evaluating segmentation, we
 We primarily use the <a class="nav"  href="http://rgbd-dataset.cs.washington.edu/dataset/" target="_blank">RGB-D Object Database</a> which has point clouds of scenes with objects like below as well as models of the objects themselves which we use to train features (using the point cloud library).
 <img src="pc_or.png">
 
+
+### Algorithms
+
+''' c++
+int x =1;
+'''
+
 ### Design and Challenges:
 
 ## v 1.0
