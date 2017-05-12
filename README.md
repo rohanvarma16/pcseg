@@ -58,14 +58,14 @@ Below, we present preliminary analysis of our results.
 ## GPU vs. CPU:
 We have GPU results with and without results.
 We provide a caveat here that this is with respect to a single-threaded sequential implementation. For our final results, we intend to compare the GPU version (with and without sampling) with a multi-threaded version.
-<img src="Plot3.png">
+<img src="scaling_4.png">
 
 We have raw speedup of the CUDA implementation vs single threaded CPU implementation of around 60x for a point cloud of 1 million points (segmentation with the same quality/granularity for fairness).
 
 ## Time with Sampling vs. Without Sampling:
 
 We note that the overhead of sampling is largely negligible compared to the drastic speedup of the segmentation block. We note that we sample a range of points from 10k to 100k points which preserves detection performance. This is for the CUDA-based implementation. In addition, sampling is especially useful when doing coarse segmentations (since we need to search over larger neighborhoods, higher density would imply extremely large implementation)
-<img src="Plot5.png">
+<img src="plot_comparison.png">
 
 ## Comparison with Segmentation of an Image:
 
@@ -74,7 +74,7 @@ Example of image segmentation, original image and segmented image:
 <img src="original_bird.jpg">
 <img src="d_15_t_12.jpg">
 
-<img src="Plot4.png">
+<img src="impc_comp.png">
 
 ### Summary
 This is simply a high level overview of our project and design and rough analysis of the workload/performance. We have tried to highlight the novel and most interesting parts of our design. For our final report/presentation, we intend to show more detailed performance analysis of each step in the design flow and a more comprehensive analysis of the workload, the introduction of the sampling stage, the addition of an OpenMP multithread implemenation for more fair analysis and work on further tuning the object detector.
