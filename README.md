@@ -58,7 +58,7 @@ Below, we present preliminary analysis of our results.
 ## GPU vs. CPU:
 We have GPU results with and without results.
 We provide a caveat here that this is with respect to a single-threaded sequential implementation. For our final results, we intend to compare the GPU version (with and without sampling) with a multi-threaded version.
-<img src="scaling_4.png">
+<img src="Scaling_4.png">
 
 We have raw speedup of the CUDA implementation vs single threaded CPU implementation of around 60x for a point cloud of 1 million points (segmentation with the same quality/granularity for fairness).
 
