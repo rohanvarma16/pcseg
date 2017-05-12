@@ -6,7 +6,7 @@
 
 <div style="text-align: center;"><a class="nav"  href="https://rohanvarma16.github.io/pcseg/checkpoint" target="_blank">Checkpoint Report</a></div>
 
-### Introduction and Brief Overview:
+## Introduction and Brief Overview:
 
 In our project, we study spatially local computation on 3-d pointclouds of sizes in the millions and present two main ways with which we can increase speed/throughput on a GPU while preserving the performance accuracy of the end result. By spatially-local, we mean that each pixel independently, performs a computation based on the points in its local neighborhood.
 There are two main contributions we want to highlight here. First, we show a mapping of approximate local neighborhoods to CUDA thread blocks to accelerate GPU throughput while preserving accuracy.
@@ -19,13 +19,41 @@ Since it not clear what is the best “metric” for evaluating segmentation, we
 We primarily use the <a class="nav"  href="http://rgbd-dataset.cs.washington.edu/dataset/" target="_blank">RGB-D Object Database</a> which has point clouds of scenes with objects like below as well as models of the objects themselves which we use to train features (using the point cloud library).
 <img src="pc_or.png">
 
-### Design and Challenges:
 
-## v 1.0
+
+
+## Design 1:
 <img src="block1.png">
 
-The block diagram of the initial design is as above. We use the quick shift algorithm to perform the image segmentation. It is amenable to parallelism because of it’s computational characteristics and memory access patterns.
-As can be seen in the block diagram, we first compute a local density estimate of each point by looking at it’s neighborhood, before again doing a spatially local computation to construct a tree before cutting the tree appropriate to get the resulting segmentation.
+The block diagram of the initial design is as above. We use the quick shift algorithm to perform the image segmentation. It is amenable to parallelism because of it’s computational characteristics and memory access patterns. 
+As can be seen in the block diagram and the code below, we first compute a local density estimate of each point by looking at it’s neighborhood, before again doing a spatially local computation to construct a tree before cutting the tree appropriately to get the resulting segmentation.
+
+### Quick Shift Segmentation:
+
+The quick shift segmentation occurs in 2 steps, it first computes a local density estimate before assigning a parent to every node. Both steps are spatially local since each point performs a computation by iterating over its local neighborhoods.
+
+```
+function compute_density() {
+  for each point p in pointcloud:
+    for each neighbor x in neighborhood(p):
+      density[p] += dist_estimate(p,x);
+    end
+  end
+}
+```
+
+```
+function construct_tree(){
+  for each point p in pointcloud:
+    for each neighbor x in neighborhood(p):
+      if(density[x] > density[p] && dist(x,p) < min_dist)
+        parents[p] = x;
+        min_dist = dist(x,p)
+    end
+  end
+}
+
+```
 
 The first contribution is to leverage the spatial local characteristics of the computation to voxelize the pointcloud and map each voxel to a CUDA thread block. This way every point in a voxel performs the same computation over its neighborhood and possesses the same memory access patterns. This change to the original framework makes it well suited for a fast CUDA implementation. We voxelize by cubing the minimum bounding box of the point cloud. The neighborhood of a voxel is it's neighboring voxels.
 We note that to compare to the sequential version fairly, we use a k-d tree (efficient for spatially local data access) to store the point cloud.
@@ -37,17 +65,30 @@ We note that to compare to the sequential version fairly, we use a k-d tree (eff
 </figure>
 
 
-However, this is quite slow, especially because the large number of points being processed in the segmentation and tree-cutting step. We ask whether we can do better? 
+## Design 2:
 
-
-## v2.0
+After our first design, we wanted to accelerate the segmentation by taking advantage of the redundancy in the point cloud. i.e We ask, are we processing more points than we need to?
 
 <img src="block2.png">
 Here we introduce our second main contribution, a resampling block into our design. The sampling step occurs in two stages, we first need to assign an importance weight to each point (effectively a local high pass filter, again a spatially local computation), before performing a weighted sampling of the points. The latter can be implemented quickly with the help of CUDA  thrust libraries. It turns out we can subsample by preserving up to 5% of the total number of points and preserve detection performance.
 
-We mention a caveat here in that, our weighted CPU-based sequential sampler, performs the sampling naively with O(KN) (K is the number of samples). (The sampler pre-computes a rolling sum of the normalized weights and then samples a uniform random number and see in which bin it falls (binary search)). While we implement this same algorithm on CUDA, this is not the fastest way to perform weighted sampling on a CPU. A faster CPU-based implementation would be based on the Alias-Walker method which samples in O(K+N). 
-Another interesting point is that the sampler helps to smoothen the uneven density of points across the space. 
 
+### Importance Weight Sampling Algorithm:
+We show very basic pseudocode below to show the structure of the weight assignment algorithm As can be seen below, the computation of weights is again a spatially local computation since each point iterates over its local neighborhood to compute its importance weight.
+
+```
+function compute_weight() {
+  for each point p in pointcloud:
+    weighted_sum =0; 
+    for each neighbor x in neighborhood(p):
+      weighted_sum += weighted_neighbor(p,x);
+    end
+    weight[p] = dist(x, weighted_sum)
+  end
+}
+```
+We then sample points according to these weights. We mention a caveat here in that, our weighted CPU-based sequential sampler, performs the sampling naively with O(KN) (K is the number of samples). (The sampler pre-computes a rolling sum of the normalized weights and then samples a uniform random number and see in which bin it falls (binary search)). While we implement this same algorithm on CUDA, this is not the fastest way to perform weighted sampling on a CPU. A faster CPU-based implementation would be based on the Alias-Walker method which samples in O(K+N). 
+Another interesting point is that the sampler helps to smoothen the uneven density of points across the space. 
 ### Results:
 Below is an image of the result of the segmentation on the kitchen scene. The original point cloud has around 3 million points and we preserve only 80000 samples.
 <img src="pc_seg.png">
@@ -58,7 +99,7 @@ Below, we present preliminary analysis of our results.
 ## GPU vs. CPU:
 Our main focus was to maximize segmentation throughput on a GPU, and so, although we optimized the CPU implentation with open MP pragmas to run on 16 threads, it is still not the best possible CPU implementation.
 
-The graph shown below compares the runtime for various computation steps of the segmentation process for our open MP and CUDA implementations. The overall speedup of the CUDA implementation over the open MP implentation increases from 8X for 100k points to ~20X for 2 million points. This non-linear increase in speedup is in sync with what we expect since increasing the number of points increases the point density which in turn increases per voxel computation at a cubic order. Also, the speedup of the sampling step is more than 1000X because we use highly optimized thrust library functions for the parallel scan and gather operations.
+The graph shown below compares the runtime for various computation steps of the segmentation process for our open MP and CUDA implementations. The overall speedup of the CUDA implementation over the open MP implementation increases from 8X for 100k points to ~20X for 2 million points. This non-linear increase in speedup is in sync with what we expect since increasing the number of points increases the point density which in turn increases per voxel computation at a cubic order. Also, the speedup of the sampling step is more than 1000X because we use highly optimized thrust library functions for the parallel scan and gather operations.
 <img src="Scaling_4.png">
 
 
@@ -85,9 +126,6 @@ This is simply a high level overview of our project and design and rough analysi
 2. Really quick shift: Image segmentation on a GPU http://www.vision.cs.ucla.edu/papers/fulkersonS10really.pdf
 3. Min-Cut Based Segmentation of Point Clouds http://www.cs.princeton.edu/~funk/s3dv09.pdf
 4. 3D Point Cloud Segmentation: A survey http://ieeexplore.ieee.org/document/6758588/
-
-
-
 
 
 
