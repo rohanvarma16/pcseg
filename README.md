@@ -117,7 +117,7 @@ Example of image segmentation, original image and segmented image:
 
 <img src="impc_comp.png">
 
-## Summary
+## Conclusion
 
 ## References
 
