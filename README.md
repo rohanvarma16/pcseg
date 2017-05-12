@@ -22,9 +22,12 @@ We primarily use the <a class="nav"  href="http://rgbd-dataset.cs.washington.edu
 
 ### Algorithms
 
-'''java
-int x =1;
-'''
+```
+function test() {
+  console.log("notice the blank line before this function?");
+}
+```
+
 
 ### Design and Challenges:
 
